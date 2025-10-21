@@ -2,6 +2,7 @@ body {
     background-color: #adc178;
     font-size: 24px;
     margin: 5%;
+   
 }
 
 .recipe_header > div {
@@ -10,7 +11,9 @@ body {
     align-items: center;
     
 }
-
+h1, h2, h5 {
+    color: #0f4c5c;
+}
 #logo {
     width: 100px;
 }
@@ -18,6 +21,7 @@ body {
 h1 {
     font-family: Spectral, serif;
     font-size: 46px;
+    font-style: bold;
 }
 h2 {
     font-family: Spectral, serif;
@@ -37,13 +41,16 @@ h5{
     flex-direction: row;
     justify-content: center;
     align-items: center;
-
 }
 
 #middle_bottom_left {
     width: 60%;
 }
 
+.instructions_area{
+    width: 40%;
+}
+
 #mooncake_img {
-    width: 80%;
+    width: 70%;
 }
