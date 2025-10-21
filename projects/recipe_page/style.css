@@ -2,7 +2,6 @@ body {
     background-color: #adc178;
 }
 
-
 .recipe_header > div {
     display: flex;
     flex-direction: column;
@@ -24,11 +23,15 @@ h1 {
     justify-content: space-around;
 }
 
-.middle_bottom{
+.middle_bottom {
     display: flex;
     flex-direction: row;
 
 }
 #ingredient {
+    width: 50%;
+}
+
+#recipe_img {
     width: 50%;
 }
