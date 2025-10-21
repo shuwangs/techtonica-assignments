@@ -12,3 +12,23 @@ body {
 #logo {
     width: 100px;
 }
+
+h1 {
+    font-family: Spectral, serif;
+    font-size: 46px;
+}
+
+.middle_top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.middle_bottom{
+    display: flex;
+    flex-direction: row;
+
+}
+#ingredient {
+    width: 50%;
+}
