@@ -1,0 +1,56 @@
+body {
+    background-color: #adc178;
+    font-size: 24px;
+    margin: 5%;
+   
+}
+
+.recipe_header > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+h1, h2, h5 {
+    color: #0f4c5c;
+}
+#logo {
+    width: 100px;
+}
+
+h1 {
+    font-family: Spectral, serif;
+    font-size: 46px;
+    font-style: bold;
+}
+h2 {
+    font-family: Spectral, serif;
+    font-size: 34px;
+}
+h5{
+    font-size: 28px;
+}
+.middle_top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.middle_bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#middle_bottom_left {
+    width: 60%;
+}
+
+.instructions_area{
+    width: 40%;
+}
+
+#mooncake_img {
+    width: 70%;
+}
