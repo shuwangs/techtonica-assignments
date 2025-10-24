@@ -31,11 +31,11 @@ h2 {
 h5{
     font-size: 28px;
 }
-.middle_top {
+/* .middle_top {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-}
+} */
 
 .middle_bottom {
     display: flex;
