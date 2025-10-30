@@ -12,14 +12,30 @@
 </head>
 
 <body>
-    <nav class="navbar fixed-top border-bottom">
-        <div class="container">
-            <a class="navbar-brand d-flex align-item-left" href="#">
+    <!--Navbar-->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-lightborder-bottom">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex" href="#">
                 <img src="img/logo2.png" alt="Logo" width="35" height="35" class="d-inline-block align-text-center">
                 <span class="text-center text-dark font-weight-bold"> Home</span>
             </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Ingredients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Instrutions</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
+
+
     <header class="container">
         <div class="recipe_header">
             <div>
@@ -29,6 +45,7 @@
             </div>
         </div>
     </header>
+
     <!--Preparing time part-->
     <div class="container middle_top" >
         <div class="row text-center">
