@@ -31,7 +31,7 @@ Array.from(doughItems).forEach((item, idx) => {
 
 // 3. Adding a strikethrough when someone clicks an element
 // This part is little tricky, I dont know how it looks for others.
-// Need to work on this more
+// Need to work on this later
 // const inputs = document.getElementsByTagName("input");
 // const inputsArray = Array.from(inputs);
 // Array.from(inputs).forEach(eachBox,  =>
