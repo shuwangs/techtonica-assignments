@@ -3,9 +3,16 @@ body {
     font-size: 24px;
     line-height: 1.5;
     margin: 5%;
+    padding-top:70px;
    
 }
-
+.navbar {
+    background-color: #adc178;
+    color: #6c584c;
+}
+.card{
+    background-color: #adc178;
+}
 .recipe_header > div {
     display: flex;
     flex-direction: column;
@@ -47,13 +54,23 @@ h5{
     justify-content: center;
 }
 #middle_bottom_left {
-    width: 60%;
+    width: 50%;
 }
 
 .instructions_area{
-    width: 40%;
+    width: 50%;
 }
 
 #mooncake_img {
     width: 70%;
+    border-radius: 10px;
+}
+
+.similar_recipe {
+    margin: 20px;
+}
+
+footer{
+    margin: 20px;
+    font-size: 14px;
 }
