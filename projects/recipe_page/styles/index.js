@@ -17,15 +17,30 @@ Array.from(doughItems).forEach((item, idx) => {
     checkbox.type = "checkbox";
     checkbox.name = "name";
     checkbox.value = "value";
-    checkbox.id = `dough-${idx}`;
+    checkbox.id = `dough-${idx+1}`;
 
     // Create label for the checkbox
     let label = document.createElement("label");
     label.htmlFor = checkbox.id;
     label.textContent = item.textContent;
-    item.textContent = " ";
+    item.textContent = "";
     item.appendChild(checkbox);
     item.appendChild(label);
   }
 )
 
+// 3. Adding a strikethrough when someone clicks an element
+// This part is little tricky, I dont know how it looks for others.
+// Need to work on this more
+// const inputs = document.getElementsByTagName("input");
+// const inputsArray = Array.from(inputs);
+// Array.from(inputs).forEach(eachBox,  =>
+//   eachBox.addEventListener("click", () =>{
+//     // alert("Hello");
+//     eachBox.className = "checked";
+//   } )
+// );
+
+// document.querySelectorAll("input[type='checkbox']").forEach(checkbox =>
+//   checkbox.addEventListener("click", () =>{alert("Hello")} ;)
+// );
