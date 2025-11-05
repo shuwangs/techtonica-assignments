@@ -1,4 +1,4 @@
-// Add Conent 
+// 1. Add An Element
 let newListItem = document.createElement('li');
 
 newListItem.textContent = 'Salted duck egg yolk';
@@ -6,7 +6,7 @@ newListItem.style.color = "#6c584c"
 document.getElementById('filling_list').appendChild(newListItem);
 
 
-//
+// 2. Adding  check mark to the dough list
 const doughIngredients = document.getElementById("dough_list");
 const doughItems = doughIngredients.getElementsByTagName("li");
 
@@ -28,19 +28,3 @@ Array.from(doughItems).forEach((item, idx) => {
     item.appendChild(label);
   }
 )
-
-// 3. Adding a strikethrough when someone clicks an element
-// This part is little tricky, I dont know how it looks for others.
-// Need to work on this later
-// const inputs = document.getElementsByTagName("input");
-// const inputsArray = Array.from(inputs);
-// Array.from(inputs).forEach(eachBox,  =>
-//   eachBox.addEventListener("click", () =>{
-//     // alert("Hello");
-//     eachBox.className = "checked";
-//   } )
-// );
-
-// document.querySelectorAll("input[type='checkbox']").forEach(checkbox =>
-//   checkbox.addEventListener("click", () =>{alert("Hello")} ;)
-// );
