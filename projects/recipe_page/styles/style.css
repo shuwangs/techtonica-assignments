@@ -79,3 +79,42 @@ input[type="checkbox"]:checked + label {
   text-decoration: line-through;
   color: gray;
 }
+
+
+.user_checked {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.connection{
+    margin: 3rem;
+    padding: 2rem;
+    flex-direction: column;
+    align-items: flex-start; 
+}
+.contact-inside {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.contact-author{
+    display: flex;
+    flex-direction: row;
+}
+.social-btn { display: flex;
+    align-items: flex-start;
+    gap: .75rem; 
+    flex-wrap: wrap; 
+}
+
+/* 
+TODO： 5. Include at least 1 media query
+Include at minimum one rule that will render the page and its content responsive across different screen sizes.
+
+*/
+@media(max-width: 600px) {
+    p {
+        font-size: 10px;
+    }
+}

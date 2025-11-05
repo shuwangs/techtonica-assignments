@@ -28,3 +28,11 @@ Array.from(doughItems).forEach((item, idx) => {
     item.appendChild(label);
   }
 )
+
+// 3. Adding a strikethrough when someone clicks an element
+const description = document.getElementById("description");
+
+description.addEventListener("click", () => {
+  description.className = "user_checked";
+  console.log("user clicked.")
+})
