@@ -1,5 +1,5 @@
 body {
-    background-color: #adc178;
+    background-color: #8BBAC5;
     font-size: 24px;
     line-height: 1.5;
     margin: 5%;
@@ -7,11 +7,14 @@ body {
    
 }
 .navbar {
-    background-color: #adc178;
+    background-color: #8BBAC5;
     color: #6c584c;
 }
+#recipe_logo {
+    margin-right: 1rem;
+}
 .card{
-    background-color: #adc178;
+    background-color: #8BBAC5;
 }
 .recipe_header > div {
     display: flex;
@@ -20,7 +23,7 @@ body {
     
 }
 h1, h2, h5 {
-    color: #0f4c5c;
+    color: #E85E00;
 }
 #logo {
     width: 100px;
@@ -70,14 +73,13 @@ h5{
     margin: 20px;
 }
 
-footer{
-    margin: 20px;
-    font-size: 14px;
+label {
+    margin-left: 1rem;
 }
-
 input[type="checkbox"]:checked + label {
   text-decoration: line-through;
   color: gray;
+  margin-left: 1rem;
 }
 
 
@@ -106,10 +108,44 @@ input[type="checkbox"]:checked + label {
     align-items: flex-start;
     gap: .75rem; 
     flex-wrap: wrap; 
+    margin-left: 3rem;
+    
+}
+.similar_recipe {
+    margin: 2rem 2rem;
+    padding: 2rem;
+    border-radius: 15px;
+    border: 2px dashed #027F7C;
+    background-color: #f0bd6c;
+}
+
+form {
+    margin: 2rem 2rem;
+    padding: 2rem;
+    border-radius: 15px;
+    border: 2px dashed #027F7C;
+    background-color: #f0bd6c;
+}
+input[type="email"] {
+    border: 2px solid #027F7C;
+    border-radius: 8px;
+}
+textarea {
+  border: 2px solid #027F7C;
+  border-radius: 8px;
+}
+#submitBtn {
+    background-color:#027F7C ;
+    color: white;
+}
+
+footer{
+    margin: 20px;
+    font-size: 14px;
 }
 
 /* 
-TODO： 5. Include at least 1 media query
+5. Include at least 1 media query
 Include at minimum one rule that will render the page and its content responsive across different screen sizes.
 
 */
