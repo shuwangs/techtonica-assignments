@@ -142,13 +142,17 @@
     <div class="container connect">
         <div class="row">
            
-            <div class="col-sm alert alert-warning similar_recipe" id = "similar_recipe">
+            <div class="col-sm similar_recipe" id = "similar_recipe">
                 <h3>Similar recipe can be found...</h3>
                 <iframe 
-                    width="450"
-                    height="250"
+                    width="350"
+                    height="200"
                     src="https://www.youtube-nocookie.com/embed/tQo8qgz-PNk?autoplay=1&mute=1"
                     title="Other recipe on YouTube" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen
                     >
                 </iframe>
  
@@ -172,21 +176,23 @@
         <div class="author-info">
             <p class="mb-1">Author: Paws on the Keyboard</p>
             <p class="mb-0"><a href="mailto:swang3130@gatech.edu">swang3130@gatech.edu</a></p>
+
+            <div class="social-btn">
+            <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/shuuwang/" 
+                    target="_blank" class="d-block text-dark text-decoration-none">
+                    <i class="bi bi-linkedin" style="font-size: 2rem; color:#0a66c2;"></i>
+                </a>
+
+                <!-- GitHub -->
+                <a href="https://github.com/shuwangs" 
+                    target="_blank" class="d-block text-dark text-decoration-none">
+                    <i class="bi bi-github" style="font-size: 2rem;"></i>
+                </a>
+            </div>     
         </div>
 
-        <div class="social-btn">
-            <!-- LinkedIn -->
-            <a href="https://www.linkedin.com/in/shuuwang/" 
-                target="_blank" class="d-block text-dark text-decoration-none">
-                <i class="bi bi-linkedin" style="font-size: 2rem; color:#0a66c2;"></i>
-             </a>
-
-            <!-- GitHub -->
-            <a href="https://github.com/shuwangs" 
-                target="_blank" class="d-block text-dark text-decoration-none">
-                <i class="bi bi-github" style="font-size: 2rem;"></i>
-            </a>
-        </div>            
+       
     </footer>
 
     <script src="styles/index.js"></script>
