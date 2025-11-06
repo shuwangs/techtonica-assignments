@@ -150,7 +150,7 @@ Include at minimum one rule that will render the page and its content responsive
 
 */
 @media(max-width: 600px) {
-    p {
-        font-size: 10px;
+    body {
+        background-color: #BFA8E5;
     }
 }
