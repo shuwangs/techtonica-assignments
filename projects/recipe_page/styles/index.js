@@ -5,7 +5,6 @@ newListItem.textContent = 'Salted duck egg yolk';
 newListItem.style.color = "#6c584c"
 document.getElementById('filling_list').appendChild(newListItem);
 
-
 // 2. Adding  check mark to the dough list
 const doughIngredients = document.getElementById("dough_list");
 const doughItems = doughIngredients.getElementsByTagName("li");
