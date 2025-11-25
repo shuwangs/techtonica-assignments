@@ -48,3 +48,32 @@ Components:
    []  display valid words
    []  update it accordingly
 */
+
+// ========== GAME STATE ==========
+const GameState = {}
+
+// MAJOR FUNCTIONS 
+const createBoard = (size = 4) => {};
+const cellClickHandler = (cell) => {}
+const submitBtnHandler = () => {}
+const clearBtnHandler = () => {}
+const restartBtnHandler = () => {}
+
+// ========= EVENT LISTENERS =========
+document.getElementById("submit-word").addEventListener("click", submitBtnHandler);
+document.getElementById("clear-word").addEventListener("click", clearBtnHandler);
+document.getElementById("new-game").addEventListener("click", restartBtnHandler);
+
+
+// ========= INIT =========
+const init = () => {};
+init();
+
+
+
+
+
+// ========= HELPER FUNCTIONS =========
+const isAdjacent = (cell1, cell2) =>{};
+const startTimer = () => {}
+const updateScore = ()=> {}
