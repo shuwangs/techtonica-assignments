@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
 </head>
 
@@ -17,8 +17,8 @@
     <nav class="navbar fixed-top navbar-expand-lg navbar-light border-bottom">
         <div class="container">
             <a class="navbar-brand d-flex" href="#">
-                <img src="img/logo2.png" alt="Logo" width="35" height="35" class="d-inline-block align-text-center">
-                <span class="text-center text-dark font-weight-bold"> Home</span>
+                <img src="img/logo2.png" id="recipe_logo" alt="Logo" width="35"  height="35" class="d-inline-block align-text-center">
+                <span class="text-center text-dark font-weight-bold"> CAT & CRUMB </span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -38,13 +38,12 @@
         </div>
     </nav>
 
-
     <header class="container">
         <div class="recipe_header">
             <div>
                 <!-- <img id="logo" src="img/logo2.png"> -->
                 <h1>How to Make a Good MoonCake</h1>
-                <p>Mooncake is an indispensable traditional Chinese pastry enjoyed during the Mid-Autumn Festival, which falls on the 15th day of the eighth month in the Chinese lunar calendar. I’d like to take this opportunity to share with you the mooncake recipe.</p>
+                <p id="description">Mooncake is an indispensable traditional Chinese pastry enjoyed during the Mid-Autumn Festival, which falls on the 15th day of the eighth month in the Chinese lunar calendar. I’d like to take this opportunity to share with you the mooncake recipe.</p>
             </div>
         </div>
     </header>
@@ -138,22 +137,64 @@
         </div>      
     </div>  
 
-    <div class="container" id = "similar_recipe">
-        <div class="alert alert-warning similar_recipe mt-3">
-            <h3>Similar recipe can be found...</h3>
-            <p><a href="https://tasteasianfood.com/mooncake-recipe/">A simple easy Mooncake Recipe</a></p>
+
+    <div class="container connect">
+        <div class="row">
+           
+            <div class="col-sm similar_recipe" id = "similar_recipe">
+                <h3>Similar recipe can be found...</h3>
+                <iframe 
+                    width="350"
+                    height="200"
+                    src="https://www.youtube-nocookie.com/embed/tQo8qgz-PNk?autoplay=1&mute=1"
+                    title="Other recipe on YouTube" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen
+                    >
+                </iframe>
+ 
+            </div>
+            <div class="col-sm contact text-center">
+                <form action="" method="post" class="contact-inside">
+                    <h3> CONTACT</h3>
+                    <input type="email" placeholder="email" />
+                    <textarea placeholder="message" rows="2"></textarea>
+                    <button type = "submit" id="submitBtn">Submit</button>
+
+                </form>
+            </div>
         </div>
     </div>
+
     <br>
-  <footer class="container my-4">
     <hr>
-    <p class="mb-1">Author: Paws on the Keyboard</p>
-    <p class="mb-0"><a href="mailto:swang3130@gatech.edu">swang3130@gatech.edu</a></p>
-  </footer>
+    <footer class="container contact-author my-4">
+    
+        <div class="author-info">
+            <p class="mb-1">Author: Paws on the Keyboard</p>
+            <p class="mb-0"><a href="mailto:swang3130@gatech.edu">swang3130@gatech.edu</a></p>
 
+            <div class="social-btn">
+            <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/shuuwang/" 
+                    target="_blank" class="d-block text-dark text-decoration-none">
+                    <i class="bi bi-linkedin" style="font-size: 2rem; color:#0a66c2;"></i>
+                </a>
 
+                <!-- GitHub -->
+                <a href="https://github.com/shuwangs" 
+                    target="_blank" class="d-block text-dark text-decoration-none">
+                    <i class="bi bi-github" style="font-size: 2rem;"></i>
+                </a>
+            </div>     
+        </div>
 
-  <script src="styles/index.js"></script>
+       
+    </footer>
+
+    <script src="styles/index.js"></script>
 </body>
 
 
