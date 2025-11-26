@@ -22,6 +22,7 @@ Components:
    [] Clear selected cells
    [] Clear current word
    [] Remove highlight
+
 4. Restart button
    [] Clear selected cells
    [] Clear current word
@@ -54,21 +55,16 @@ const board_size = document.getElementById("size_selector");
 const boardContainer = document.getElementById("board");
 
 const scoreDisplay = document.getElementById("score");
-const timerDisplay = document.getElementById("timer");
+const timerDisplay = document.querySelector(".countdown_display h3");
 
 const startBtn = document.getElementById("startBtn");
 const submitBtn = document.getElementById("submitBtn");
 const clearBtn = document.getElementById("clearBtn");
 const resetBtn = document.getElementById("resetBtn");
-// ========= HELPER FUNCTIONS =========
-const getRandomeLetter = () => {
-  patterns = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  return patterns.charAt(Math.floor(Math.random()* 26));
-}
-// ========== GAME STATE ==========
 
+// ========== GAME STATE ==========
 const GameState = {
-  remainingTime: 180,
+  remainingTime: 120,
   score:0,
   foundWords: new Set(),
 
@@ -76,6 +72,38 @@ const GameState = {
   selectedIdx: [],
   isActive: false
 }
+
+// ========= HELPER FUNCTIONS =========
+const getRandomeLetter = () => {
+  patterns = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  return patterns.charAt(Math.floor(Math.random()* 26));
+}
+
+const displayTime = (minutes, seconds) => {
+  timerDisplay.textContent = `${minutes.toString()} : ${seconds.toString()}`
+}
+
+
+const startTimer = () => {
+  GameState.isActive = true;
+
+  setInterval(() => {
+    GameState.remainingTime = GameState.remainingTime - 1;
+    const MinToDisplay = Math.floor(GameState.remainingTime / 60);
+    const SecToDisplay = GameState.remainingTime % 60;
+    
+    // Update UI
+    displayTime(MinToDisplay, SecToDisplay);
+
+    if (GameState.remainingTime <= 0) {
+      clearInterval(setInterval);
+      GameState.isActive = false;
+      alert("Game Over!");
+    }
+  }, 1000);
+ 
+}
+
 
 // ==========  MAJOR FUNCTIONS ==========
 const createChars= (size) => {
@@ -122,6 +150,10 @@ const cellClickHandler = (event) => {
   console.log(`cell at row ${cell.dataset.row} and col ${cell.dataset.col} is clicked`);
 }
 
+const startBtnHandler = () => {
+  startTimer();
+}
+
 const submitBtnHandler = () => {}
 const clearBtnHandler = () => {}
 const restartBtnHandler = () => {}
@@ -134,8 +166,7 @@ const init = () => {
 // ========= EVENT LISTENERS =========
 window.addEventListener("load", init)
 board_size.addEventListener("change", renderBoard);
-// document.getElementById("submit-word").addEventListener("click", submitBtnHandler);
-// document.getElementById("clear-word").addEventListener("click", clearBtnHandler);
-// document.getElementById("new-game").addEventListener("click", restartBtnHandler);
+
+startBtn.addEventListener("click", startBtnHandler )
 
 
