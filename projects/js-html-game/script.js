@@ -49,6 +49,10 @@ Components:
    []  update it accordingly
 */
 
+// ========= UI ELEMENT ===============
+const board_size = document.getElementById("size_selector");
+const boardContainer = document.getElementById("board");
+
 // ========= HELPER FUNCTIONS =========
 const getRandomeLetter = () => {
   patterns = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -66,8 +70,8 @@ const GameState = {
   isActive: false
 }
 
-// MAJOR FUNCTIONS 
-const createBoard = (size = 4) => {
+// ==========  MAJOR FUNCTIONS ==========
+const createChars= (size) => {
   GameState.board = [];
   for(let i = 0; i < size; i++) {
     const row = []; 
@@ -79,14 +83,28 @@ const createBoard = (size = 4) => {
   return GameState;
 };
 
-const cellClickHandler = (cell) => {}
-const submitBtnHandler = () => {}
-const clearBtnHandler = () => {}
-const restartBtnHandler = () => {}
+
+
+const generateBoard = (size) =>{
+  
+  boardContainer.style.setProperty('--size-grid', size);
+
+  boardContainer.innerHTML = '';
+
+  for(let i = 0; i < size * size; i++) {
+    const cell = document.createElement("div");
+    cell.className = "cell";
+
+    boardContainer.appendChild(cell);
+  }
+
+}
 
 const renderBoard = () =>{
+  let sizeValue = parseInt(board_size.value);
+  createChars(sizeValue);
+  generateBoard(sizeValue);
 
-  const boardContainer = document.getElementById("board");
   const cells = boardContainer.getElementsByClassName("cell");
   const charsList = GameState.board.flat();
 
@@ -95,32 +113,22 @@ const renderBoard = () =>{
   })
 }
 
+
+const cellClickHandler = (cell) => {}
+const submitBtnHandler = () => {}
+const clearBtnHandler = () => {}
+const restartBtnHandler = () => {}
 // ========= INIT =========
 
 const init = () => {
-  createBoard();
-  renderBoard();
+ renderBoard();
 };
 
 // ========= EVENT LISTENERS =========
-window.addEventListener("load", init())
-document.getElementById("submit-word").addEventListener("click", submitBtnHandler);
-document.getElementById("clear-word").addEventListener("click", clearBtnHandler);
-document.getElementById("new-game").addEventListener("click", restartBtnHandler);
+window.addEventListener("load", init)
+board_size.addEventListener("change", renderBoard);
+// document.getElementById("submit-word").addEventListener("click", submitBtnHandler);
+// document.getElementById("clear-word").addEventListener("click", clearBtnHandler);
+// document.getElementById("new-game").addEventListener("click", restartBtnHandler);
 
 
-
-
-
-
-
-
-
-
-
-// const isAdjacent = (cell1, cell2) =>{};
-// const startTimer = () => {}
-// const updateScore = ()=> {}
-// const generateBoard=() => {
-
-// }

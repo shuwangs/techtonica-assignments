@@ -1,10 +1,13 @@
+:root {
+  --size-grid :4;
+}
 body{
-  background-color: #F6CA83 ;
+  background-color: #F6CA83;
 }
 
 .board {
   display: inline-grid; 
-  grid-template-columns: repeat(4, 50px);
+  grid-template-columns: repeat(var(--size-grid), 50px);
 }
 
 .cell {
