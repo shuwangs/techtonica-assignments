@@ -8,9 +8,9 @@ Components:
 - valid word list
 - working list or string
 
-1. Create a 4×4 board
-   [] Generate 16 random letters
-   [] Render them as clickable cells
+1. Create a scalable board
+   [X] Generate based on the  random letters
+   [X] Render them as clickable cells
 
 2. Handle cell click
    [] If first click → select it
@@ -53,6 +53,13 @@ Components:
 const board_size = document.getElementById("size_selector");
 const boardContainer = document.getElementById("board");
 
+const scoreDisplay = document.getElementById("score");
+const timerDisplay = document.getElementById("timer");
+
+const startBtn = document.getElementById("startBtn");
+const submitBtn = document.getElementById("submitBtn");
+const clearBtn = document.getElementById("clearBtn");
+const resetBtn = document.getElementById("resetBtn");
 // ========= HELPER FUNCTIONS =========
 const getRandomeLetter = () => {
   patterns = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -85,36 +92,36 @@ const createChars= (size) => {
 
 
 
-const generateBoard = (size) =>{
-  
-  boardContainer.style.setProperty('--size-grid', size);
-
-  boardContainer.innerHTML = '';
-
-  for(let i = 0; i < size * size; i++) {
-    const cell = document.createElement("div");
-    cell.className = "cell";
-
-    boardContainer.appendChild(cell);
-  }
-
-}
-
 const renderBoard = () =>{
   let sizeValue = parseInt(board_size.value);
   createChars(sizeValue);
-  generateBoard(sizeValue);
 
   const cells = boardContainer.getElementsByClassName("cell");
-  const charsList = GameState.board.flat();
 
-  charsList.forEach((aChar, index) => {
-    cells[index].innerHTML = aChar;
-  })
+  GameState.board.forEach((row, rowIdx) => {
+    row.forEach((AChar, colIdx)=>{
+      const cell = document.createElement("div");
+      cell.className = "cell";
+      cell.innerText = AChar;
+
+
+      cell.dataset.row = rowIdx;
+      cell.dataset.col = colIdx;
+      
+      cell.addEventListener("click", cellClickHandler);
+
+      boardContainer.appendChild(cell);
+    })
+  } )
+
 }
 
 
-const cellClickHandler = (cell) => {}
+const cellClickHandler = (event) => {
+ const cell = event.currentTarget;  
+  console.log(`cell at row ${cell.dataset.row} and col ${cell.dataset.col} is clicked`);
+}
+
 const submitBtnHandler = () => {}
 const clearBtnHandler = () => {}
 const restartBtnHandler = () => {}
