@@ -49,31 +49,78 @@ Components:
    []  update it accordingly
 */
 
+// ========= HELPER FUNCTIONS =========
+const getRandomeLetter = () => {
+  patterns = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  return patterns.charAt(Math.floor(Math.random()* 26));
+}
 // ========== GAME STATE ==========
-const GameState = {}
+
+const GameState = {
+  remainingTime: 180,
+  score:0,
+  foundWords: new Set(),
+
+  board : [],
+  selectedIdx: [],
+  isActive: false
+}
 
 // MAJOR FUNCTIONS 
-const createBoard = (size = 4) => {};
+const createBoard = (size = 4) => {
+  GameState.board = [];
+  for(let i = 0; i < size; i++) {
+    const row = []; 
+    for (let j = 0; j < size; j++){
+       row.push(getRandomeLetter());
+    }
+    GameState.board.push(row);
+  }
+  return GameState;
+};
+
 const cellClickHandler = (cell) => {}
 const submitBtnHandler = () => {}
 const clearBtnHandler = () => {}
 const restartBtnHandler = () => {}
 
+const renderBoard = () =>{
+
+  const boardContainer = document.getElementById("board");
+  const cells = boardContainer.getElementsByClassName("cell");
+  const charsList = GameState.board.flat();
+
+  charsList.forEach((aChar, index) => {
+    cells[index].innerHTML = aChar;
+  })
+}
+
+// ========= INIT =========
+
+const init = () => {
+  createBoard();
+  renderBoard();
+};
+
 // ========= EVENT LISTENERS =========
+window.addEventListener("load", init())
 document.getElementById("submit-word").addEventListener("click", submitBtnHandler);
 document.getElementById("clear-word").addEventListener("click", clearBtnHandler);
 document.getElementById("new-game").addEventListener("click", restartBtnHandler);
 
 
-// ========= INIT =========
-const init = () => {};
-init();
 
 
 
 
 
-// ========= HELPER FUNCTIONS =========
-const isAdjacent = (cell1, cell2) =>{};
-const startTimer = () => {}
-const updateScore = ()=> {}
+
+
+
+
+// const isAdjacent = (cell1, cell2) =>{};
+// const startTimer = () => {}
+// const updateScore = ()=> {}
+// const generateBoard=() => {
+
+// }

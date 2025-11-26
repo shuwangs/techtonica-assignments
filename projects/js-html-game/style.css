@@ -4,7 +4,7 @@ body{
 
 .board {
   display: inline-grid; 
-  grid-template-columns: repeat(3, 50px);
+  grid-template-columns: repeat(4, 50px);
 }
 
 .cell {
