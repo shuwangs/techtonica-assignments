@@ -23,7 +23,7 @@ Components:
    [] Clear current word
    [] Remove highlight
 
-4. Restart button
+4. Reset button
    [] Clear selected cells
    [] Clear current word
    [] Remove highlight
@@ -37,12 +37,12 @@ Components:
    [] Clear current selection
 
 6. Timer (simple version)
-   [] Start 3 mins countdown
+   [X] Start 1 mins countdown
    [] When time is up → stop selecting and submitting
 
 7. Basic UI updates
    []  Update score display
-   []  Update timer display
+   [X]  Update timer display
    []  Highlight selected cells
    
 8. output area updates
@@ -84,6 +84,8 @@ const displayTime = (minutes, seconds) => {
   timerDisplay.textContent = `${minutes.toString()} : ${seconds.toString()}`
 }
 
+const areNeighbors = (last,curr) => {
+}
 
 const startTimer = () => {
   GameState.isActive = true;
@@ -148,8 +150,29 @@ const renderBoard = () =>{
 
 
 const cellClickHandler = (event) => {
- const cell = event.currentTarget;  
-  console.log(`cell at row ${cell.dataset.row} and col ${cell.dataset.col} is clicked`);
+
+  const currCell = event.currentTarget;
+  let rowIdx = currCell.dataset.col;
+  let colIdx = currCell.dataset.row;
+  console.log(`cell at row ${currCell.dataset.row} and col ${currCell.dataset.col} is clicked`);
+
+  if(GameState.selectedIdx.length === 0) {
+    GameState.selectedIdx.push({rowIdx, colIdx});
+    return;
+  }
+
+  if(GameState.selectedIdx.includes({rowIdx, colIdx})) {
+    console.log("You have selected this cell!");
+  }
+
+  const lastCell = GameState.selectedIdx[GameState.selectedIdx.length - 1];
+  if (! areNeighbors(last, {rowIdx, colIdx})) {
+    console.log("Cells are not adjecent");
+    return;
+  }
+
+  GameState.selectedIdx.push({rowIdx, colIdx});
+
 }
 
 const startBtnHandler = () => {
