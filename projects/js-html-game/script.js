@@ -99,6 +99,7 @@ const startTimer = () => {
     if (GameState.remainingTime <= 0) {
       clearInterval(countDown);
       GameState.isActive = false;
+      GameState.remainingTime = TOTALPLAYTIME;
       alert("Game Over!");
     }
   }, 1000);
