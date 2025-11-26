@@ -51,6 +51,7 @@ Components:
 */
 
 // ========= UI ELEMENT ===============
+const TOTALPLAYTIME = 60;
 const board_size = document.getElementById("size_selector");
 const boardContainer = document.getElementById("board");
 
@@ -64,7 +65,7 @@ const resetBtn = document.getElementById("resetBtn");
 
 // ========== GAME STATE ==========
 const GameState = {
-  remainingTime: 120,
+  remainingTime: TOTALPLAYTIME,
   score:0,
   foundWords: new Set(),
 
@@ -87,7 +88,7 @@ const displayTime = (minutes, seconds) => {
 const startTimer = () => {
   GameState.isActive = true;
 
-  setInterval(() => {
+  const countDown = setInterval(() => {
     GameState.remainingTime = GameState.remainingTime - 1;
     const MinToDisplay = Math.floor(GameState.remainingTime / 60);
     const SecToDisplay = GameState.remainingTime % 60;
@@ -96,7 +97,7 @@ const startTimer = () => {
     displayTime(MinToDisplay, SecToDisplay);
 
     if (GameState.remainingTime <= 0) {
-      clearInterval(setInterval);
+      clearInterval(countDown);
       GameState.isActive = false;
       alert("Game Over!");
     }
