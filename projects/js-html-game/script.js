@@ -13,8 +13,9 @@ Components:
    [X] Render them as clickable cells
 
 2. Handle cell click
-   [] If first click → select it
-   [] If not first click → check if adjacent to previous and check if it has been visited.
+   [X] If first click → select it
+   [] If not first click → check if adjacent to previous
+   [] and check if it has been visited.
    [] If valid → add to selected list
    [] Update the current word on screen
 
@@ -85,6 +86,10 @@ const displayTime = (minutes, seconds) => {
 }
 
 const areNeighbors = (last,curr) => {
+  if(Math.abs(last.rowIdx - curr.rowIdx) > 1 || Math.abs(last.colIdx - curr.colIdx) >1) {
+    return false
+  }
+  return true
 }
 
 const startTimer = () => {
@@ -166,14 +171,22 @@ const cellClickHandler = (event) => {
   }
 
   const lastCell = GameState.selectedIdx[GameState.selectedIdx.length - 1];
-  if (! areNeighbors(last, {rowIdx, colIdx})) {
+  if (! areNeighbors(lastCell, {rowIdx, colIdx}) ) {
     console.log("Cells are not adjecent");
+    return;
+  }
+  if (GameState.selectedIdx.includes({rowIdx, colIdx})) {
+    console.log("This cell has been selected");
     return;
   }
 
   GameState.selectedIdx.push({rowIdx, colIdx});
 
 }
+
+
+
+
 
 const startBtnHandler = () => {
   startTimer();
@@ -193,5 +206,4 @@ window.addEventListener("load", init)
 board_size.addEventListener("change", renderBoard);
 
 startBtn.addEventListener("click", startBtnHandler )
-
 
