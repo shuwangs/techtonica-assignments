@@ -46,12 +46,19 @@ const areNeighbors = (last,curr) => {
   return true
 }
 
+
+const clearCells= () => {
+  const selectedCells = querySelectorAll(".cell.selected");
+  selectedCells.forEach(cell => cell.classList.remove("selected"));
+};
+
 // TODOs
 // clearCells
-// isValidWword
+// isValidWord
 // renderScores
+// displayWords
 
-const clearCells= () => true;
+
 const isValidWord = (word) => true;
 
 const startTimer = () => {
@@ -115,8 +122,9 @@ const renderBoard = () =>{
 
 }
 
-// TODOS
-renderScore();
+const renderScore =() => {
+  scoreDisplay.textContent = GameState.score.stoString();
+};
 
 const cellClickHandler = (event) => {
 
