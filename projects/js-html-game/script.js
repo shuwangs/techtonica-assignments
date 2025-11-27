@@ -1,69 +1,19 @@
-/** 
-TODO:
-Components:
-- timer
-- Scores
-- grid UI
-- Output area
-- valid word list
-- working list or string
-
-1. Create a scalable board
-   [X] Generate based on the  random letters
-   [X] Render them as clickable cells
-
-2. Handle cell click
-   [X] If first click → select it
-   [] If not first click → check if adjacent to previous
-   [] and check if it has been visited.
-   [] If valid → add to selected list
-   [] Update the current word on screen
-
-3. Clear button
-   [] Clear selected cells
-   [] Clear current word
-   [] Remove highlight
-
-4. Reset button
-   [] Clear selected cells
-   [] Clear current word
-   [] Remove highlight
-   [] Clear Output area
-   
-5. Submit button
-   [] Build the final word from selected cells
-   [] Check length >= 3
-   [] Check if word is in my dictionary Set and if the word was already found
-   [] If valid → add to “found words” list & update score
-   [] Clear current selection
-
-6. Timer (simple version)
-   [X] Start 1 mins countdown
-   [] When time is up → stop selecting and submitting
-
-7. Basic UI updates
-   []  Update score display
-   [X]  Update timer display
-   []  Highlight selected cells
-   
-8. output area updates
-   []  display valid words
-   []  update it accordingly
-*/
 
 // ========= UI ELEMENT ===============
 const TOTALPLAYTIME = 60;
+const SCOREAMOUNT = 5;
 const board_size = document.getElementById("size_selector");
 const boardContainer = document.getElementById("board");
 
 const scoreDisplay = document.getElementById("score");
 const timerDisplay = document.querySelector(".countdown_display h3");
+const wordDisplay = document.getElementsByClassName("display_selected_words");
 
 const startBtn = document.getElementById("startBtn");
 const submitBtn = document.getElementById("submitBtn");
 const clearBtn = document.getElementById("clearBtn");
 const resetBtn = document.getElementById("resetBtn");
-
+ 
 // ========== GAME STATE ==========
 const GameState = {
   remainingTime: TOTALPLAYTIME,
@@ -85,12 +35,24 @@ const displayTime = (minutes, seconds) => {
   timerDisplay.textContent = `${minutes.toString()} : ${seconds.toString()}`
 }
 
+const displayWords = () =>{
+  wordDisplay.textContent = GameState.foundWords.join("\n");
+}
+
 const areNeighbors = (last,curr) => {
   if(Math.abs(last.rowIdx - curr.rowIdx) > 1 || Math.abs(last.colIdx - curr.colIdx) >1) {
     return false
   }
   return true
 }
+
+// TODOs
+// clearCells
+// isValidWword
+// renderScores
+
+const clearCells= () => true;
+const isValidWord = (word) => true;
 
 const startTimer = () => {
   GameState.isActive = true;
@@ -153,6 +115,8 @@ const renderBoard = () =>{
 
 }
 
+// TODOS
+renderScore();
 
 const cellClickHandler = (event) => {
 
@@ -192,7 +156,50 @@ const startBtnHandler = () => {
   startTimer();
 }
 
-const submitBtnHandler = () => {}
+const submitBtnHandler = () => {
+  if(GameStage.selectedIdx.length === 0) {
+    alert("No letter is selected");
+    return;
+  }
+
+  const word = GameState.selectedIdx
+    .map(({row, col}) => GameState.board[row][col])
+    .join("");
+
+  // Check word length
+  if (word.length < 3) {
+    alert("Words too short");
+    clearSelectedUI();
+    return;
+  }
+
+  // Check if work has been found
+  if(GameState.foundWords.has(words)) {
+    alert("Already found!");
+    clearSelectedUI();
+    GameState.selectedIdx = [];
+    return;
+  }
+
+  // Check if word is valid
+  if (!isValidWord(word)) {
+    alert("Not a word");
+    clearSelectedUI();
+    GameState.selectedIdx = [];
+
+    return;
+  }
+
+  GameState.foundWords.add(word);
+  GameState.score += SCOREAMOUNT;
+
+  renderScore();
+
+  clearSelectedUI();
+  GameState.selectedIdx = [];
+
+}
+
 const clearBtnHandler = () => {}
 const restartBtnHandler = () => {}
 // ========= INIT =========
