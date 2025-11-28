@@ -5,7 +5,7 @@ const SCOREAMOUNT = 5;
 const board_size = document.getElementById("size_selector");
 const boardContainer = document.getElementById("board");
 
-const scoreDisplay = document.getElementById("score");
+const scoreDisplay = document.querySelector(".score_display h3");
 const timerDisplay = document.querySelector(".countdown_display h3");
 const wordDisplay = document.getElementsByClassName("display_selected_words");
 
@@ -47,10 +47,11 @@ const areNeighbors = (last,curr) => {
 }
 
 
-const clearCells= () => {
-  const selectedCells = querySelectorAll(".cell.selected");
+const clearSelectedCells= () => {
+  const selectedCells = document.querySelectorAll(".cell.selected");
   selectedCells.forEach(cell => cell.classList.remove("selected"));
 };
+
 
 // TODOs
 // clearCells
@@ -123,7 +124,7 @@ const renderBoard = () =>{
 }
 
 const renderScore =() => {
-  scoreDisplay.textContent = GameState.score.stoString();
+  scoreDisplay.innerHTML = GameState.score.toString();
 };
 
 const cellClickHandler = (event) => {
@@ -153,7 +154,7 @@ const cellClickHandler = (event) => {
   }
 
   GameState.selectedIdx.push({rowIdx, colIdx});
-
+  currCell.classList.add("selected");
 }
 
 
@@ -165,26 +166,31 @@ const startBtnHandler = () => {
 }
 
 const submitBtnHandler = () => {
-  if(GameStage.selectedIdx.length === 0) {
+  if(GameState.remainingTime <= 0) {
+    return;
+  }
+  if(GameState.selectedIdx.length === 0) {
     alert("No letter is selected");
     return;
   }
 
   const word = GameState.selectedIdx
-    .map(({row, col}) => GameState.board[row][col])
+    .map(({rowIdx, colIdx}) => GameState.board[rowIdx][colIdx])
     .join("");
+
+  console.log(word);
 
   // Check word length
   if (word.length < 3) {
     alert("Words too short");
-    clearSelectedUI();
+    clearSelectedCells();
     return;
   }
 
   // Check if work has been found
-  if(GameState.foundWords.has(words)) {
+  if(GameState.foundWords.has(word)) {
     alert("Already found!");
-    clearSelectedUI();
+    clearSelectedCells();
     GameState.selectedIdx = [];
     return;
   }
@@ -192,7 +198,7 @@ const submitBtnHandler = () => {
   // Check if word is valid
   if (!isValidWord(word)) {
     alert("Not a word");
-    clearSelectedUI();
+    clearSelectedCells();
     GameState.selectedIdx = [];
 
     return;
@@ -203,13 +209,15 @@ const submitBtnHandler = () => {
 
   renderScore();
 
-  clearSelectedUI();
+  clearSelectedCells();
   GameState.selectedIdx = [];
 
 }
 
 const clearBtnHandler = () => {}
 const restartBtnHandler = () => {}
+
+
 // ========= INIT =========
 
 const init = () => {
@@ -220,5 +228,5 @@ const init = () => {
 window.addEventListener("load", init)
 board_size.addEventListener("change", renderBoard);
 
-startBtn.addEventListener("click", startBtnHandler )
-
+startBtn.addEventListener("click", startBtnHandler);
+submitBtn.addEventListener("click", submitBtnHandler);
