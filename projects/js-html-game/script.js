@@ -54,11 +54,11 @@ const clearSelectedCells= () => {
 
 
 // TODOs
-// clearCells
 // isValidWord
 // renderScores
 // displayWords
 
+// Issues: did not succussfully check if the word has been selected
 
 const isValidWord = (word) => true;
 
@@ -139,7 +139,7 @@ const cellClickHandler = (event) => {
     return;
   }
 
-  if(GameState.selectedIdx.includes({rowIdx, colIdx})) {
+  if(GameState.selectedIdx.indexOf({rowIdx, colIdx}) > 0) {
     console.log("You have selected this cell!");
   }
 
