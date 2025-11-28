@@ -259,7 +259,10 @@ const submitBtnHandler = () => {
   displayWords();
 }
 
-const clearBtnHandler = () => {}
+const clearBtnHandler = () => {
+  clearSelectedCells();
+  GameState.selectedIdx = [];
+}
 
 const resetBtnHandler = () => {
   GameState.score = 0;
@@ -282,5 +285,5 @@ board_size.addEventListener("change", renderBoard);
 
 startBtn.addEventListener("click", startBtnHandler);
 submitBtn.addEventListener("click", submitBtnHandler);
-
+clearBtn.addEventListener("click", clearBtnHandler);
 resetBtn.addEventListener("click", resetBtnHandler);
