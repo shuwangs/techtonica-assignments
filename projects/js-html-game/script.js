@@ -7,7 +7,7 @@ const boardContainer = document.getElementById("board");
 
 const scoreDisplay = document.querySelector(".score_display h3");
 const timerDisplay = document.querySelector(".countdown_display h3");
-const wordDisplay = document.getElementsByClassName("display_selected_words");
+const wordsDisplay = document.getElementById("wordsDisplay");
 
 const startBtn = document.getElementById("startBtn");
 const submitBtn = document.getElementById("submitBtn");
@@ -35,8 +35,8 @@ const displayTime = (minutes, seconds) => {
   timerDisplay.textContent = `${minutes.toString()} : ${seconds.toString()}`
 }
 
-const displayWords = () =>{
-  wordDisplay.textContent = GameState.foundWords.join("\n");
+const displayWords = () => {
+  wordsDisplay.value =[...GameState.foundWords].join("\n");
 }
 
 const areNeighbors = (last,curr) => {
@@ -130,8 +130,8 @@ const renderScore =() => {
 const cellClickHandler = (event) => {
 
   const currCell = event.currentTarget;
-  let rowIdx = currCell.dataset.col;
-  let colIdx = currCell.dataset.row;
+  let rowIdx = currCell.dataset.row;
+  let colIdx = currCell.dataset.col;
   console.log(`cell at row ${currCell.dataset.row} and col ${currCell.dataset.col} is clicked`);
 
   if(GameState.selectedIdx.length === 0) {
@@ -139,8 +139,9 @@ const cellClickHandler = (event) => {
     return;
   }
 
-  if(GameState.selectedIdx.indexOf({rowIdx, colIdx}) > 0) {
-    console.log("You have selected this cell!");
+  if (GameState.selectedIdx.find(c => c.rowIdx === rowIdx && c.colIdx === colIdx) !== undefined) {
+    alert("You have selected this cell!");
+    return;
   }
 
   const lastCell = GameState.selectedIdx[GameState.selectedIdx.length - 1];
@@ -148,16 +149,14 @@ const cellClickHandler = (event) => {
     console.log("Cells are not adjecent");
     return;
   }
-  if (GameState.selectedIdx.includes({rowIdx, colIdx})) {
-    console.log("This cell has been selected");
-    return;
-  }
+  // if (GameState.selectedIdx.includes({rowIdx, colIdx})) {
+  //   console.log("This cell has been selected");
+  //   return;
+  // }
 
   GameState.selectedIdx.push({rowIdx, colIdx});
   currCell.classList.add("selected");
 }
-
-
 
 
 
@@ -211,7 +210,7 @@ const submitBtnHandler = () => {
 
   clearSelectedCells();
   GameState.selectedIdx = [];
-
+  displayWords();
 }
 
 const clearBtnHandler = () => {}
