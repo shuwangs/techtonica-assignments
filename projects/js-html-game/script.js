@@ -24,6 +24,21 @@ const GameState = {
   selectedIdx: [],
   isActive: false
 }
+// ========== READIN DICTINARY ==========
+let dictionarySet = new Set();
+
+const loadDictionary = async () => {
+  try {
+    const response = await fetch('./dictionary-yawl.txt'); 
+    const text = await response.text();
+    const words = text.split('\n').map(word => word.trim()).filter(word => word.length >= 3);
+    dictionarySet = new Set(words);
+    console.log("the Dictionary has been loaded.");
+  } catch (err) {
+    console.error("Dictionary failed to load:", err);  
+  }
+} 
+
 
 // ========= HELPER FUNCTIONS =========
 const getRandomeLetter = () => {
@@ -46,7 +61,6 @@ const areNeighbors = (last,curr) => {
   return true
 }
 
-
 const clearSelectedCells= () => {
   const selectedCells = document.querySelectorAll(".cell.selected");
   selectedCells.forEach(cell => cell.classList.remove("selected"));
@@ -55,19 +69,19 @@ const clearSelectedCells= () => {
 const calculateScores = (word) => {
   let points;
   switch(true) {
-    case (wordLength >= 3 && wordLength <= 4):
+    case (word.length >= 3 && word.length <= 4):
       points = 1;
       break;
-    case (wordLength === 5):
+    case (word.length === 5):
       points = 2;
       break;
-    case (wordLength === 6):
+    case (word.length === 6):
       points = 3;
       break;
-    case (wordLength === 7):
+    case (word.length === 7):
       points = 5;
       break;
-    case (wordLength >= 8):
+    case (word.length >= 8):
       points = 11;
       break;
     default:
@@ -83,9 +97,13 @@ const calculateScores = (word) => {
 // renderScores
 // displayWords
 
-// Issues: did not succussfully check if the word has been selected
 
-const isValidWord = (word) => true;
+const isValidWord = (word) => {
+  if (dictionarySet.has(word)) {
+    return true;
+  } 
+  return false;
+};
 
 const startTimer = () => {
   wordsDisplay.value= "";
@@ -123,8 +141,6 @@ const createChars= (size) => {
   }
   return GameState;
 };
-
-
 
 const renderBoard = () =>{
   let sizeValue = parseInt(board_size.value);
@@ -179,10 +195,6 @@ const cellClickHandler = (event) => {
     console.log("Cells are not adjecent");
     return;
   }
-  // if (GameState.selectedIdx.includes({rowIdx, colIdx})) {
-  //   console.log("This cell has been selected");
-  //   return;
-  // }
 
   GameState.selectedIdx.push({rowIdx, colIdx});
   currCell.classList.add("selected");
@@ -228,7 +240,7 @@ const submitBtnHandler = () => {
 
   // Check if word is valid
   if (!isValidWord(word)) {
-    alert("Not a word");
+    alert("Not a valid word");
     clearSelectedCells();
     GameState.selectedIdx = [];
 
@@ -252,7 +264,8 @@ const restartBtnHandler = () => {}
 // ========= INIT =========
 
 const init = () => {
- renderBoard();
+  loadDictionary();
+  renderBoard();
 };
 
 // ========= EVENT LISTENERS =========
