@@ -1,5 +1,6 @@
 :root {
   --size-grid: 4;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 body{
   background-color: #faf3dd;
