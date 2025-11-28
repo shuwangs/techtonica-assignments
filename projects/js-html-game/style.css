@@ -8,6 +8,7 @@ body{
 .board {
   display: inline-grid; 
   grid-template-columns: repeat(var(--size-grid), 50px);
+
 }
 
 .cell {

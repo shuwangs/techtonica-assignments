@@ -1,4 +1,4 @@
-
+//ISSUE: reset should not alert game over?
 // ========= UI ELEMENT ===============
 const TOTALPLAYTIME = 60;
 const SCOREAMOUNT = 5;
@@ -90,8 +90,6 @@ const calculateScores = (word) => {
   return points;
 }
 
-    
-
 // TODOs
 // isValidWord
 // renderScores
@@ -128,7 +126,6 @@ const startTimer = () => {
  
 }
 
-
 // ==========  MAJOR FUNCTIONS ==========
 const createChars= (size) => {
   GameState.board = [];
@@ -144,8 +141,13 @@ const createChars= (size) => {
 
 const renderBoard = () =>{
   let sizeValue = parseInt(board_size.value);
+
+  boardContainer.innerHTML = "";
+  boardContainer.style.gridTemplateColumns = `repeat(${sizeValue}, 50px)`;
+
   createChars(sizeValue);
 
+  
   const cells = boardContainer.getElementsByClassName("cell");
 
   GameState.board.forEach((row, rowIdx) => {
@@ -201,8 +203,8 @@ const cellClickHandler = (event) => {
 }
 
 
-
 const startBtnHandler = () => {
+  GameState.score = 0
   clearSelectedCells();
 
   startTimer();
@@ -258,7 +260,13 @@ const submitBtnHandler = () => {
 }
 
 const clearBtnHandler = () => {}
-const restartBtnHandler = () => {}
+
+const resetBtnHandler = () => {
+  GameState.score = 0;
+  GameState.remainingTime = 1;
+  clearSelectedCells();
+  
+}
 
 
 // ========= INIT =========
@@ -274,3 +282,5 @@ board_size.addEventListener("change", renderBoard);
 
 startBtn.addEventListener("click", startBtnHandler);
 submitBtn.addEventListener("click", submitBtnHandler);
+
+resetBtn.addEventListener("click", resetBtnHandler);
