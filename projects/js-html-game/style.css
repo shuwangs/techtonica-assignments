@@ -18,3 +18,8 @@ body{
   align-items: center;
   border: 2px solid #949D6A;
 }
+
+.selected {
+  color: blue;
+  background-color: red;
+}

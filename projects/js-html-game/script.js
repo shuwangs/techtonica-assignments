@@ -52,6 +52,31 @@ const clearSelectedCells= () => {
   selectedCells.forEach(cell => cell.classList.remove("selected"));
 };
 
+const calculateScores = (word) => {
+  let points;
+  switch(true) {
+    case (wordLength >= 3 && wordLength <= 4):
+      points = 1;
+      break;
+    case (wordLength === 5):
+      points = 2;
+      break;
+    case (wordLength === 6):
+      points = 3;
+      break;
+    case (wordLength === 7):
+      points = 5;
+      break;
+    case (wordLength >= 8):
+      points = 11;
+      break;
+    default:
+      points = 0; 
+  }
+  return points;
+}
+
+    
 
 // TODOs
 // isValidWord
@@ -63,6 +88,8 @@ const clearSelectedCells= () => {
 const isValidWord = (word) => true;
 
 const startTimer = () => {
+  wordsDisplay.value= "";
+  GameState.score = 0;
   GameState.isActive = true;
 
   const countDown = setInterval(() => {
@@ -110,8 +137,6 @@ const renderBoard = () =>{
       const cell = document.createElement("div");
       cell.className = "cell";
       cell.innerText = AChar;
-
-
       cell.dataset.row = rowIdx;
       cell.dataset.col = colIdx;
       
@@ -128,7 +153,10 @@ const renderScore =() => {
 };
 
 const cellClickHandler = (event) => {
-
+  if(!GameState.isActive) {
+    alert("Please start the game!")
+    return;
+  }
   const currCell = event.currentTarget;
   let rowIdx = currCell.dataset.row;
   let colIdx = currCell.dataset.col;
@@ -136,6 +164,8 @@ const cellClickHandler = (event) => {
 
   if(GameState.selectedIdx.length === 0) {
     GameState.selectedIdx.push({rowIdx, colIdx});
+    currCell.classList.add("selected");
+
     return;
   }
 
@@ -161,6 +191,8 @@ const cellClickHandler = (event) => {
 
 
 const startBtnHandler = () => {
+  clearSelectedCells();
+
   startTimer();
 }
 
@@ -204,7 +236,7 @@ const submitBtnHandler = () => {
   }
 
   GameState.foundWords.add(word);
-  GameState.score += SCOREAMOUNT;
+  GameState.score += calculateScores(word);
 
   renderScore();
 
