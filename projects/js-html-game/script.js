@@ -5,8 +5,8 @@ const SCOREAMOUNT = 5;
 const board_size = document.getElementById("size_selector");
 const boardContainer = document.getElementById("board");
 
-const scoreDisplay = document.querySelector(".score_display h3");
-const timerDisplay = document.querySelector(".countdown_display h3");
+const scoreDisplay = document.querySelector("#score_area");
+const timerDisplay = document.querySelector("#time_area");
 const wordsDisplay = document.getElementById("wordsDisplay");
 
 const startBtn = document.getElementById("startBtn");
