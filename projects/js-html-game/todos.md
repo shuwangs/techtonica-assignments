@@ -20,16 +20,17 @@ Components:
    [~] Update the current word on screen
 
 3. Clear button
-   [] Clear selected cells
-   [] Clear current word
-   [] Remove highlight
+   [X] Clear selected cells
+   [X] Clear current word
+   [X] Remove highlight
 
 4. Reset button
-   [] Clear selected cells
-   [] Clear current word
-   [] Remove highlight
-   [] Clear Output area
-   
+   [X] Clear selected cells
+   [X] Clear current word
+   [X] Remove highlight
+   [X] Clear Output area
+   [ ] render new board
+
 5. Submit button
    [] Build the final word from selected cells
    [X] Check length >= 3
@@ -39,7 +40,7 @@ Components:
 
 6. Timer (simple version)
    [X] Start 1 mins countdown
-   [] When time is up → stop selecting and submitting
+   [X] When time is up → stop selecting and submitting
 
 7. Basic UI updates
    [X]  Update timer display

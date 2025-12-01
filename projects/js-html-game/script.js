@@ -35,7 +35,9 @@ const loadDictionary = async () => {
   try {
     const response = await fetch('./dictionary-yawl.txt'); 
     const text = await response.text();
-    const words = text.split('\n').map(word => word.trim()).filter(word => word.length >= 3);
+    const words = text.split('\n')
+      .map(word => word.trim().toUpperCase())
+      .filter(word => word.length >= 3);
     dictionarySet = new Set(words);
     console.log("the Dictionary has been loaded.");
   } catch (err) {
@@ -300,7 +302,7 @@ const resetBtnHandler = () => {
 
   renderScore();
   wordsDisplay.value = "";
-
+  renderBoard();
   console.log("Game has been reset.");
 }
 
