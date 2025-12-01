@@ -13,7 +13,10 @@ const startBtn = document.getElementById("startBtn");
 const submitBtn = document.getElementById("submitBtn");
 const clearBtn = document.getElementById("clearBtn");
 const resetBtn = document.getElementById("resetBtn");
- 
+
+const messageBox = document.getElementById("gameMessage");
+let messageTimeout;
+
 // ========== GAME STATE ==========
 const GameState = {
   remainingTime: TOTALPLAYTIME,
@@ -91,12 +94,6 @@ const calculateScores = (word) => {
   return points;
 }
 
-// TODOs
-// isValidWord
-// renderScores
-// displayWords
-
-
 const isValidWord = (word) => {
   if (dictionarySet.has(word)) {
     return true;
@@ -129,10 +126,23 @@ const startTimer = () => {
       GameState.isActive = false;
       GameState.timerId = null;
       GameState.remainingTime = TOTALPLAYTIME;
-      alert("Game Over!");
+      showMessage("Game Over!");
     }
   }, 1000);
  
+}
+
+// ------------- SHOW MESSAGE -----------------
+const showMessage = (text) => {
+  messageBox.innerText = text;
+  messageBox.classList.remove("hidden");
+  messageBox.classList.add("show");
+
+  if (messageTimeout) clearTimeout(messageTimeout);
+  messageTimeout = setTimeout(()=>{
+    messageBox.classList.remove("show");
+    messageBox.classList.add("hidden");
+  }, 1000)
 }
 
 // ==========  MAJOR FUNCTIONS ==========
@@ -181,7 +191,7 @@ const renderScore =() => {
 
 const cellClickHandler = (event) => {
   if(!GameState.isActive) {
-    alert("Please start the game!")
+    showMessage("Please start the game!")
     return;
   }
   const currCell = event.currentTarget;
@@ -197,7 +207,7 @@ const cellClickHandler = (event) => {
   }
 
   if (GameState.selectedIdx.find(c => c.rowIdx === rowIdx && c.colIdx === colIdx) !== undefined) {
-    alert("You have selected this cell!");
+    showMessage("You have selected this cell!");
     return;
   }
 
@@ -224,7 +234,7 @@ const submitBtnHandler = () => {
     return;
   }
   if(GameState.selectedIdx.length === 0) {
-    alert("No letter is selected");
+    showMessage("No letter is selected");
     return;
   }
 
@@ -236,14 +246,15 @@ const submitBtnHandler = () => {
 
   // Check word length
   if (word.length < 3) {
-    alert("Words too short");
+    showMessage("Words too short");
     clearSelectedCells();
+    GameState.selectedIdx = [];
     return;
   }
 
   // Check if work has been found
   if(GameState.foundWords.has(word)) {
-    alert("Already found!");
+    showMessage("Already found!");
     clearSelectedCells();
     GameState.selectedIdx = [];
     return;
@@ -251,7 +262,7 @@ const submitBtnHandler = () => {
 
   // Check if word is valid
   if (!isValidWord(word)) {
-    alert("Not a valid word");
+    showMessage("Not a valid word");
     clearSelectedCells();
     GameState.selectedIdx = [];
 

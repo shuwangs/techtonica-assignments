@@ -98,3 +98,30 @@ button {
 button:hover{
   background-color: #faf3dd;
 }
+
+/* showMessage */
+.message-box{
+  position: fixed;
+  top: 30%;
+  left: 40%;
+  background-color: #f77f00;
+  color: #faf3dd;
+
+  padding: 12px 24px;
+  border-radius: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  z-index: 1;
+}
+
+.message-box.hidden {
+  opacity: 0;
+  top: 10%; 
+  pointer-events: none; 
+}
+
+.message-box.show {
+  opacity: 1;
+  top: 30%;
+}
