@@ -102,10 +102,11 @@ button:hover{
 /* showMessage */
 .message-box{
   position: fixed;
-  top: 30%;
-  left: 40%;
+  top: 50%;
+  left: 50%;
   background-color: #f77f00;
   color: #faf3dd;
+  transform: translate(-50%, -50%);
 
   padding: 12px 24px;
   border-radius: 20px;
