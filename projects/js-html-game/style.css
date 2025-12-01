@@ -6,7 +6,7 @@ body{
   background-color: #faf3dd;
   padding-left: 10vh;
   padding-right: 10vh;
-
+  font-family: 'Patrick Hand', cursive;
 }
 
 .score_display,
@@ -33,8 +33,8 @@ body{
   font-size: 1rem;
   border-radius: 8px;
   border: 1px solid #999;
-
 }
+
 .board {
   display: inline-grid; 
   grid-template-columns: repeat(var(--size-grid), 50px);

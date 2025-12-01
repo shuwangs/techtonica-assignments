@@ -32,21 +32,21 @@ Components:
    
 5. Submit button
    [] Build the final word from selected cells
-   [] Check length >= 3
-   [] Check if word is in my dictionary Set and if the word was already found
-   [] If valid → add to “found words” list & update score
-   [] Clear current selection
+   [X] Check length >= 3
+   [X] Check if word is in my dictionary Set and if the word was already found
+   [X] If valid → add to “found words” list & update score
+   [X] Clear current selection
 
 6. Timer (simple version)
    [X] Start 1 mins countdown
    [] When time is up → stop selecting and submitting
 
 7. Basic UI updates
-   []  Update score display
    [X]  Update timer display
-   []  Highlight selected cells
+   [X]  Update score display
+   [X]  Highlight selected cells
    
 8. output area updates
-   []  display valid words
-   []  update it accordingly
+   [X]  display valid words
+   [X]  update it accordingly
 */

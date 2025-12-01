@@ -22,7 +22,8 @@ const GameState = {
 
   board : [],
   selectedIdx: [],
-  isActive: false
+  isActive: false,
+  timerId: null
 }
 // ========== READIN DICTINARY ==========
 let dictionarySet = new Set();
@@ -47,7 +48,7 @@ const getRandomeLetter = () => {
 }
 
 const displayTime = (minutes, seconds) => {
-  timerDisplay.textContent = `${minutes.toString()} : ${seconds.toString()}`
+  timerDisplay.textContent = `${minutes.toString()} : ${seconds.toString().padStart(2, "0")}`
 }
 
 const displayWords = () => {
@@ -56,9 +57,9 @@ const displayWords = () => {
 
 const areNeighbors = (last,curr) => {
   if(Math.abs(last.rowIdx - curr.rowIdx) > 1 || Math.abs(last.colIdx - curr.colIdx) >1) {
-    return false
+    return false;
   }
-  return true
+  return true;
 }
 
 const clearSelectedCells= () => {
@@ -104,11 +105,18 @@ const isValidWord = (word) => {
 };
 
 const startTimer = () => {
+  if(GameState.timerId) {
+    clearInterval(GameState.timerId);
+    GameState.timerId = null;
+  }
   wordsDisplay.value= "";
+
+  GameState.remainingTime = TOTALPLAYTIME;
   GameState.score = 0;
   GameState.isActive = true;
+  renderScore();
 
-  const countDown = setInterval(() => {
+  GameState.timerId= setInterval(() => {
     GameState.remainingTime = GameState.remainingTime - 1;
     const MinToDisplay = Math.floor(GameState.remainingTime / 60);
     const SecToDisplay = GameState.remainingTime % 60;
@@ -117,8 +125,9 @@ const startTimer = () => {
     displayTime(MinToDisplay, SecToDisplay);
 
     if (GameState.remainingTime <= 0) {
-      clearInterval(countDown);
+      clearInterval(GameState.timerId);
       GameState.isActive = false;
+      GameState.timerId = null;
       GameState.remainingTime = TOTALPLAYTIME;
       alert("Game Over!");
     }
@@ -265,10 +274,23 @@ const clearBtnHandler = () => {
 }
 
 const resetBtnHandler = () => {
+  if (GameState.timerId) {
+    clearInterval(GameState.timerId);
+    GameState.timerId = null;
+  }
   GameState.score = 0;
-  GameState.remainingTime = 1;
+  GameState.remainingTime = TOTALPLAYTIME;
+  GameState.isActive = false;
+  GameState.foundWords.clear();
+  GameState.selectedIdx = [];
+
   clearSelectedCells();
-  
+  displayTime(Math.floor(TOTALPLAYTIME / 60), TOTALPLAYTIME % 60);
+
+  renderScore();
+  wordsDisplay.value = "";
+
+  console.log("Game has been reset.");
 }
 
 
