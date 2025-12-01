@@ -29,7 +29,7 @@ Components:
    [X] Clear current word
    [X] Remove highlight
    [X] Clear Output area
-   [ ] render new board
+   [X] render new board
 
 5. Submit button
    [] Build the final word from selected cells
