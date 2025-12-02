@@ -1,4 +1,3 @@
-//ISSUE: reset should not alert game over?
 // ========= UI ELEMENT ===============
 const TOTALPLAYTIME = 60;
 const SCOREAMOUNT = 5;
@@ -39,7 +38,7 @@ const loadDictionary = async () => {
       .map(word => word.trim().toUpperCase())
       .filter(word => word.length >= 3);
     dictionarySet = new Set(words);
-    console.log("the Dictionary has been loaded.");
+    // console.log("the Dictionary has been loaded.");
   } catch (err) {
     console.error("Dictionary failed to load:", err);  
   }
@@ -168,7 +167,7 @@ const renderBoard = () =>{
 
   createChars(sizeValue);
 
-  
+
   const cells = boardContainer.getElementsByClassName("cell");
 
   GameState.board.forEach((row, rowIdx) => {
@@ -199,7 +198,7 @@ const cellClickHandler = (event) => {
   const currCell = event.currentTarget;
   let rowIdx = currCell.dataset.row;
   let colIdx = currCell.dataset.col;
-  console.log(`cell at row ${currCell.dataset.row} and col ${currCell.dataset.col} is clicked`);
+  // console.log(`cell at row ${currCell.dataset.row} and col ${currCell.dataset.col} is clicked`);
 
   if(GameState.selectedIdx.length === 0) {
     GameState.selectedIdx.push({rowIdx, colIdx});
@@ -215,7 +214,7 @@ const cellClickHandler = (event) => {
 
   const lastCell = GameState.selectedIdx[GameState.selectedIdx.length - 1];
   if (! areNeighbors(lastCell, {rowIdx, colIdx}) ) {
-    console.log("Cells are not adjecent");
+    // console.log("Cells are not adjecent");
     return;
   }
 
@@ -244,7 +243,7 @@ const submitBtnHandler = () => {
     .map(({rowIdx, colIdx}) => GameState.board[rowIdx][colIdx])
     .join("");
 
-  console.log(word);
+  // console.log(word);
 
   // Check word length
   if (word.length < 3) {
@@ -303,7 +302,7 @@ const resetBtnHandler = () => {
   renderScore();
   wordsDisplay.value = "";
   renderBoard();
-  console.log("Game has been reset.");
+  // console.log("Game has been reset.");
 }
 
 
