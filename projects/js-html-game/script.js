@@ -47,7 +47,7 @@ const loadDictionary = async () => {
 
 
 // ========= HELPER FUNCTIONS =========
-const getRandomeLetter = () => {
+const getRandomLetter = () => {
   patterns = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   return patterns.charAt(Math.floor(Math.random()* 26));
 }
@@ -153,7 +153,7 @@ const createChars= (size) => {
   for(let i = 0; i < size; i++) {
     const row = []; 
     for (let j = 0; j < size; j++){
-       row.push(getRandomeLetter());
+       row.push(getRandomLetter());
     }
     GameState.board.push(row);
   }
