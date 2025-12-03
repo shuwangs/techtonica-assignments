@@ -8,8 +8,11 @@
 [ ] 7. feat: increase/descrease scores per contaction.
 
 ## Components
-- cat
-- gameboard
+- Gameboard
+- HeaderBar (should call scores, and energy)
+- scores
+- energy
 - falling items
-- header parts: scores, energy and level.
+- cat icon
 - buttons: start pause reset
+- 
