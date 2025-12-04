@@ -43,6 +43,17 @@ const loadDictionary = async () => {
   }
 } 
 
+// ========= SOUND ASSETS =========
+const sounds = {
+  click: new Audio('./sounds/click.wav'),   
+  success: new Audio('./sounds/success.wav'), 
+  error: new Audio('./sounds/error.wav'),   
+  end: new Audio('./sounds/gameover.wav')  
+};
+
+for (let key in sounds) {
+  sounds[key].load();
+}
 
 // ========= HELPER FUNCTIONS =========
 const getRandomLetter = () => {
@@ -63,6 +74,14 @@ const areNeighbors = (last,curr) => {
     return false;
   }
   return true;
+}
+
+const playSound = (soundtype) => {
+   const audio = sounds[soundtype];
+   if(audio) {
+      audio.currentTime = 0;
+      audio.play();
+   }
 }
 
 const clearSelectedCells= () => {
@@ -101,6 +120,19 @@ const isValidWord = (word) => {
   return false;
 };
 
+// async function testWordAPI(word) {
+//    try {
+//       const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}>`)
+//       if (! res.ok) {
+//          return false;
+//       } 
+//       return true;
+//    } catch(error) {
+//       console.error("API Error:", error.message);
+//    }
+
+// }
+
 const startTimer = () => {
   if(GameState.timerId) {
     clearInterval(GameState.timerId);
@@ -127,6 +159,7 @@ const startTimer = () => {
       GameState.timerId = null;
       GameState.remainingTime = TOTALPLAYTIME;
       showMessage("Game Over!");
+      playSound('end');
     }
   }, 1000);
  
@@ -201,6 +234,7 @@ const cellClickHandler = (event) => {
   if(GameState.selectedIdx.length === 0) {
     GameState.selectedIdx.push({rowIdx, colIdx});
     currCell.classList.add("selected");
+    playSound('click');
 
     return;
   }
@@ -217,6 +251,7 @@ const cellClickHandler = (event) => {
 
   GameState.selectedIdx.push({rowIdx, colIdx});
   currCell.classList.add("selected");
+  playSound('click');
 }
 
 
@@ -229,10 +264,12 @@ const startBtnHandler = () => {
 
 const submitBtnHandler = () => {
   if(GameState.remainingTime <= 0) {
+    playSound('wrong');
     return;
   }
   if(GameState.selectedIdx.length === 0) {
     showMessage("No letter is selected");
+    playSound('wrong');
     return;
   }
 
@@ -245,28 +282,33 @@ const submitBtnHandler = () => {
     showMessage("Words too short");
     clearSelectedCells();
     GameState.selectedIdx = [];
+    playSound('wrong');
     return;
   }
 
   // Check if work has been found
-  if(GameState.foundWords.has(word)) {
+  if(GameState.foundWords.has(word)){
     showMessage("Already found!");
     clearSelectedCells();
     GameState.selectedIdx = [];
+    playSound('error');
     return;
   }
 
   // Check if word is valid
+  // testWordAPI
+  // isValidWord
   if (!isValidWord(word)) {
     showMessage("Not a valid word");
     clearSelectedCells();
     GameState.selectedIdx = [];
-
+    playSound('error');
     return;
   }
 
   GameState.foundWords.add(word);
   GameState.score += calculateScores(word);
+  playSound('success');
 
   renderScore();
 
