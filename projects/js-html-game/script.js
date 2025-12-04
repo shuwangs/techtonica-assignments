@@ -240,11 +240,15 @@ const cellClickHandler = (event) => {
 
   if (GameState.selectedIdx.find(c => c.rowIdx === rowIdx && c.colIdx === colIdx) !== undefined) {
     showMessage("You have selected this cell!");
+    playSound('error');
     return;
   }
 
   const lastCell = GameState.selectedIdx[GameState.selectedIdx.length - 1];
   if (! areNeighbors(lastCell, {rowIdx, colIdx}) ) {
+    showMessage("Not adjacent cells!");
+    playSound('error');
+
     return;
   }
 
