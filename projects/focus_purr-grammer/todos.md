@@ -8,10 +8,8 @@
 [ ] 7. feat: increase/descrease scores per contaction.
 
 ## Components
-- Gameboard
+- Gameboard - should have states[score, energy, items[], cat position, is playng] = game logics
 - HeaderBar (should call scores, and energy)
-- scores
-- energy
 - falling items
 - cat icon
 - buttons: start pause reset
