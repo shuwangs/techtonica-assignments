@@ -1,20 +1,131 @@
 :root {
-  --size-grid :4;
+  --size-grid: 4;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 body{
-  background-color: #F6CA83;
+  background-color: #faf3dd;
+  padding-left: 10vh;
+  padding-right: 10vh;
+  font-family: 'Patrick Hand', cursive;
+}
+
+.score_display,
+.countdown_display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.board-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.board-title {
+  padding: 10px 0;
+}
+
+#size_selector {
+  padding: 4px 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #999;
 }
 
 .board {
   display: inline-grid; 
   grid-template-columns: repeat(var(--size-grid), 50px);
+  gap: 2px
 }
 
 .cell {
+  box-sizing: border-box;
+  background-color: #b8f2e6 ;
   width: 50px;
   height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid #949D6A;
+  border: 2px solid #aed9e0;
+  border-radius: 5px;
+}
+
+.selected {
+  color: #ffa69e;
+  background-color: #aed9e0;
+}
+
+.btnOptions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 20px;
+  gap: 10px
+}
+
+button {
+  padding: 8px 10px;
+  background-color: #ffa69e ;
+  border-radius: 10px;
+  border: 2px solid #f77f00;
+}
+
+.resetBtnContainer {
+  padding: 10px;
+  text-align: center;
+}
+.resetBtn{
+  align-items: center;
+}
+.display_selected_words{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+#wordsDisplay{
+  border-radius: 15px;
+  border: 3px solid #aed9e0;
+  padding: 10px;
+  background-color: #d4e09b;
+  color: #f77f00
+}
+
+.cell:hover{
+  background-color:#d4e09b; ;
+}
+button:hover{
+  background-color: #faf3dd;
+}
+
+/* showMessage */
+.message-box{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background-color: #f77f00;
+  color: #faf3dd;
+  transform: translate(-50%, -50%);
+
+  padding: 12px 24px;
+  border-radius: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  z-index: 1;
+}
+
+.message-box.hidden {
+  opacity: 0;
+  top: 10%; 
+  pointer-events: none; 
+}
+
+.message-box.show {
+  opacity: 1;
+  top: 30%;
 }

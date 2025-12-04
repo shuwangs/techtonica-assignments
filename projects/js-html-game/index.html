@@ -5,21 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>JS HTML Game</title>
     <link href="style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
   </head>
 
   <body>
-
+    <h1 style="text-align:center;" class="title">Boggle</h1>
     <section class="timer_container">
       <div class="countdown_display">
-        <h2>Timer</h2>
-          <h3>3 :00</h3>
+        <h3>Timer:</h3>
+        <h3 id="time_area">1:00</h3>
       </div>
     </section>
 
     <section class="score_container">
       <div class="score_display">
-        <h2>Scores:</h2>
-        <h3>0</h3>
+        <h3>Scores:</h3>
+        <h3 id="score_area">0</h3>
       </div>
     </section>
 
@@ -37,7 +38,25 @@
      
     </section>
 
+    <div class="btnOptions">
+      <button id="startBtn">Start</button>
+      <button id="submitBtn">Submit</button>
+      <button id="clearBtn">Clear</button>
 
+    </div>
+
+    <div class="resetBtnContainer">
+      <button id="resetBtn">Reset</button>
+    </div>
+
+    <div id="gameMessage" class="message-box hidden"></div>
+    
+    <section class="display_selected_words">
+      <label for="wordsDisplay">Valid Words</label>
+      <textarea cols="30" rows ="10" id="wordsDisplay" >
+
+      </textarea>
+    </section>
   </body>
     <script src="script.js"></script>
 </html>
