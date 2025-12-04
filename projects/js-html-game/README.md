@@ -1,6 +1,8 @@
 # 🔠 Boggle Game
 A web-based implementation of the classic word search game "Boggle", built with HTML, CSS, and Vanilla JavaScript. This project features a custom game engine, real-time dictionary validation.
 
+### 🚀 **Play Live Demo:** [https://boggleplay.vercel.app/](https://boggleplay.vercel.app/)
+
 ---
 
 ## ✨ Features
