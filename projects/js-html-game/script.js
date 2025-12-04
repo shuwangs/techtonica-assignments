@@ -113,12 +113,12 @@ const calculateScores = (word) => {
   return points;
 }
 
-// const isValidWord = (word) => {
-//   if (dictionarySet.has(word)) {
-//     return true;
-//   } 
-//   return false;
-// };
+const isValidWordLocal = (word) => {
+  if (dictionarySet.has(word)) {
+    return true;
+  } 
+  return false;
+};
 
 async function testWordAPI(word) {
    try {
@@ -294,11 +294,12 @@ const submitBtnHandler = async () => {
     return;
   }
 
-  // Check if word is valid. -- testWordAPI.  --- isValidWord
+  // Check if word is valid.--- isValidWord -- testWordAPI.  --- isValidWord
+   const isValidLocal = isValidWordLocal(word);
+ 
+   const isValidApi = await(testWordAPI(word));
 
-  const isValid = await(testWordAPI(word));
-
-   if (!isValid) {
+   if (!isValidLocal && !isValidApi) {
     showMessage("Not a valid word");
     clearSelectedCells();
     GameState.selectedIdx = [];
@@ -306,13 +307,6 @@ const submitBtnHandler = async () => {
     return;
    }
 
-//   if (!isValidWord(word)) {
-//     showMessage("Not a valid word");
-//     clearSelectedCells();
-//     GameState.selectedIdx = [];
-//     playSound('error');
-//     return;
-//   }
 
   GameState.foundWords.add(word);
   GameState.score += calculateScores(word);
