@@ -113,25 +113,24 @@ const calculateScores = (word) => {
   return points;
 }
 
-const isValidWord = (word) => {
-  if (dictionarySet.has(word)) {
-    return true;
-  } 
-  return false;
-};
+// const isValidWord = (word) => {
+//   if (dictionarySet.has(word)) {
+//     return true;
+//   } 
+//   return false;
+// };
 
-// async function testWordAPI(word) {
-//    try {
-//       const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}>`)
-//       if (! res.ok) {
-//          return false;
-//       } 
-//       return true;
-//    } catch(error) {
-//       console.error("API Error:", error.message);
-//    }
-
-// }
+async function testWordAPI(word) {
+   try {
+      const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+      if (! res.ok) {
+         return false;
+      } 
+      return true;
+   } catch(error) {
+      console.error("API Error:", error.message);
+   }
+}
 
 const startTimer = () => {
   if(GameState.timerId) {
@@ -262,7 +261,7 @@ const startBtnHandler = () => {
   startTimer();
 }
 
-const submitBtnHandler = () => {
+const submitBtnHandler = async () => {
   if(GameState.remainingTime <= 0) {
     playSound('wrong');
     return;
@@ -295,16 +294,25 @@ const submitBtnHandler = () => {
     return;
   }
 
-  // Check if word is valid
-  // testWordAPI
-  // isValidWord
-  if (!isValidWord(word)) {
+  // Check if word is valid. -- testWordAPI.  --- isValidWord
+
+  const isValid = await(testWordAPI(word));
+
+   if (!isValid) {
     showMessage("Not a valid word");
     clearSelectedCells();
     GameState.selectedIdx = [];
     playSound('error');
     return;
-  }
+   }
+
+//   if (!isValidWord(word)) {
+//     showMessage("Not a valid word");
+//     clearSelectedCells();
+//     GameState.selectedIdx = [];
+//     playSound('error');
+//     return;
+//   }
 
   GameState.foundWords.add(word);
   GameState.score += calculateScores(word);
