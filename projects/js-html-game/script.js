@@ -358,7 +358,7 @@ const soundHandler = () =>{
     muteBtn.style.backgroundColor = "#ccc"; 
   } else {
     muteBtn.innerText = "🔊"; 
-    muteBtn.style.backgroundColor = "#ffa69e"; 
+    muteBtn.style.backgroundColor = "#faf3dd"; 
   }
 }
 
