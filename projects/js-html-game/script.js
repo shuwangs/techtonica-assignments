@@ -12,9 +12,10 @@ const startBtn = document.getElementById("startBtn");
 const submitBtn = document.getElementById("submitBtn");
 const clearBtn = document.getElementById("clearBtn");
 const resetBtn = document.getElementById("resetBtn");
-
+const muteBtn = document.getElementById("muteBtn");
 const messageBox = document.getElementById("gameMessage");
 let messageTimeout;
+let isMuted = false;
 
 // ========== GAME STATE ==========
 const GameState = {
@@ -57,8 +58,9 @@ for (let key in sounds) {
 
 // ========= HELPER FUNCTIONS =========
 const getRandomLetter = () => {
-  patterns = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  return patterns.charAt(Math.floor(Math.random()* 26));
+  const weightedPattern = "AAAAAAAAABBCCDDDEEEEEEEEEEEEFFGGGHHIIIIIIIIIJKLLLLMMNNNNNNOOOOOOOOPPQRRRRRRSSSSTTTTTTUUUUVVWWXYYZ";
+  // const patterns = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  return weightedPattern.charAt(Math.floor(Math.random()* weightedPattern.length));
 }
 
 const displayTime = (minutes, seconds) => {
@@ -77,6 +79,7 @@ const areNeighbors = (last,curr) => {
 }
 
 const playSound = (soundtype) => {
+  if (isMuted) return; 
    const audio = sounds[soundtype];
    if(audio) {
       audio.currentTime = 0;
@@ -347,9 +350,19 @@ const resetBtnHandler = () => {
   renderBoard();
 }
 
+const soundHandler = () =>{
+  isMuted = !isMuted; 
+  
+  if (isMuted) {
+    muteBtn.innerText = "🔇"; 
+    muteBtn.style.backgroundColor = "#ccc"; 
+  } else {
+    muteBtn.innerText = "🔊"; 
+    muteBtn.style.backgroundColor = "#ffa69e"; 
+  }
+}
 
 // ========= INIT =========
-
 const init = () => {
   loadDictionary();
   renderBoard();
@@ -363,3 +376,5 @@ startBtn.addEventListener("click", startBtnHandler);
 submitBtn.addEventListener("click", submitBtnHandler);
 clearBtn.addEventListener("click", clearBtnHandler);
 resetBtn.addEventListener("click", resetBtnHandler);
+
+muteBtn.addEventListener("click", soundHandler);
