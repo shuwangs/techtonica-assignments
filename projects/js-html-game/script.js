@@ -270,12 +270,12 @@ const startBtnHandler = () => {
 
 const submitBtnHandler = async () => {
   if(GameState.remainingTime <= 0) {
-    playSound('wrong');
+    playSound('error');
     return;
   }
   if(GameState.selectedIdx.length === 0) {
     showMessage("No letter is selected");
-    playSound('wrong');
+    playSound('error');
     return;
   }
 
@@ -288,7 +288,7 @@ const submitBtnHandler = async () => {
     showMessage("Words too short");
     clearSelectedCells();
     GameState.selectedIdx = [];
-    playSound('wrong');
+    playSound('error');
     return;
   }
 
