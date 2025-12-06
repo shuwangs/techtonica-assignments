@@ -262,7 +262,8 @@ const cellClickHandler = (event) => {
 
 
 const startBtnHandler = () => {
-  GameState.score = 0
+  GameState.score = 0;
+  GameState.foundWords = new Set();
   clearSelectedCells();
 
   startTimer();
