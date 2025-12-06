@@ -8,6 +8,7 @@ import './GameBoard.css';
 // =========== States & Props ===========
 // GameBoard will manage the main states of the game such as score, energy, items, cat position, and whether the game is playing or paused.
 // These states will be updated based on user interactions and game events.
+const setScore = () => null;
 
 function GameBoard() {
     const [score, setScore] = useState(0);
