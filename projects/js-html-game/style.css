@@ -8,15 +8,23 @@ body{
   padding-right: 10vh;
   font-family: 'Patrick Hand', cursive;
 }
+.header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 
 .score_display,
 .countdown_display {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
 }
-
+.score_display h3, 
+.countdown_display h3 {
+  margin: 5px 0;
+}
 .board-container{
   display: flex;
   flex-direction: column;
@@ -80,6 +88,16 @@ button {
 .resetBtn{
   align-items: center;
 }
+
+#muteBtn  {
+  position: absolute;
+  left: 50%;
+  margin-left: 80px;
+  top: 30px;         
+  background: none;
+  border: 2px solid #aed9e0;
+}
+
 .display_selected_words{
   display: flex;
   flex-direction: column;

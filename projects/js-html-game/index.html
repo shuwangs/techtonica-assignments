@@ -9,20 +9,19 @@
   </head>
 
   <body>
-    <h1 style="text-align:center;" class="title">Boggle</h1>
-    <section class="timer_container">
-      <div class="countdown_display">
-        <h3>Timer:</h3>
-        <h3 id="time_area">1:00</h3>
-      </div>
-    </section>
+    <div class="header-container">
+      <h1 class="title">Boggle</h1>
+      <button id="muteBtn" title="Toggle Sound">🔊</button>
+    </div>
 
-    <section class="score_container">
-      <div class="score_display">
-        <h3>Scores:</h3>
-        <h3 id="score_area">0</h3>
+    <div class="header_bar">
+      <div class="countdown_display">
+        <h3>Timer: <span id="time_area">1:00</span></h3>
       </div>
-    </section>
+      <div class="score_display">
+        <h3>Scores: <span id="score_area">0</span></h3>
+      </div>
+    </div>
 
     <section class="board-container" >
       <div class="board-title">
