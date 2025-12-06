@@ -9,7 +9,7 @@ A web-based implementation of the classic word search game "Boggle", built with 
 - Dynamic Board Generation: Supports customizable grid sizes ranging from 3x3 to 6x6.
 - Hybrid Validation:
   - Uses a Set data structure for O(1) local lookup performance.
-  - Integrates Async/Await to fetch data from the free Dictionary API for enhanced validation.
+  - Integrates Async/Await to fetch data from the [`free Dictionary API`](https://dictionaryapi.dev/) for enhanced validation.
 - Non-blocking Notifications: Custom "toast" messages replace native browser alerts for a smoother user experience.
 - Scoring System: Dynamic scoring based on word length (e.g., longer words yield exponentially higher points)
 - **Interactive Audio**: Implemented sound effects (`.wav`) for clicks, correct submissions, errors, and game over states.
