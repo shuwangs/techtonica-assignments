@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import HeaderBar from "./HeaderBar";
 import CatPlayer from "./CatPlayer";
+import Controls from "./Controls";
 import './GameBoard.css';
 // import FallingItems from "./FallingItems";
 
@@ -28,6 +29,8 @@ function GameBoard() {
                     <CatPlayer />
                 </div>
             </div>
+
+            <Controls />
         </div>
     )
 }
