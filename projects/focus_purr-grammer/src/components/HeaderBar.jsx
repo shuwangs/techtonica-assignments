@@ -1,5 +1,5 @@
 import React from "react";
-
+import './HeaderBar.css'
 function HeaderBar({ score, energy }) {
     return (
         <div className = 'header-bar'>

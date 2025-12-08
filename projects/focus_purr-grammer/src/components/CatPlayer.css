@@ -1,3 +1,5 @@
 #cat_icon {
   width: 60px;
+  position: absolute;
+  bottom: 0px;
 }

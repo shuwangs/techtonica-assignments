@@ -1,7 +1,13 @@
 
-body {
-  font-family: 'Consolas', monospace;
-  background-color: #1e1e1e;
+body, app-container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;          
+  justify-content: center;
+  align-items: center;     
+  background-color: #1e1e1e; 
 }
 
 @keyframes logo-spin {
