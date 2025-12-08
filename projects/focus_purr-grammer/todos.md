@@ -13,4 +13,14 @@
 - falling items
 - cat icon
 - buttons: start pause reset
-- 
+
+[] function: create random falling items
+[] function: random set fallingtime X location
+[] function: cat move
+[] function: handle collison
+[] function: startBtn handler
+[] function: pauseBtn handler
+[] function: resetBtn handler
+[] tick function: update items position, spawn new, check collision, update time/energy
+[] function: handleKeyDown (ArrowLeft/ArrowRight → update catX)
+[] game Status management
