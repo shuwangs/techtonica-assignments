@@ -1,7 +1,6 @@
-import React  from "react";
 
 export const ITEM_CONFIG = {
-  bugs: {
+  bug: {
     category: "work",
     emoji: "🐛",
     score: 1,
@@ -19,9 +18,15 @@ export const ITEM_CONFIG = {
     score: 1,
     energy: 0
   },
-  error404: {
+  error: {
     category: "work",
     emoji: "🚫",
+    score: 2,
+    energy: 0
+  },
+  error404: {
+    category: "work",
+    emoji: "4️⃣0️⃣4️⃣",
     score: 2,
     energy: 0
   },
