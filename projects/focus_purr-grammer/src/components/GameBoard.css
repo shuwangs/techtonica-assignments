@@ -13,6 +13,8 @@
 }
 
 .playing_area{
+  position: relative;
+
   width: 500px;
   height: 600px;
   border: 4px solid #ccc;
@@ -20,4 +22,8 @@
   overflow: hidden;
   margin-top: 10px;
   position:relative;
+}
+.cat_container {
+  position: absolute;
+  bottom: 0px;
 }

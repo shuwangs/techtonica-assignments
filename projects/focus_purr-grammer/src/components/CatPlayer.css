@@ -1,5 +1,8 @@
 #cat_icon {
   width: 60px;
+}
+
+#catplay {
   position: absolute;
   bottom: 0px;
 }
