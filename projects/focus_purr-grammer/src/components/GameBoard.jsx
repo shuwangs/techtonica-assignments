@@ -5,16 +5,17 @@ import Controls from "./Controls";
 import FallingItems from "./FallingItems";
 import './GameBoard.css';
 import { ITEM_CONFIG } from "../config/ItemConfig";
-// import FallingItems from "./FallingItems";
 
 // =========== States & Props ===========
 // GameBoard will manage the main states of the game such as score, energy, items, cat position, and whether the game is playing or paused.
 // These states will be updated based on user interactions and game events.
 const BOARD_WIDTH = 500;
+const BOARD_HEIGHT = 600;
 const CAT_WIDTH = 60;
 const ITEM_SIZE = 40;
 const CAT_SPEED = 20;
 const INITIAL_ITEM_SPEED = 4;
+const SPAWN_RATE = 0.1;
 let itemCounter = 0;
 
 function GameBoard() {
@@ -31,9 +32,29 @@ function GameBoard() {
     // =========== Falling Items ===========
     const [items, setItems] = useState([]);
 
+
+    // ========== UseEffects ==============
     useEffect(() => {
-            console.log("Current Game Status:", gameStatus);
-        }, [gameStatus]);
+        console.log("something changed!");
+    }, [score, energy, gameStatus]);
+
+    // Use effect to control cat movement
+    useEffect(()=>{
+        window.addEventListener('keydown', handleKeyDown);
+        return()=> {
+            window.removeEventListener('keydown', handleKeyDown);
+        }
+    }, [gameStatus]);
+
+    // useEffect call the falling items
+    useEffect(() => {
+        if (gameStatus !== "running") return;
+        const intervalId = setInterval(() => {
+            itemFalling();  
+        }, 50);
+
+        return () => clearInterval(intervalId);
+    }, [gameStatus]);
 
     // Create random items
     // Helper: Calculate Speed
@@ -56,6 +77,25 @@ function GameBoard() {
             itemY: -ITEM_SIZE,
             itemSpeed: speed
         }
+    }
+
+    // SetItems 
+    const itemFalling = () => {
+        setItems(prevItems =>{
+            let next = prevItems.map(item => ({
+                ...item,
+                itemY: item.itemY + item.itemSpeed
+            }));
+            let visible = next.filter(
+                item => item.itemY < BOARD_HEIGHT + ITEM_SIZE
+            );
+
+            // Add new items to falling;
+            if (Math.random() < SPAWN_RATE) {
+                visible = [...visible, createRandomItem()];
+            }
+            return visible;
+        })
     }
 
     // ========== Handle Cat Moves =========
@@ -103,13 +143,6 @@ function GameBoard() {
         // TODOS:  Game Reset Logic
     }
 
-    // ========== UseEffects ==============
-    useEffect(()=>{
-        window.addEventListener('keydown', handleKeyDown);
-        return()=> {
-            window.removeEventListener('keydown', handleKeyDown);
-        }
-    },[gameStatus]);
 
     // ========== Returning Functions =========
     return (
