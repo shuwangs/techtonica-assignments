@@ -1,8 +1,8 @@
 import React from "react";
-import {ITEMS_CONFIG} from '../config/ItemConfig';
+import {ITEM_CONFIG} from '../config/ItemConfig';
 
-function FallingItems({item_type, itemX}) {
-  const config = ITEMS_CONFIG[item_type];
+function FallingItems({item_type, itemX, itemY}) {
+  const config = ITEM_CONFIG[item_type];
 
   if (!config) {
     console.warn(`Unknown item type ${item_type}`);

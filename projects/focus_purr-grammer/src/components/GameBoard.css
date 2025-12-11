@@ -1,6 +1,6 @@
 .game_board{
   width: 800px;
-  height: 100wh;
+  height: 100vh;
   background-color: #102438 ;
   margin: auto auto;
   display: flex;
