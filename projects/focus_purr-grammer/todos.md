@@ -14,17 +14,18 @@
 - cat icon
 - buttons: start pause reset
 
-[ ] function: create random falling items
-[ ] function: random set fallingtime X location
-[~ ] function: cat move
+[X] function: create random falling items
+[X] function: random set fallingitems location
+[X] function: cat move
 [ ] function: handle collison
 [~] function: startBtn handler
 [~] function: pauseBtn handler
 [~] function: resetBtn handler
 [ ] tick function: update items position, spawn new, check collision, update time/energy
-[ ] function: handleKeyDown (ArrowLeft/ArrowRight → update catX)
+[X] function: handleKeyDown (ArrowLeft/ArrowRight → update catX)
 [ ] game Status management
 
 ## Issues:
 [X] play area must be focused before it moves with arrow key down.
  - amazing, use effect solve it so simply, but what is useEffect, what is used for.
+ - 
