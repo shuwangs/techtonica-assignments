@@ -103,30 +103,36 @@ function GameBoard() {
         // TODOS:  Game Reset Logic
     }
 
-
+    // ========== UseEffects ==============
+    useEffect(()=>{
+        window.addEventListener('keydown', handleKeyDown);
+        return()=> {
+            window.removeEventListener('keydown', handleKeyDown);
+        }
+    },[gameStatus]);
 
     // ========== Returning Functions =========
     return (
-        <div className="game_board" tabIndex="0">
+        <div className="game_board" 
+            tabIndex="0"
+            onKeyDown={handleKeyDown}>
             <h1>Focus! Purr-grammer</h1>
             <HeaderBar score={score} energy={energy} />
 
             <div className = "playing_area"
-                tabIndex="0"
-                onKeyDown={handleKeyDown}>
+                >
                 {/* <FallingItems /> */}
                 {items.map((item)=> (
                     <FallingItems 
                     key= {item.id}
                     type= {item.type}
                     itemX={item.itemX}
-                    itemY={item.itemYs}
+                    itemY={item.itemY}
                     />
                 ))}
 
 
-                <div className="cat_container" style={{left: catPosition}}
-                onKeyDown={handleKeyDown}>
+                <div className="cat_container" style={{left: catPosition}}>
                     <CatPlayer />
                 </div>
             </div>
