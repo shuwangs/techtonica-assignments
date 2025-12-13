@@ -45,11 +45,12 @@ function GameBoard() {
 
     // ========== useEffect control sound ============
     const bgmRef = useRef(new Audio(BGM));
+
     useEffect(() =>{
         const bgm = bgmRef.current;
         bgm.loop = true;
         bgm.muted = isMuted;
-        bgm.volume = 0.4;
+        bgm.volume = 0.3;
         if (gameStatus === "running") {
             bgm.play().catch(e => console.log("BGM 等待交互:", e));
         } else {
@@ -93,7 +94,7 @@ function GameBoard() {
                 setItems(prev => prev.filter(i => i.id !== item.id));
             }
         });
-    }, [items, catPosition, gameStatus])
+    }, [items, catPosition, gameStatus, isMuted])
 
 
 
@@ -164,17 +165,6 @@ function GameBoard() {
         const config = ITEM_CONFIG[collidedItem.type];
 
         if (config) {
-            if(!isMuted) {
-                if(config.category === "work") {
-                    const happySound = new Audio(GOOD_MUSIC);
-                    happySound.volume = 0.6;
-                    happySound.play();
-                } else {
-                    const errorSound = new Audio(ERROR_MUSIC);
-                    errorSound.volume = 0.6;
-                    errorSound.play();
-                }
-            }
             setScore(prev => Math.max(0, prev + config.score));
             setEnergy(prev => Math.max(100, prev + config.energy));
         }
