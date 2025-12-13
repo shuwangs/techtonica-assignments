@@ -9,13 +9,13 @@ import { ITEM_CONFIG } from "../config/ItemConfig";
 // =========== States & Props ===========
 // GameBoard will manage the main states of the game such as score, energy, items, cat position, and whether the game is playing or paused.
 // These states will be updated based on user interactions and game events.
-const BOARD_WIDTH = 500;
+const BOARD_WIDTH = 400;
 const BOARD_HEIGHT = 600;
-const CAT_WIDTH = 60;
+const CAT_WIDTH = 50;
 const ITEM_SIZE = 40;
 const CAT_SPEED = 20;
 const INITIAL_ITEM_SPEED = 4;
-const SPAWN_RATE = 0.1;
+const SPAWN_RATE = 0.08;
 let itemCounter = 0;
 
 function GameBoard() {
@@ -56,6 +56,23 @@ function GameBoard() {
         return () => clearInterval(intervalId);
     }, [gameStatus]);
 
+
+
+    // useEffect handle collison
+    useEffect(()=> {
+        if (gameStatus !== "running") return;
+        items.forEach(item => {
+            if (isColliding(item, catPosition)) {
+                handleCollision(item);
+                
+                setItems(prev => prev.filter(i => i.id !== item.id));
+            }
+        });
+    }, [items, catPosition, gameStatus])
+
+
+
+
     // Create random items
     // Helper: Calculate Speed
     const itemSpeed = (score) => {
@@ -86,17 +103,48 @@ function GameBoard() {
                 ...item,
                 itemY: item.itemY + item.itemSpeed
             }));
+          
             let visible = next.filter(
                 item => item.itemY < BOARD_HEIGHT + ITEM_SIZE
             );
 
             // Add new items to falling;
             if (Math.random() < SPAWN_RATE) {
-                visible = [...visible, createRandomItem()];
+                visible.push(createRandomItem());
             }
             return visible;
         })
     }
+    // ========== Handle Collision =========
+    const isColliding = (newItem, catPosition) => {
+        // Item position
+        const itemLeft = newItem.itemX;
+        const itemRight = newItem.itemX + ITEM_SIZE;
+        const itemTop = newItem.itemY;
+        const itemBottom = newItem.itemY + ITEM_SIZE;
+        
+        // Cat position
+        const catLeft = catPosition;
+        const catRight = catPosition + CAT_WIDTH;
+        const catTop = BOARD_HEIGHT - CAT_WIDTH;
+        const catBottom = BOARD_HEIGHT;
+
+        return (itemRight > catLeft && itemLeft < catRight 
+            && itemBottom > catTop && itemTop < catBottom
+        )
+    }
+
+    // ========== Handle Collision =========
+    const handleCollision = (collidedItem) => {
+        const config = ITEM_CONFIG[collidedItem.type];
+        if (config) {
+            setScore(prev => Math.max(0, prev + config.score));
+            setEnergy(prev => Math.max(100, prev + config.energy));
+        }
+        console.log(`Caught ${config.emoji}! Score: ${config.score},
+             Energy: ${config.energy}`);
+    }
+
 
     // ========== Handle Cat Moves =========
     const handleKeyDown =(event) => {
@@ -109,6 +157,8 @@ function GameBoard() {
             setCatPosition((prevState) => Math.min(BOARD_WIDTH-CAT_WIDTH, prevState + CAT_SPEED))
         }
     }
+
+
 
     // ========== Button Fucntions =========
     const handleStart = () => {

@@ -1,4 +1,5 @@
 import React from "react";
+import './FallingItems.css';
 import {ITEM_CONFIG} from '../config/ItemConfig';
 
 function FallingItems({type, itemX, itemY}) {
@@ -14,7 +15,7 @@ function FallingItems({type, itemX, itemY}) {
     top: itemY
   };
 
-  return <div style={style}>{config.emoji}</div>;
+  return <div className="falling_item" style={style}>{config.emoji}</div>;
 }
 
 export default FallingItems;

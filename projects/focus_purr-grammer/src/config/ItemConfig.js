@@ -24,12 +24,6 @@ export const ITEM_CONFIG = {
     score: 2,
     energy: 0
   },
-  error404: {
-    category: "work",
-    emoji: "4️⃣0️⃣4️⃣",
-    score: 2,
-    energy: 0
-  },
   catnip: {
     category: "distraction",
     emoji: "🌿",
