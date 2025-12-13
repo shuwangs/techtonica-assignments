@@ -17,14 +17,16 @@
 [X] function: create random falling items
 [X] function: random set fallingitems location
 [X] function: cat move
-[ ] function: handle collison
-[~] function: startBtn handler
-[~] function: pauseBtn handler
-[~] function: resetBtn handler
-[ ] tick function: update items position, spawn new, check collision, update time/energy
+[X] function: handle collison
+[X] function: startBtn handler
+[X] function: pauseBtn handler
+[X] function: resetBtn handler
+[X] tick function: update items position, spawn new, check collision, update time/energy
 [X] function: handleKeyDown (ArrowLeft/ArrowRight → update catX)
-[ ] game Status management
-
+[X] game Status management
+[ ] scores and energy logic
+[ ] set a timer or not
+[ ] speed is changed or not? speed is not working by 12/13;
 ## Issues:
 [X] play area must be focused before it moves with arrow key down.
  - amazing, use effect solve it so simply, but what is useEffect, what is used for.

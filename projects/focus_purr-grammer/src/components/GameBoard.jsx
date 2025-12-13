@@ -52,7 +52,7 @@ function GameBoard() {
         bgm.muted = isMuted;
         bgm.volume = 0.3;
         if (gameStatus === "running") {
-            bgm.play().catch(e => console.log("BGM 等待交互:", e));
+            bgm.play().catch(e => console.log("BGM wating for the music to play:", e));
         } else {
             bgm.pause();
             if (gameStatus === "idle") {
@@ -102,10 +102,10 @@ function GameBoard() {
     // Create random items
     // Helper: Calculate Speed
     const itemSpeed = (score) => {
-        if (score < 50) return INITIAL_ITEM_SPEED;
-        if (score < 100) return INITIAL_ITEM_SPEED * 2;
-        if (score < 150) return INITIAL_ITEM_SPEED * 3;
-        return INITIAL_ITEM_SPEED * 4;
+        if (score < 10) return INITIAL_ITEM_SPEED;
+        else if (score < 20) return INITIAL_ITEM_SPEED * 4;
+        else if (score < 50) return INITIAL_ITEM_SPEED * 10;
+        else return INITIAL_ITEM_SPEED * 20;
     }
     // Helper: Create Random Item
     const createRandomItem = () => {
@@ -113,6 +113,7 @@ function GameBoard() {
         const randomIdx = Math.floor((Math.random() * types.length));
         const randomType = types[randomIdx];
         const speed = itemSpeed(score);
+        console.log(speed);
         return {
             id: itemCounter++,
             type: randomType,

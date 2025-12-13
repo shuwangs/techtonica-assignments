@@ -15,19 +15,19 @@ export const ITEM_CONFIG = {
   worm: {
     category: "work",
     emoji: "🪱",
-    score: 1,
+    score: 2,
     energy: 0
   },
   error: {
     category: "work",
     emoji: "🚫",
-    score: 2,
+    score: 3,
     energy: 0
   },
   catnip: {
     category: "distraction",
     emoji: "🌿",
-    score: -1,
+    score: -3,
     energy: 0
   },
   yarn: {
