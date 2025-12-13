@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import HeaderBar from "./HeaderBar";
 import CatPlayer from "./CatPlayer";
 import Controls from "./Controls";
 import FallingItems from "./FallingItems";
 import './GameBoard.css';
 import { ITEM_CONFIG } from "../config/ItemConfig";
+
+import BGM from "../assets/sounds/bgm.mp3";
+import ERROR_MUSIC from "../assets/sounds/error.wav";
+import GOOD_MUSIC from "../assets/sounds/success.wav";
 
 // =========== States & Props ===========
 // GameBoard will manage the main states of the game such as score, energy, items, cat position, and whether the game is playing or paused.
@@ -22,6 +26,7 @@ function GameBoard() {
     // =========== Core States ===========
     const [score, setScore] = useState(0);
     const [energy, setEnergy] = useState(100);
+    const [isMuted, setIsMute] = useState(false);
 
     // Game Status can be idle, running, paused, over
     const [gameStatus, setGameStatus] = useState('idle');
@@ -37,6 +42,26 @@ function GameBoard() {
     useEffect(() => {
         console.log("something changed!");
     }, [score, energy, gameStatus]);
+
+    // ========== useEffect control sound ============
+    const bgmRef = useRef(new Audio(BGM));
+    useEffect(() =>{
+        const bgm = bgmRef.current;
+        bgm.loop = true;
+        bgm.muted = isMuted;
+        bgm.volume = 0.4;
+        if (gameStatus === "running") {
+            bgm.play().catch(e => console.log("BGM 等待交互:", e));
+        } else {
+            bgm.pause();
+            if (gameStatus === "idle") {
+                bgm.currentTime = 0; 
+            }
+        }
+    }, [gameStatus, isMuted]);
+
+
+
 
     // Use effect to control cat movement
     useEffect(()=>{
@@ -137,7 +162,19 @@ function GameBoard() {
     // ========== Handle Collision =========
     const handleCollision = (collidedItem) => {
         const config = ITEM_CONFIG[collidedItem.type];
+
         if (config) {
+            if(!isMuted) {
+                if(config.category === "work") {
+                    const happySound = new Audio(GOOD_MUSIC);
+                    happySound.volume = 0.6;
+                    happySound.play();
+                } else {
+                    const errorSound = new Audio(ERROR_MUSIC);
+                    errorSound.volume = 0.6;
+                    errorSound.play();
+                }
+            }
             setScore(prev => Math.max(0, prev + config.score));
             setEnergy(prev => Math.max(100, prev + config.energy));
         }
@@ -160,7 +197,7 @@ function GameBoard() {
 
 
 
-    // ========== Button Fucntions =========
+    // ========== Button Functions =========
     const handleStart = () => {
         if(gameStatus === "idle" || gameStatus === "over") {
             setScore(0);
@@ -193,6 +230,9 @@ function GameBoard() {
         // TODOS:  Game Reset Logic
     }
 
+    const toggleMute = () => {
+        return setIsMute(!isMuted);
+    }
 
     // ========== Returning Functions =========
     return (
@@ -200,7 +240,12 @@ function GameBoard() {
             tabIndex="0"
             onKeyDown={handleKeyDown}>
             <h1>Focus! Purr-grammer</h1>
-            <HeaderBar score={score} energy={energy} />
+            <HeaderBar 
+                score={score}
+                energy={energy}
+                isMuted={isMuted}
+                toggleMute={toggleMute}
+            />
 
             <div className = "playing_area"
                 >
