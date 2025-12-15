@@ -37,7 +37,6 @@ function GameBoard() {
 
     // =========== Falling Items ===========
     const [items, setItems] = useState([]);
-    let isGameOver
 
     // ========== UseEffects ==============
     useEffect(() => {
@@ -79,7 +78,7 @@ function GameBoard() {
         }, 50);
 
         return () => clearInterval(intervalId);
-    }, [gameStatus]);
+    }, [gameStatus, score]);
 
 
     // useEffect handle collison
@@ -92,7 +91,7 @@ function GameBoard() {
                 setItems(prev => prev.filter(i => i.id !== item.id));
             }
         });
-    }, [items, catPosition, gameStatus, isMuted])
+    }, [items, catPosition, gameStatus, isMuted, score])
 
     // ========== Handle GameOver =========
     useEffect (() =>{
@@ -105,12 +104,12 @@ function GameBoard() {
     // Helper: Calculate Speed
     const itemSpeed = (score) => {
         if (score < 10) return INITIAL_ITEM_SPEED;
-        else if (score < 20) return INITIAL_ITEM_SPEED * 4;
-        else if (score < 50) return INITIAL_ITEM_SPEED * 10;
-        else return INITIAL_ITEM_SPEED * 20;
+        else if (score < 20) return INITIAL_ITEM_SPEED * 2;
+        else if (score < 50) return INITIAL_ITEM_SPEED * 4;
+        else return INITIAL_ITEM_SPEED * 8;
     }
     // Helper: Create Random Item
-    const createRandomItem = (currentItems) => {
+    const createRandomItem = (currentItems, score) => {
         const types = Object.keys(ITEM_CONFIG);
         const randomIdx = Math.floor((Math.random() * types.length));
         const randomType = types[randomIdx];
@@ -149,7 +148,7 @@ function GameBoard() {
 
             // Add new items to falling;
             if (Math.random() < SPAWN_RATE) {
-                const newItem = createRandomItem(prevItems);
+                const newItem = createRandomItem(prevItems, score);
                 if (newItem) {
                     visible.push(newItem);
                 }
