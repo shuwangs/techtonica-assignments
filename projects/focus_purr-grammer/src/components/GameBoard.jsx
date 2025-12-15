@@ -236,7 +236,15 @@ function GameBoard() {
         <div className="game_board" 
             tabIndex="0"
             onKeyDown={handleKeyDown}>
-            <h1>Focus! Purr-grammer</h1>
+
+            <div className="game_instruction_container">
+                <p className="game_instructions">
+                    Catch bugs and errors: 🐛 🐞 🪱 🚫 <br/>
+                    Avoid distractions: 🐭 🧶 🌿
+                </p>
+            </div>
+
+            <h1 className="game_title">Focus! Purr-grammer</h1>
             <HeaderBar 
                 score={score}
                 energy={energy}

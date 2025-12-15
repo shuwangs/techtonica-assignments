@@ -2,7 +2,8 @@
   width: 800px;
   height: 100vh;
   background-color: #102438 ;
-  margin: auto auto;
+  margin: 0px auto;
+  padding-top: 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,8 +12,18 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 
 }
+.game_instruction_container {
+  color: #d9773a;
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 .game_board h1 {
   font-size: 2.5rem;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 .playing_area{
   position: relative;
