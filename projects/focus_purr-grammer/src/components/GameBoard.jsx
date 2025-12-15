@@ -96,9 +96,6 @@ function GameBoard() {
         });
     }, [items, catPosition, gameStatus, isMuted])
 
-
-
-
     // Create random items
     // Helper: Calculate Speed
     const itemSpeed = (score) => {
@@ -108,16 +105,26 @@ function GameBoard() {
         else return INITIAL_ITEM_SPEED * 20;
     }
     // Helper: Create Random Item
-    const createRandomItem = () => {
+    const createRandomItem = (currentItems) => {
         const types = Object.keys(ITEM_CONFIG);
         const randomIdx = Math.floor((Math.random() * types.length));
         const randomType = types[randomIdx];
         const speed = itemSpeed(score);
         console.log(speed);
+
+        const totalColumns = Math.floor(BOARD_WIDTH / ITEM_SIZE);
+        const colIndex = Math.floor(Math.random() * totalColumns);
+        const newX = colIndex * ITEM_SIZE;
+
+        const isLaneBlocked = currentItems.some(item => 
+            Math.abs(item.itemX - newX) < 5 && item.itemY < 40
+        );
+
+        if (isLaneBlocked) return null;
         return {
             id: itemCounter++,
             type: randomType,
-            itemX: Math.floor(Math.random() * (BOARD_WIDTH - ITEM_SIZE)),
+            itemX: newX,
             itemY: -ITEM_SIZE,
             itemSpeed: speed
         }
@@ -137,7 +144,7 @@ function GameBoard() {
 
             // Add new items to falling;
             if (Math.random() < SPAWN_RATE) {
-                visible.push(createRandomItem());
+                visible.push(createRandomItem(prevItems));
             }
             return visible;
         })
