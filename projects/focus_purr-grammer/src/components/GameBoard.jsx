@@ -3,6 +3,7 @@ import HeaderBar from "./HeaderBar";
 import CatPlayer from "./CatPlayer";
 import Controls from "./Controls";
 import FallingItems from "./FallingItems";
+import GameOver from './GameOver';
 import './GameBoard.css';
 import { ITEM_CONFIG } from "../config/ItemConfig";
 
@@ -36,7 +37,7 @@ function GameBoard() {
 
     // =========== Falling Items ===========
     const [items, setItems] = useState([]);
-
+    let isGameOver
 
     // ========== UseEffects ==============
     useEffect(() => {
@@ -50,7 +51,7 @@ function GameBoard() {
         const bgm = bgmRef.current;
         bgm.loop = true;
         bgm.muted = isMuted;
-        bgm.volume = 0.3;
+        bgm.volume = 0.1;
         if (gameStatus === "running") {
             bgm.play().catch(e => console.log("BGM wating for the music to play:", e));
         } else {
@@ -60,8 +61,6 @@ function GameBoard() {
             }
         }
     }, [gameStatus, isMuted]);
-
-
 
 
     // Use effect to control cat movement
@@ -83,7 +82,6 @@ function GameBoard() {
     }, [gameStatus]);
 
 
-
     // useEffect handle collison
     useEffect(()=> {
         if (gameStatus !== "running") return;
@@ -95,6 +93,13 @@ function GameBoard() {
             }
         });
     }, [items, catPosition, gameStatus, isMuted])
+
+    // ========== Handle GameOver =========
+    useEffect (() =>{
+        if(gameStatus == "running" && energy <= 0 ){
+            setGameStatus('over');
+        }
+    }, [energy, gameStatus])
 
     // Create random items
     // Helper: Calculate Speed
@@ -144,7 +149,10 @@ function GameBoard() {
 
             // Add new items to falling;
             if (Math.random() < SPAWN_RATE) {
-                visible.push(createRandomItem(prevItems));
+                const newItem = createRandomItem(prevItems);
+                if (newItem) {
+                    visible.push(createRandomItem(prevItems));
+                }
             }
             return visible;
         })
@@ -180,8 +188,6 @@ function GameBoard() {
              Energy: ${config.energy}`);
     }
 
-    
-
     // ========== Handle Cat Moves =========
     const handleKeyDown =(event) => {
         console.log(`${event.key}. is pressed`);
@@ -193,9 +199,6 @@ function GameBoard() {
             setCatPosition((prevState) => Math.min(BOARD_WIDTH-CAT_WIDTH, prevState + CAT_SPEED))
         }
     }
-
-    // ========== Handle GameOver =========
-
 
     // ========== Button Functions =========
     const handleStart = () => {
@@ -257,6 +260,13 @@ function GameBoard() {
                 <div className="cat_container" style={{left: catPosition}}>
                     <CatPlayer />
                 </div>
+                
+                {isGameOver ? 
+                    (<GameOver 
+                        score ={score}
+                    /> ) : 
+                null};
+
             </div>
 
             <Controls
