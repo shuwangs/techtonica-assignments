@@ -1,6 +1,6 @@
 import React from "react";
 import './HeaderBar.css'
-function HeaderBar({ score, energy, isMutated, toggleMute }) {
+function HeaderBar({ score, energy, isMuted, toggleMute }) {
     return (
         <div className = 'header-bar'>
             <div className="score">Score: {score}</div>
@@ -9,7 +9,7 @@ function HeaderBar({ score, energy, isMutated, toggleMute }) {
                 <button 
                 className="sound_btn"
                 onClick={toggleMute}
-                >{isMutated ? "🔇" : "🔊"}</button>
+                >{isMuted ? "🔇" : "🔊"}</button>
             </div>
 
         </div>
