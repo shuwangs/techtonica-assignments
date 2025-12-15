@@ -24,10 +24,11 @@
 [X] tick function: update items position, spawn new, check collision, update time/energy
 [X] function: handleKeyDown (ArrowLeft/ArrowRight → update catX)
 [X] game Status management
+[X] falling items overlaps
 [ ] scores and energy logic
 [ ] set a timer or not
 [ ] speed is changed or not? speed is not working by 12/13;
 ## Issues:
 [X] play area must be focused before it moves with arrow key down.
  - amazing, use effect solve it so simply, but what is useEffect, what is used for.
- - 
+  
