@@ -151,7 +151,7 @@ function GameBoard() {
             if (Math.random() < SPAWN_RATE) {
                 const newItem = createRandomItem(prevItems);
                 if (newItem) {
-                    visible.push(createRandomItem(prevItems));
+                    visible.push(newItem);
                 }
             }
             return visible;
@@ -261,7 +261,7 @@ function GameBoard() {
                     <CatPlayer />
                 </div>
                 
-                {isGameOver ? 
+                {gameStatus === "over" ? 
                     (<GameOver 
                         score ={score}
                     /> ) : 
