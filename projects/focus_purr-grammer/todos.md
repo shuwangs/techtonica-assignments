@@ -26,9 +26,10 @@
 [X] game Status management
 [X] falling items overlaps
 [X] scores and energy logic
-[-] set a timer or not
+[ ] set a timer or not
 [ ] speed is changed or not? speed is not working by 12/13;
-[ ] add a short description of hwo the game works.
+    the speed logic should change with the time not the score, otherwise will be a mess.
+[X] add a short description of hwo the game works.
 [X] playsound button show different when muted.
 [X] change styling of GameOver.
 ## Issues:
