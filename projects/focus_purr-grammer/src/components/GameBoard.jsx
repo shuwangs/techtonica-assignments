@@ -174,12 +174,13 @@ function GameBoard() {
 
         if (config) {
             setScore(prev => Math.max(0, prev + config.score));
-            setEnergy(prev => Math.max(100, prev + config.energy));
+            setEnergy(prev => Math.min(100, prev + config.energy));
         }
         console.log(`Caught ${config.emoji}! Score: ${config.score},
              Energy: ${config.energy}`);
     }
 
+    
 
     // ========== Handle Cat Moves =========
     const handleKeyDown =(event) => {
@@ -193,6 +194,7 @@ function GameBoard() {
         }
     }
 
+    // ========== Handle GameOver =========
 
 
     // ========== Button Functions =========
@@ -205,16 +207,12 @@ function GameBoard() {
         }
         setGameStatus("running");
         console.log(gameStatus);
-
-        // TODOS:  Game running Logic
     }
 
     const handlePause = () => {
         if (gameStatus !== "running") return;
         setGameStatus("paused");
         console.log(gameStatus);
-
-        // TODOS:  Game Pause Logic
     }
 
     const handleReset = () => {
@@ -224,8 +222,6 @@ function GameBoard() {
         setItems([]);
         setCatPosition(BOARD_WIDTH / 2 - CAT_WIDTH / 2);
         console.log(gameStatus);
-
-        // TODOS:  Game Reset Logic
     }
 
     const toggleMute = () => {

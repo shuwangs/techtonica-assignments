@@ -3,19 +3,19 @@ export const ITEM_CONFIG = {
   bug: {
     category: "work",
     emoji: "🐛",
-    score: 1,
+    score: 2,
     energy: 0
   },
   ladyBug: {
     category: "work",
     emoji: "🐞",
-    score: 1,
+    score: 2,
     energy: 0
   },
   worm: {
     category: "work",
     emoji: "🪱",
-    score: 2,
+    score: 3,
     energy: 0
   },
   error: {
@@ -28,18 +28,18 @@ export const ITEM_CONFIG = {
     category: "distraction",
     emoji: "🌿",
     score: -3,
-    energy: 0
+    energy: -10
   },
   yarn: {
     category: "distraction",
     emoji: "🧶",
     score: -1,
-    energy: 0
+    energy: -10
   },
   mouse:{
     category: "distraction",
     emoji: "🐭",
     score: -3,
-    energy: 0
+    energy: -10
   }
 }
