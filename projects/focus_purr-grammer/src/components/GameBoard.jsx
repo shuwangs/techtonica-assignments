@@ -265,7 +265,7 @@ function GameBoard() {
                     (<GameOver 
                         score ={score}
                     /> ) : 
-                null};
+                null}
 
             </div>
 
