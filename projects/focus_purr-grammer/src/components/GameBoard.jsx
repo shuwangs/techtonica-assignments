@@ -174,7 +174,11 @@ function GameBoard() {
             );
 
             // Add new items to falling;
-            if (Math.random() < SPAWN_RATE) {
+            const currentLevel = levelRef.current;
+            const currentSpeed = getItemSpeed(currentLevel);
+            const NEW_SPAWN_RATE = currentSpeed / INITIAL_ITEM_SPEED * SPAWN_RATE
+            console.log(NEW_SPAWN_RATE);
+            if (Math.random() < NEW_SPAWN_RATE) {
                 const newItem = createRandomItem(prevItems);
                 if (newItem) {
                     visible.push(newItem);
