@@ -8,8 +8,8 @@ import './GameBoard.css';
 import { ITEM_CONFIG } from "../config/ItemConfig";
 
 import BGM from "../assets/sounds/bgm.mp3";
-import ERROR_MUSIC from "../assets/sounds/error.wav";
-import GOOD_MUSIC from "../assets/sounds/success.wav";
+// import ERROR_MUSIC from "../assets/sounds/error.wav";
+// import GOOD_MUSIC from "../assets/sounds/success.wav";
 
 // =========== States & Props ===========
 // GameBoard will manage the main states of the game such as score, energy, items, cat position, and whether the game is playing or paused.
@@ -31,6 +31,8 @@ function GameBoard() {
 
     // Game Status can be idle, running, paused, over
     const [gameStatus, setGameStatus] = useState('idle');
+    const [level, setLevel] = useState(1);
+    const levelRef = useRef(level);
 
     // =========== Cat Status ===========
     const [catPosition, setCatPosition] = useState(BOARD_WIDTH / 2 - CAT_WIDTH / 2);
@@ -40,8 +42,12 @@ function GameBoard() {
 
     // ========== UseEffects ==============
     useEffect(() => {
-        console.log("something changed!");
-    }, [score, energy, gameStatus]);
+        levelRef.current = level;
+    }, [level]);
+    
+    // useEffect(() => {
+    //     console.log("something changed!");
+    // }, [score, energy, gameStatus]);
 
     // ========== useEffect control sound ============
     const bgmRef = useRef(new Audio(BGM));
@@ -70,6 +76,20 @@ function GameBoard() {
         }
     }, [gameStatus]);
 
+
+    // ========== Control Game Speed =========
+    useEffect(() =>{
+        if (gameStatus !== "running") return;
+        const levelTimer = setInterval(() => {
+            setLevel(prevLevel => {
+            return prevLevel + 1; 
+            });
+        }, 20000);  
+
+        // return ()=>clearInterval(levelTimer);
+    }, [gameStatus])
+
+
     // useEffect call the falling items
     useEffect(() => {
         if (gameStatus !== "running") return;
@@ -78,7 +98,7 @@ function GameBoard() {
         }, 50);
 
         return () => clearInterval(intervalId);
-    }, [gameStatus, score]);
+    }, [gameStatus]);
 
 
     // useEffect handle collison
@@ -91,29 +111,36 @@ function GameBoard() {
                 setItems(prev => prev.filter(i => i.id !== item.id));
             }
         });
-    }, [items, catPosition, gameStatus, isMuted, score])
+    }, [items, catPosition, gameStatus, isMuted, level])
 
     // ========== Handle GameOver =========
+    
     useEffect (() =>{
         if(gameStatus == "running" && energy <= 0 ){
             setGameStatus('over');
         }
     }, [energy, gameStatus])
 
+
+
+
     // Create random items
     // Helper: Calculate Speed
-    const itemSpeed = (score) => {
-        if (score < 10) return INITIAL_ITEM_SPEED;
-        else if (score < 20) return INITIAL_ITEM_SPEED * 2;
-        else if (score < 50) return INITIAL_ITEM_SPEED * 4;
-        else return INITIAL_ITEM_SPEED * 8;
+    const getItemSpeed = (currentLevel) => {
+        if (currentLevel === 1) return INITIAL_ITEM_SPEED;
+        if (currentLevel === 2) return INITIAL_ITEM_SPEED * 1.5;
+        if (currentLevel === 3) return INITIAL_ITEM_SPEED * 2;
+        if (currentLevel === 4) return INITIAL_ITEM_SPEED * 2.5;
+        return INITIAL_ITEM_SPEED * 3.5;
     }
     // Helper: Create Random Item
-    const createRandomItem = (currentItems, score) => {
+    const createRandomItem = (currentItems) => {
         const types = Object.keys(ITEM_CONFIG);
         const randomIdx = Math.floor((Math.random() * types.length));
         const randomType = types[randomIdx];
-        const speed = itemSpeed(score);
+
+        const currentLevel = levelRef.current;
+        const speed = getItemSpeed(currentLevel);
         console.log(speed);
 
         const totalColumns = Math.floor(BOARD_WIDTH / ITEM_SIZE);
@@ -148,7 +175,7 @@ function GameBoard() {
 
             // Add new items to falling;
             if (Math.random() < SPAWN_RATE) {
-                const newItem = createRandomItem(prevItems, score);
+                const newItem = createRandomItem(prevItems);
                 if (newItem) {
                     visible.push(newItem);
                 }
@@ -206,6 +233,7 @@ function GameBoard() {
             setEnergy(100);
             setItems([]);
             setCatPosition(BOARD_WIDTH / 2 - CAT_WIDTH / 2);
+            setLevel(1);     
         }
         setGameStatus("running");
         console.log(gameStatus);
@@ -224,6 +252,8 @@ function GameBoard() {
         setItems([]);
         setCatPosition(BOARD_WIDTH / 2 - CAT_WIDTH / 2);
         console.log(gameStatus);
+        setLevel(1);     
+
     }
 
     const toggleMute = () => {
@@ -241,6 +271,7 @@ function GameBoard() {
                     Catch bugs and errors: 🐛 🐞 🪱 🚫 <br/>
                     Avoid distractions: 🐭 🧶 🌿
                 </p>
+                <p>Level: {level} {/* 可以显示当前等级 */}</p> 
             </div>
 
             <h1 className="game_title">Focus! Purr-grammer</h1>
