@@ -85,8 +85,10 @@ To run this project locally:
 
 ## 🤝 Acknowledgements
 
-This project was created during my time at [**Techtonica**](https://techtonica.org/), a non-profit program that bridges the tech gap. Special thanks to my mentors and peers for their code reviews and feedback.
+* This project was created during my time at [**Techtonica**](https://techtonica.org/), a non-profit program that bridges the tech gap. Special thanks to my mentors and peers for their code reviews and feedback.
 
+* Cat icon provided by [SVG Repo](https://www.svgrepo.com/svg/395984/cat-face).
+  
 ---
 
 ## Author 
