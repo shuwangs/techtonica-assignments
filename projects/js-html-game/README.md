@@ -70,5 +70,5 @@ This project was created during my time at [**Techtonica**](https://techtonica.o
 
 ## Author 
 **Shu Wang**
-- [portfolio](https://shuwangs.github.io/portfolio-website/)
+- [portfolio](https://shu-su-wang.vercel.app/)
 - [Github](https://github.com/shuwangs)
