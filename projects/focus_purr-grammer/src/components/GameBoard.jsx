@@ -44,10 +44,6 @@ function GameBoard() {
     useEffect(() => {
         levelRef.current = level;
     }, [level]);
-    
-    // useEffect(() => {
-    //     console.log("something changed!");
-    // }, [score, energy, gameStatus]);
 
     // ========== useEffect control sound ============
     const bgmRef = useRef(new Audio(BGM));
@@ -141,7 +137,7 @@ function GameBoard() {
 
         const currentLevel = levelRef.current;
         const speed = getItemSpeed(currentLevel);
-        console.log(speed);
+        // console.log(speed);
 
         const totalColumns = Math.floor(BOARD_WIDTH / ITEM_SIZE);
         const colIndex = Math.floor(Math.random() * totalColumns);
@@ -177,7 +173,7 @@ function GameBoard() {
             const currentLevel = levelRef.current;
             const currentSpeed = getItemSpeed(currentLevel);
             const NEW_SPAWN_RATE = currentSpeed / INITIAL_ITEM_SPEED * SPAWN_RATE
-            console.log(NEW_SPAWN_RATE);
+            // console.log(NEW_SPAWN_RATE);
             if (Math.random() < NEW_SPAWN_RATE) {
                 const newItem = createRandomItem(prevItems);
                 if (newItem) {
@@ -214,13 +210,13 @@ function GameBoard() {
             setScore(prev => Math.max(0, prev + config.score));
             setEnergy(prev => Math.min(100, prev + config.energy));
         }
-        console.log(`Caught ${config.emoji}! Score: ${config.score},
-             Energy: ${config.energy}`);
+        // console.log(`Caught ${config.emoji}! Score: ${config.score},
+        //      Energy: ${config.energy}`);
     }
 
     // ========== Handle Cat Moves =========
     const handleKeyDown =(event) => {
-        console.log(`${event.key}. is pressed`);
+        // console.log(`${event.key}. is pressed`);
         if(gameStatus !== "running") return;
 
         if(event.key === "ArrowLeft") {
@@ -240,13 +236,13 @@ function GameBoard() {
             setLevel(1);     
         }
         setGameStatus("running");
-        console.log(gameStatus);
+        // console.log(gameStatus);
     }
 
     const handlePause = () => {
         if (gameStatus !== "running") return;
         setGameStatus("paused");
-        console.log(gameStatus);
+        // console.log(gameStatus);
     }
 
     const handleReset = () => {
@@ -255,9 +251,8 @@ function GameBoard() {
         setEnergy(100);
         setItems([]);
         setCatPosition(BOARD_WIDTH / 2 - CAT_WIDTH / 2);
-        console.log(gameStatus);
         setLevel(1);     
-
+        // console.log(gameStatus);
     }
 
     const toggleMute = () => {
@@ -275,7 +270,6 @@ function GameBoard() {
                     Catch bugs and errors: 🐛 🐞 🪱 🚫 <br/>
                     Avoid distractions: 🐭 🧶 🌿
                 </p>
-                {/* <p>Level: {level} 可以显示当前等级</p>  */}
             </div>
 
             <h1 className="game_title">Focus! Purr-grammer</h1>
