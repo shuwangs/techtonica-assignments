@@ -275,7 +275,7 @@ function GameBoard() {
                     Catch bugs and errors: 🐛 🐞 🪱 🚫 <br/>
                     Avoid distractions: 🐭 🧶 🌿
                 </p>
-                <p>Level: {level} {/* 可以显示当前等级 */}</p> 
+                {/* <p>Level: {level} 可以显示当前等级</p>  */}
             </div>
 
             <h1 className="game_title">Focus! Purr-grammer</h1>
@@ -283,6 +283,7 @@ function GameBoard() {
                 score={score}
                 energy={energy}
                 isMuted={isMuted}
+                level = {level}
                 toggleMute={toggleMute}
             />
 
