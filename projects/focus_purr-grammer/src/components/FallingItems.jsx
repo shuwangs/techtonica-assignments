@@ -1,14 +1,10 @@
 import React from "react";
 import './FallingItems.css';
-import {ITEM_CONFIG} from '../config/ItemConfig';
+import useItemConfig from '../hooks/useItemConfig';
 
 function FallingItems({type, itemX, itemY}) {
-  const config = ITEM_CONFIG[type];
 
-  if (!config) {
-    console.warn(`Unknown item type ${type}`);
-    return null;
-  }
+  const config = useItemConfig(type);
   const style= {
     position: "absolute",
     left: itemX, 
