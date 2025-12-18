@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import HeaderBar from "./HeaderBar";
 import CatPlayer from "./CatPlayer";
 import Controls from "./Controls";
@@ -122,22 +122,29 @@ function GameBoard() {
 
     // Create random items
     // Helper: Calculate Speed
-    const getItemSpeed = (currentLevel) => {
-        if (currentLevel === 1) return INITIAL_ITEM_SPEED;
-        if (currentLevel === 2) return INITIAL_ITEM_SPEED * 1.5;
-        if (currentLevel === 3) return INITIAL_ITEM_SPEED * 2;
-        if (currentLevel === 4) return INITIAL_ITEM_SPEED * 2.5;
+    const currentSpeed = useMemo(() => {
+        if (level === 1) return INITIAL_ITEM_SPEED;
+        if (level === 2) return INITIAL_ITEM_SPEED * 1.5;
+        if (level === 3) return INITIAL_ITEM_SPEED * 2;
+        if (level === 4) return INITIAL_ITEM_SPEED * 2.5;
         return INITIAL_ITEM_SPEED * 3.5;
-    }
+    }, [level])
+
+    const speedRef = useRef(INITIAL_ITEM_SPEED);
+
+    useEffect(() => {
+        speedRef.current = currentSpeed;
+    }, [currentSpeed]);
+
     // Helper: Create Random Item
     const createRandomItem = (currentItems) => {
         const types = Object.keys(ITEM_CONFIG);
         const randomIdx = Math.floor((Math.random() * types.length));
         const randomType = types[randomIdx];
 
-        const currentLevel = levelRef.current;
-        const speed = getItemSpeed(currentLevel);
-        // console.log(speed);
+        // const currentLevel = levelRef.current;
+        const speed = speedRef.current;
+        console.log(speed);
 
         const totalColumns = Math.floor(BOARD_WIDTH / ITEM_SIZE);
         const colIndex = Math.floor(Math.random() * totalColumns);
@@ -170,9 +177,10 @@ function GameBoard() {
             );
 
             // Add new items to falling;
-            const currentLevel = levelRef.current;
-            const currentSpeed = getItemSpeed(currentLevel);
-            const NEW_SPAWN_RATE = currentSpeed / INITIAL_ITEM_SPEED * SPAWN_RATE
+            // const currentLevel = levelRef.current;
+            // const currSpeed = currentSpeed;
+            // console.log(currSpeed);
+            const NEW_SPAWN_RATE = speedRef.current / INITIAL_ITEM_SPEED * SPAWN_RATE
             // console.log(NEW_SPAWN_RATE);
             if (Math.random() < NEW_SPAWN_RATE) {
                 const newItem = createRandomItem(prevItems);

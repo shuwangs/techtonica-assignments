@@ -36,3 +36,19 @@
 [X] play area must be focused before it moves with arrow key down.
  - amazing, use effect solve it so simply, but what is useEffect, what is used for.
   
+## What I learned
+###  useMemo 
+- When to use it
+  - memoizes a computed value so it isn’t recalculated on every render unless its dependencies change.
+- what is the input
+    - A function
+        * Must be a pure function
+        * Returns a computed value
+    - A dependency array
+
+    - Lists the values the computation depends on
+        * The memoized value is recomputed only when one of these values changes
+- what is output
+    - The memoized result of the computation
+    - result is a value, **not** a **function**
+    - The cached value is reused across renders until dependencies change
