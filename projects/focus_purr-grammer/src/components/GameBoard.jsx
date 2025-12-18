@@ -227,10 +227,16 @@ function GameBoard() {
         // console.log(`${event.key}. is pressed`);
         if(gameStatus !== "running") return;
 
-        if(event.key === "ArrowLeft") {
-            setCatPosition((prevState) => Math.max(0, prevState - CAT_SPEED))
-        } else if(event.key === "ArrowRight") {
-            setCatPosition((prevState) => Math.min(BOARD_WIDTH-CAT_WIDTH, prevState + CAT_SPEED))
+        switch(event.key) {
+            case "ArrowLeft":
+                setCatPosition((prevState) => Math.max(0, prevState - CAT_SPEED));
+                break;
+            case "ArrowRight":
+                setCatPosition((prevState) => Math.min(BOARD_WIDTH-CAT_WIDTH, prevState + CAT_SPEED));
+                break;
+            case " ":
+                handlePause();
+                break;
         }
     }
 

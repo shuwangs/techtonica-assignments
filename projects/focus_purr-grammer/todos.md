@@ -52,3 +52,12 @@
     - The memoized result of the computation
     - result is a value, **not** a **function**
     - The cached value is reused across renders until dependencies change
+
+### useRef
+- Use it when you need to store something that:
+    * Should persist across renders
+    * Should NOT trigger a re-render
+  
+**Typical usage:**
+useMemo → derived values (visible items, difficulty scaling)
+useRef → audio, interval IDs, latest state in game loop
