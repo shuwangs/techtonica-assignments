@@ -3,7 +3,7 @@ A React-based arcade game where you help a coding cat stay focused by catching b
 
 [Play Demo](https://focus-purr-grammer.vercel.app/)
 
-<img src="public/images/purr-grammer_screenshot.jpg" width="200"  alt="Focus! Purr-grammer screenshot" />
+<img src="public/images/purr-grammer.gif" width="200"  alt="Focus! Purr-grammer live video" />
  
 ## 📖 About The Project
 
