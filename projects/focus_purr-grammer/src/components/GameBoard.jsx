@@ -82,7 +82,7 @@ function GameBoard() {
             });
         }, 20000);  
 
-        // return ()=>clearInterval(levelTimer);
+        return ()=>clearInterval(levelTimer);
     }, [gameStatus])
 
 
