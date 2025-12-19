@@ -1,8 +1,9 @@
 .game_board{
   width: 800px;
-  height: 100wh;
+  height: 100vh;
   background-color: #102438 ;
-  margin: auto auto;
+  margin: 0px auto;
+  padding-top: 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,13 +12,31 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 
 }
+.game_instructions {
+  color: #d9773a;
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
 
+.game_board h1 {
+  font-size: 2.5rem;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
 .playing_area{
-  width: 500px;
+  position: relative;
+
+  width: 400px;
   height: 600px;
   border: 4px solid #ccc;
   border-radius: 10px;
   overflow: hidden;
   margin-top: 10px;
   position:relative;
+}
+.cat_container {
+  position: absolute;
+  bottom: 0px;
 }

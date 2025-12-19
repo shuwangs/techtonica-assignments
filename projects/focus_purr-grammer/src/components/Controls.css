@@ -1,0 +1,17 @@
+
+.control-area{
+  display: flex;
+  width: 400px;
+  justify-content: space-around;
+
+}
+
+.control-area button {
+  background-color: #d9773a;
+  color: #2b2d42;
+  margin: 10px 20px; 
+}
+
+.control-area button:hover{
+  background-color: #5f50d4;
+}
