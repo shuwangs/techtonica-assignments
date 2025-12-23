@@ -84,6 +84,9 @@ To run this project locally:
 - add different sound effect to both `fix the bug` and `attempted to play`. 
 - Refactor GameBoard domain/game logic into a separate hook (e.g., `useGameEngine`) to improve separation of concerns and maintainability.
 - Improve UX: reduce the initial delay on the first key press so movement feels immediately responsive 
+- Scores persistance.
+
+---
 
 ## 🤝 Acknowledgements
 
