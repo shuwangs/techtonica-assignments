@@ -33,17 +33,21 @@ app.get('/api/blogs', (req, res) => {
 
 // [CREATE] POST: add new blog
 // add to DB and also update to the front
-app.post('/api/blogs', (req, res) =>{
-     const newBlog = {
-          id: 3,       
-          title: "OMSCS 6400",
-          slug: "omscs-6400-vs-object",
-          fileName: "2026-placeholder.md",
-          date: "2026-11-17",
-          category: "JavaScript",
-          summary: "Understanding the fundamental differences in JS object creation...",
-          tags: ["EER", "SQL"]
+app.post('/api/blogs', (req, res) => {
+     const nextIdx = blogsData.length;
+
+     const BlogPlaceholder = {
+          id: nextIdx,       
+          title: "",
+          slug: "",
+          fileName: "",
+          date: "",
+          category: "",
+          summary: "",
+          tags: []
      }
+
+     let newBlog = {...BlogPlaceholder, ...req.body};
 
      blogsData.push(newBlog);
 

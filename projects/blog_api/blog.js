@@ -24,6 +24,16 @@ const BLOGS = [
             "JS",
             "Basics"
         ]
+    },
+    {
+        "id": 3,
+        "title": "OMSCS 6300",
+        "slug": "",
+        "fileName": "",
+        "date": "",
+        "category": "",
+        "summary": "",
+        "tags": []
     }
 ];
      export default BLOGS;
