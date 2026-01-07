@@ -6,12 +6,23 @@ import fs from 'fs';
 dotenv.config({ path: './.env' })
 const port = process.env.PORT || 5000
 
-console.log(BLOGS);
+// console.log(BLOGS);
 
 const app = express();
 
 // middlewares
 app.use(cors())
+app.use(express.json()); 
+
+// ====== helper functions write to js=========
+const writeDataToJS = (data) =>{
+     // Data to write to Another file
+     const dataToWrite = `const BLOGS = ${JSON.stringify(data, null, 4)};
+     export default BLOGS;`;//null means no replace, 4 means 4 spaces indents    
+
+     fs.writeFileSync('./blog.js', dataToWrite, 'utf-8') // Params: OUTFILE, datatowrite, the format
+}
+
 
 let blogsData = [...BLOGS];
 // [READ] GET: fetch all the blogs
@@ -35,16 +46,30 @@ app.post('/api/blogs', (req, res) =>{
      }
 
      blogsData.push(newBlog);
+     
+     writeDataToJS(blogsData);
 
-     // Data to write to Another file
-     const dataToWrite = `const BLOGS = ${JSON.stringify(newBlog, null, 4)}` //null means no replace, 4 means 4 spaces indents    
-     fs.writeFileSync('./blogOut.js', dataToWrite, 'utf-8') // Params: OUTFILE, datatowrite, the format
      res.json(blogsData);
 })
 
 // [UPDATE] PUT: update blogs
-app.put('/api/blogs/:id', (req, res) =>{
-     res.send("Here will be the update blogs");
+app.put('/api/blogs/:id', (req, res) => {
+     const reqIdx = parseInt(req.params.id);
+     // console.log(reqIdx);
+     const idx = blogsData.findIndex(blog => blog.id === reqIdx);
+     console.log(idx);
+     console.log(req.body);
+     if (idx !== -1) {
+          blogsData[idx] = {...blogsData[idx], ...req.body} //compare old data with new data one by one to replace, in case data missing 
+
+          writeDataToJS(blogsData);
+          res.json(blogsData);
+     } else {
+          res.send("The index blog you are looking is not found");
+     }
+
+
+
 })
 
 

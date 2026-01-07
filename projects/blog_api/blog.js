@@ -1,24 +1,42 @@
 const BLOGS = [
     {
-        id: 1,
-        title: "Interface vs Class in TypeScript",
-        slug: "interface-vs-class-ts",
-        fileName: "2025-11-16-interface-class-ts.md",
-        date: "2025-11-16",
-        category: "TypeScript",
-        summary: "Exploring the differences between interfaces and classes in TS...",
-        tags: ["TS", "WebDev"]
+        "id": 1,
+        "title": "Interface vs Class in TypeScript",
+        "slug": "interface-vs-class-ts",
+        "fileName": "2025-11-16-interface-class-ts.md",
+        "date": "2025-11-16",
+        "category": "TypeScript",
+        "summary": "Exploring the differences between interfaces and classes in TS...",
+        "tags": [
+            "TS",
+            "WebDev"
+        ]
     },
     {
-        id: 2,
-        title: "JS Class vs Object Differences",
-        slug: "js-class-vs-object",
-        fileName: "2025-11-js-class-obj-different.md",
-        date: "2025-11-17",
-        category: "JavaScript",
-        summary: "Understanding the fundamental differences in JS object creation...",
-        tags: ["JS", "Basics"]
+        "id": 2,
+        "title": "JS Class vs Object Differences",
+        "slug": "js-class-vs-object",
+        "fileName": "2025-11-js-class-obj-different.md",
+        "date": "2025-11-17",
+        "category": "JavaScript",
+        "summary": "Understanding the fundamental differences in JS object creation...",
+        "tags": [
+            "JS",
+            "Basics"
+        ]
+    },
+    {
+        "id": 3,
+        "title": "OMSCS 6300",
+        "slug": "omscs-6400-vs-object",
+        "fileName": "2026-placeholder.md",
+        "date": "2026-11-17",
+        "category": "JavaScript",
+        "summary": "Understanding the fundamental differences in JS object creation...",
+        "tags": [
+            "EER",
+            "SQL"
+        ]
     }
-]
-
-export default BLOGS;
+];
+     export default BLOGS;
