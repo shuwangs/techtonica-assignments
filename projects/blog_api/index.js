@@ -31,6 +31,20 @@ app.get('/api/blogs', (req, res) => {
     // res.send("Here will be the display the blogs");
 })
 
+// [READ] GET: fetch single the blogs by blog id
+app.get('/api/blogs/:id', (req, res) => {
+     const reqId = parseInt(req.params.id);
+     
+     const idx = blogsData.findIndex(blog => blog.id === reqId);
+
+     if (idx !== -1) {
+          res.json(blogsData[idx]);
+     } else {
+          res.status(404).send("The blog you are looking is not found");
+     }
+})
+
+
 // [CREATE] POST: add new blog
 // add to DB and also update to the front
 app.post('/api/blogs', (req, res) => {
@@ -58,11 +72,10 @@ app.post('/api/blogs', (req, res) => {
 
 // [UPDATE] PUT: update blogs
 app.put('/api/blogs/:id', (req, res) => {
-     const reqIdx = parseInt(req.params.id);
+     const reqId = parseInt(req.params.id);
      // console.log(reqIdx);
-     const idx = blogsData.findIndex(blog => blog.id === reqIdx);
-     console.log(idx);
-     console.log(req.body);
+     const idx = blogsData.findIndex(blog => blog.id === reqId);
+
      if (idx !== -1) {
           blogsData[idx] = {...blogsData[idx], ...req.body} //compare old data with new data one by one to replace, in case data missing 
 
