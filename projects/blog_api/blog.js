@@ -27,12 +27,12 @@ const BLOGS = [
     },
     {
         "id": 3,
-        "title": "OMSCS 6300",
+        "title": "Bobo is a cat",
         "slug": "",
         "fileName": "",
         "date": "",
         "category": "",
-        "summary": "",
+        "summary": "this blog is a short description about bobo",
         "tags": []
     }
 ];

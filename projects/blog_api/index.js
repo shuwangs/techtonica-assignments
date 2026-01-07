@@ -48,7 +48,7 @@ app.get('/api/blogs/:id', (req, res) => {
 // [CREATE] POST: add new blog
 // add to DB and also update to the front
 app.post('/api/blogs', (req, res) => {
-     const nextIdx = blogsData.length;
+     const nextIdx = blogsData.length + 1;
 
      const BlogPlaceholder = {
           id: nextIdx,       
