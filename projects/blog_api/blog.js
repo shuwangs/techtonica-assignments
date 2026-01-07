@@ -24,19 +24,6 @@ const BLOGS = [
             "JS",
             "Basics"
         ]
-    },
-    {
-        "id": 3,
-        "title": "OMSCS 6300",
-        "slug": "omscs-6400-vs-object",
-        "fileName": "2026-placeholder.md",
-        "date": "2026-11-17",
-        "category": "JavaScript",
-        "summary": "Understanding the fundamental differences in JS object creation...",
-        "tags": [
-            "EER",
-            "SQL"
-        ]
     }
 ];
      export default BLOGS;

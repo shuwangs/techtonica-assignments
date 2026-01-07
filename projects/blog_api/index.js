@@ -46,7 +46,7 @@ app.post('/api/blogs', (req, res) =>{
      }
 
      blogsData.push(newBlog);
-     
+
      writeDataToJS(blogsData);
 
      res.json(blogsData);
@@ -65,17 +65,27 @@ app.put('/api/blogs/:id', (req, res) => {
           writeDataToJS(blogsData);
           res.json(blogsData);
      } else {
-          res.send("The index blog you are looking is not found");
+          res.status(404).send("The blog you are looking is not found");
      }
-
-
 
 })
 
 
 // [DELETE] DELETE: update blogs
 app.delete('/api/blogs/:id', (req, res) =>{
-     res.send("Here will be the delete blogs");
+     const reqIdx = parseInt(req.params.id);
+     // console.log(reqIdx);
+     const idx = blogsData.findIndex(blog => blog.id === reqIdx);
+
+     if(idx !== -1) {
+          const deletedBlog = blogsData.splice(idx, 1);
+          writeDataToJS(blogsData);
+          res.json(blogsData); 
+     } else {
+          res.status(404).send("The blog you are looking is not found");
+
+     }
+     
 })
 
 
