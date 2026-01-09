@@ -1,8 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv'
-import BLOGS from './blog.js';
-import fs from 'fs';
+import writeJson from './utils/writeJson.js'
+import readJson from './utils/readJson.js';
+
 dotenv.config({ path: './.env' })
 const port = process.env.PORT || 5000
 
@@ -14,17 +15,7 @@ const app = express();
 app.use(cors())
 app.use(express.json()); 
 
-// ====== helper functions write to js=========
-const writeDataToJS = (data) =>{
-     // Data to write to Another file
-     const dataToWrite = `const BLOGS = ${JSON.stringify(data, null, 4)};
-     export default BLOGS;`;//null means no replace, 4 means 4 spaces indents    
-
-     fs.writeFileSync('./blog.js', dataToWrite, 'utf-8') // Params: OUTFILE, datatowrite, the format
-}
-
-
-let blogsData = [...BLOGS];
+let blogsData = readJson('./blog.json');
 // [READ] GET: fetch all the blogs
 app.get('/api/blogs', (req, res) => {
     res.json(blogsData);
@@ -40,7 +31,10 @@ app.get('/api/blogs/:id', (req, res) => {
      if (idx !== -1) {
           res.json(blogsData[idx]);
      } else {
-          res.status(404).send("The blog you are looking is not found");
+          res.status(404).json({
+               error: "BlogNotFound",
+               message: "The blog you are looking for is not found."
+          });
      }
 })
 
@@ -65,9 +59,9 @@ app.post('/api/blogs', (req, res) => {
 
      blogsData.push(newBlog);
 
-     writeDataToJS(blogsData);
+     writeJson(blogsData);
 
-     res.json(blogsData);
+     res.json(blogsData);writeJson
 })
 
 // [UPDATE] PUT: update blogs
@@ -79,10 +73,13 @@ app.put('/api/blogs/:id', (req, res) => {
      if (idx !== -1) {
           blogsData[idx] = {...blogsData[idx], ...req.body} //compare old data with new data one by one to replace, in case data missing 
 
-          writeDataToJS(blogsData);
+          writeJson(blogsData);
           res.json(blogsData);
      } else {
-          res.status(404).send("The blog you are looking is not found");
+          res.status(404).json({
+               error: "BlogNotFound",
+               message: "The blog you are looking for is not found."
+          });
      }
 
 })
@@ -96,11 +93,13 @@ app.delete('/api/blogs/:id', (req, res) =>{
 
      if(idx !== -1) {
           const deletedBlog = blogsData.splice(idx, 1);
-          writeDataToJS(blogsData);
+          writeJson(blogsData);
           res.json(blogsData); 
      } else {
-          res.status(404).send("The blog you are looking is not found");
-
+          res.status(404).json({
+               error: "BlogNotFound",
+               message: "The blog you are looking for is not found."
+          });
      }
      
 })
