@@ -6,8 +6,6 @@ import {writeJson, readJson, validateId} from './utils/utils.js'
 dotenv.config({ path: './.env' })
 const port = process.env.PORT || 5000
 
-// console.log(BLOGS);
-
 const app = express();
 
 // middlewares
@@ -24,7 +22,7 @@ app.get('/api/blogs', (req, res) => {
 app.get('/api/blogs/:id', (req, res) => {
      const reqId = parseInt(req.params.id);
      if(!validateId(reqId, res)) return;
-     
+
      const idx = blogsData.findIndex(blog => blog.id === reqId);
 
      if (idx !== -1) {
