@@ -1,8 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv'
-import writeJson from './utils/writeJson.js'
-import readJson from './utils/readJson.js';
+import {writeJson, readJson} from './utils/utils.js'
 
 dotenv.config({ path: './.env' })
 const port = process.env.PORT || 5000
@@ -19,7 +18,6 @@ let blogsData = readJson('./blog.json');
 // [READ] GET: fetch all the blogs
 app.get('/api/blogs', (req, res) => {
     res.json(blogsData);
-    // res.send("Here will be the display the blogs");
 })
 
 // [READ] GET: fetch single the blogs by blog id
