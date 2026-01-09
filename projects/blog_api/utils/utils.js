@@ -14,3 +14,16 @@ export const readJson = (path) => {
   const data = fs.readFileSync(path, 'utf-8');
   return JSON.parse(data);
 };
+
+
+// ====== API helper function: ======
+export const validateId = (id, res) => {
+  if (isNaN(id)) {
+    res.status(400).json({
+      error: 'BadRequest',
+      message: `Invalid id.`
+    });
+    return false;
+  }
+  return true;
+};

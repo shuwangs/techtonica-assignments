@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv'
-import {writeJson, readJson} from './utils/utils.js'
+import {writeJson, readJson, validateId} from './utils/utils.js'
 
 dotenv.config({ path: './.env' })
 const port = process.env.PORT || 5000
@@ -23,6 +23,7 @@ app.get('/api/blogs', (req, res) => {
 // [READ] GET: fetch single the blogs by blog id
 app.get('/api/blogs/:id', (req, res) => {
      const reqId = parseInt(req.params.id);
+     if(!validateId(reqId, res)) return;
      
      const idx = blogsData.findIndex(blog => blog.id === reqId);
 
@@ -65,7 +66,9 @@ app.post('/api/blogs', (req, res) => {
 // [UPDATE] PUT: update blogs
 app.put('/api/blogs/:id', (req, res) => {
      const reqId = parseInt(req.params.id);
-     // console.log(reqIdx);
+
+     if(!validateId(reqId, res)) return;
+
      const idx = blogsData.findIndex(blog => blog.id === reqId);
 
      if (idx !== -1) {
@@ -86,7 +89,9 @@ app.put('/api/blogs/:id', (req, res) => {
 // [DELETE] DELETE: update blogs
 app.delete('/api/blogs/:id', (req, res) =>{
      const reqIdx = parseInt(req.params.id);
-     // console.log(reqIdx);
+
+     if(!validateId(reqId, res)) return;
+
      const idx = blogsData.findIndex(blog => blog.id === reqIdx);
 
      if(idx !== -1) {
