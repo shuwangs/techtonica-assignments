@@ -14,10 +14,9 @@ CREATE TABLE posts (
     summary TEXT NOT NULL,
     content TEXT NOT NULL,
     cover_image_url VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-
-    category_id INTEGER REFERENCES categories(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    category_id INTEGER REFERENCES categories(id)
 );
 
 CREATE TABLE tags_posts (
