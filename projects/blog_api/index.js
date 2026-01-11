@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv'
 import {writeJson, readJson, validateId} from './utils/utils.js'
+import pool from './utils/db.js';
 
 dotenv.config({ path: './.env' })
 const port = process.env.PORT || 5000
@@ -12,10 +13,28 @@ const app = express();
 app.use(cors())
 app.use(express.json()); 
 
-let blogsData = readJson('./blog.json');
+// let blogsData = readJson('./blog.json');
 // [READ] GET: fetch all the blogs
-app.get('/api/blogs', (req, res) => {
-    res.json(blogsData);
+app.get('/api/blogs', async (req, res) => {
+     try {
+          const result = await pool.query(
+               `SELECT p.title, p.summary, p.created_at, 
+               cats.name AS category_name, 
+               ARRAY_AGG (tags.name) AS tags
+               FROM posts p
+               LEFT JOIN categories cats on p.category_id = cats.id
+               LEFT JOIN tags_posts tp on p.id = tp.post_id 
+               LEFT JOIN tags on tp.tag_id = tags.id
+               GROUP BY p.title, p.summary, p.created_at, category_name
+               ORDER BY p.created_at DESC`
+          );
+
+          res.json(result.rows);
+     } catch (err) {
+          res.status(500).json({
+               error: err.message}
+          )
+     }
 })
 
 // [READ] GET: fetch single the blogs by blog id
