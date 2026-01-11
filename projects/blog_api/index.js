@@ -57,72 +57,115 @@ app.get('/api/blogs/:id', (req, res) => {
 
 // [CREATE] POST: add new blog
 // add to DB and also update to the front
-app.post('/api/blogs', (req, res) => {
-     const nextIdx = blogsData.length + 1;
+app.post('/api/blogs', async (req, res) => {
+     const { title, summary, content, category, tags, cover_image_url, create_at } = req.body;
+     const client = await pool.connect();
 
-     const BlogPlaceholder = {
-          id: nextIdx,       
-          title: "",
-          slug: "",
-          fileName: "",
-          date: "",
-          category: "",
-          summary: "",
-          tags: []
+     try {
+          await client.query('BEGIN');
+
+          // add to categories table
+          const catRes = await client.query(
+               `INSERT INTO categories (name)
+               VALUES ($1) ON CONFLICT (name) 
+               DO UPDATE SET name = EXCLUDED.name 
+               RETURNING id`,
+               [category || 'uncategoried']
+          )
+          const categoryId = catRes.rows[0].id;
+
+          // add to posts table
+          const postRes = await client.query(
+               `INSERT INTO posts (title, summary, content, cover_image_url, created_at,  category_Id)
+               VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`,
+               [title, summary, content, cover_image_url, create_at, categoryId]
+          )
+          const postId = postRes.rows[0].id;
+
+          // add to tags table
+
+          for (const tagName of tags) {
+            const tagRes = await client.query(
+                `INSERT INTO tags(name)
+                VALUES ($1)
+                ON CONFLICT (name)
+                DO UPDATE SET name = EXCLUDED.name
+                RETURNING id`,
+                [tagName]
+            )
+            const tagId = tagRes.rows[0].id;
+
+            await client.query(
+                `INSERT INTO tags_posts(tag_id, post_id)
+                VALUES ($1, $2)
+                ON CONFLICT DO NOTHING`
+                ,
+                [tagId, postId]
+            )
+        }
+          await client.query('COMMIT');
+
+          res.status(201).json({ 
+               message: "Post created successfully", 
+               postId: postId 
+          });
+
+          console.log(`Post "${title}" has been added to 4 tables`);
+          
+     } catch(err) {
+          await client.query('ROLLBACK');
+          res.status(500).json({
+               error: err.message
+          });
+     } finally {
+          client.release();
      }
 
-     let newBlog = {...BlogPlaceholder, ...req.body};
-
-     blogsData.push(newBlog);
-
-     writeJson(blogsData);
-
-     res.json(blogsData);writeJson
 })
 
 // [UPDATE] PUT: update blogs
-app.put('/api/blogs/:id', (req, res) => {
-     const reqId = parseInt(req.params.id);
+// app.put('/api/blogs/:id', async (req, res) => {
+//      const reqId = parseInt(req.params.id);
 
-     if(!validateId(reqId, res)) return;
+//      if(!validateId(reqId, res)) return;
 
-     const idx = blogsData.findIndex(blog => blog.id === reqId);
+//      const idx = blogsData.findIndex(blog => blog.id === reqId);
 
-     if (idx !== -1) {
-          blogsData[idx] = {...blogsData[idx], ...req.body} //compare old data with new data one by one to replace, in case data missing 
+//      if (idx !== -1) {
+//           blogsData[idx] = {...blogsData[idx], ...req.body} //compare old data with new data one by one to replace, in case data missing 
 
-          writeJson(blogsData);
-          res.json(blogsData);
-     } else {
-          res.status(404).json({
-               error: "BlogNotFound",
-               message: "The blog you are looking for is not found."
-          });
-     }
+//           writeJson(blogsData);
+//           res.json(blogsData);
+//      } else {
+//           res.status(404).json({
+//                error: "BlogNotFound",
+//                message: "The blog you are looking for is not found."
+//           });
+//      }
 
-})
+// })
 
 
 // [DELETE] DELETE: update blogs
-app.delete('/api/blogs/:id', (req, res) =>{
-     const reqIdx = parseInt(req.params.id);
+// app.delete('/api/blogs/:id',  (req, res) =>{
+//      const reqIdx = parseInt(req.params.id);
 
-     if(!validateId(reqId, res)) return;
+//      if(!validateId(reqId, res)) return;
 
-     const idx = blogsData.findIndex(blog => blog.id === reqIdx);
+//      const idx = blogsData.findIndex(blog => blog.id === reqIdx);
 
-     if(idx !== -1) {
-          const deletedBlog = blogsData.splice(idx, 1);
-          writeJson(blogsData);
-          res.json(blogsData); 
-     } else {
-          res.status(404).json({
-               error: "BlogNotFound",
-               message: "The blog you are looking for is not found."
-          });
-     }
+//      if(idx !== -1) {
+//           const deletedBlog = blogsData.splice(idx, 1);
+//           writeJson(blogsData);
+//           res.json(blogsData); 
+//      } else {
+//           res.status(404).json({
+//                error: "BlogNotFound",
+//                message: "The blog you are looking for is not found."
+//           });
+//      }
      
-})
+// })
 
 
 app.listen(port, ()=> {
