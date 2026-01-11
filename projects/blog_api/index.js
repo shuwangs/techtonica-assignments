@@ -142,26 +142,93 @@ app.post('/api/blogs', async (req, res) => {
 })
 
 // [UPDATE] PUT: update blogs
-// app.put('/api/blogs/:id', async (req, res) => {
-//      const reqId = parseInt(req.params.id);
+app.put('/api/blogs/:id', async (req, res) => {
+     const reqIdx = parseInt(req.params.id);
+     if(!validateId(reqIdx, res)) return;
 
-//      if(!validateId(reqId, res)) return;
+     const { title, summary, content, category, tags, cover_image_url } = req.body;
+     const client = await pool.connect();
 
-//      const idx = blogsData.findIndex(blog => blog.id === reqId);
+     let categoryId = null;
+     try {
+          await client.query('BEGIN');
 
-//      if (idx !== -1) {
-//           blogsData[idx] = {...blogsData[idx], ...req.body} //compare old data with new data one by one to replace, in case data missing 
+          // 1. update  categories table
+          if (category) {
+               const catRes = await client.query(
+                    `INSERT INTO categories (name)
+                    VALUES ($1)
+                    ON CONFLICT (name) DO UPDATE SET name = EXCLUDED.name 
+                    RETURNING id`,
+                [category]
+               );
 
-//           writeJson(blogsData);
-//           res.json(blogsData);
-//      } else {
-//           res.status(404).json({
-//                error: "BlogNotFound",
-//                message: "The blog you are looking for is not found."
-//           });
-//      }
+               categoryId = catRes.rows[0].id;
+          }
 
-// })
+          // 2. update posts table
+          const updatePostQuery = 
+               `UPDATE posts 
+                SET title = COALESCE($1, title), 
+                summary = COALESCE($2, summary), 
+                content = COALESCE($3, content), 
+                cover_image_url = COALESCE($4, cover_image_url),
+                category_id = COALESCE($5, category_id),
+                updated_at = CURRENT_TIMESTAMP
+                WHERE id = $6
+                RETURNING *`;
+          
+               const postRes = await client.query(updatePostQuery, [
+                    title, summary, content, cover_image_url, categoryId, reqIdx
+               ]);
+
+          if (postRes.rowCount === 0) {
+               await client.query('ROLLBACK');
+               return res.status(404).json({ error: "BlogNotFound", message: "Blog not found." });
+          }
+
+          // 3. update tags
+          if (tags && Array.isArray(tags)) {
+
+               // delete previous tags 
+               await client.query(
+                    `DELETE 
+                     FROM tags_posts 
+                     WHERE post_id = $1`, 
+                    [reqIdx]
+               )
+               
+               // add new tags.
+               for (const tagName of tags) {
+                const tagRes = await client.query(
+                    `INSERT INTO tags (name) 
+                     VALUES ($1) 
+                     ON CONFLICT (name) DO UPDATE SET name = EXCLUDED.name 
+                     RETURNING id`,
+                    [tagName]
+                );
+                const tagId = tagRes.rows[0].id;
+
+                await client.query(
+                    `INSERT INTO tags_posts (tag_id, post_id) 
+                     VALUES ($1, $2) 
+                     ON CONFLICT DO NOTHING`,
+                    [tagId, reqIdx]
+                );
+               }
+          }
+          await client.query('COMMIT');
+          res.json({ message: "Post updated successfully", post: postRes.rows[0] });
+
+     } catch (err) {
+          await client.query('ROLLBACK');
+          res.status(500).json({
+               error: err.message
+          });
+     } finally {
+          client.release();
+     }
+});
 
 
 // [DELETE] DELETE:  blogs
