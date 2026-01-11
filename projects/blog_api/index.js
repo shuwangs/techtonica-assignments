@@ -38,20 +38,38 @@ app.get('/api/blogs', async (req, res) => {
 })
 
 // [READ] GET: fetch single the blogs by blog id
-app.get('/api/blogs/:id', (req, res) => {
+app.get('/api/blogs/:id', async (req, res) => {
      const reqId = parseInt(req.params.id);
      if(!validateId(reqId, res)) return;
+     try {
+          // const idx = blogsData.findIndex(blog => blog.id === reqId);
+          const result = await pool.query(
+               `SELECT p.title, p.summary, p.created_at, 
+               cats.name AS category_name, 
+               ARRAY_AGG (tags.name) AS tags
+               FROM posts p
+               LEFT JOIN categories cats on p.category_id = cats.id
+               LEFT JOIN tags_posts tp on p.id = tp.post_id 
+               LEFT JOIN tags on tp.tag_id = tags.id
+               WHERE p.id = $1
+               GROUP BY p.title, p.summary, p.created_at, category_name`,
+               [reqId]
+               
+          )
+          if (result.rows.length === 0) {
+               res.status(404).json({
+                    error: "BlogNotFound",
+                    message: "The blog you are looking for is not found."
+               });
+          }
 
-     const idx = blogsData.findIndex(blog => blog.id === reqId);
-
-     if (idx !== -1) {
-          res.json(blogsData[idx]);
-     } else {
-          res.status(404).json({
-               error: "BlogNotFound",
-               message: "The blog you are looking for is not found."
-          });
+          res.json(result.rows[0]);
+     } catch (err) {
+          res.status(500).json({
+               error: err.message}
+          )
      }
+
 })
 
 
@@ -111,7 +129,7 @@ app.post('/api/blogs', async (req, res) => {
           });
 
           console.log(`Post "${title}" has been added to 4 tables`);
-          
+
      } catch(err) {
           await client.query('ROLLBACK');
           res.status(500).json({
@@ -146,26 +164,38 @@ app.post('/api/blogs', async (req, res) => {
 // })
 
 
-// [DELETE] DELETE: update blogs
-// app.delete('/api/blogs/:id',  (req, res) =>{
-//      const reqIdx = parseInt(req.params.id);
+// [DELETE] DELETE:  blogs
+app.delete('/api/blogs/:id', async (req, res) =>{
+     const reqIdx = parseInt(req.params.id);
+     if(!validateId(reqIdx, res)) return;
 
-//      if(!validateId(reqId, res)) return;
-
-//      const idx = blogsData.findIndex(blog => blog.id === reqIdx);
-
-//      if(idx !== -1) {
-//           const deletedBlog = blogsData.splice(idx, 1);
-//           writeJson(blogsData);
-//           res.json(blogsData); 
-//      } else {
-//           res.status(404).json({
-//                error: "BlogNotFound",
-//                message: "The blog you are looking for is not found."
-//           });
-//      }
+     try{
+          const result = await pool.query(
+               `DELETE 
+               FROM posts
+               WHERE id = $1 
+               RETURNING *`,
+               [reqIdx]
+          );
+          
+          if (result.rowCount !== 0) {
+               res.json({
+                    message: "Blog deleted successfully",
+                    deletedBlog: result.rows[0]
+               });
+          } else {
+               res.status(404).json({
+                    error: "BlogNotFound",
+                    message: "The blog you are looking for is not found."
+               });
+          }
+     } catch(err) {
+          res.status(500).json({
+               error: err.message
+          });
+     }
      
-// })
+});
 
 
 app.listen(port, ()=> {
