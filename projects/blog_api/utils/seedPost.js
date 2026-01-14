@@ -13,11 +13,7 @@ const toNullIfEmpty = (params) => {
 }
 
 const insertPostToDB = async (filePath) =>{
-    // const fileContent = matter.read(filePath);
     const { data, content } = matter.read(filePath) // {data: "this is the header thing", content: "this is the content"}
-
-    // console.log(data) 
-    // console.log(content)
 
     // Deal with coverImageUrl
     const coverImageUrl =
@@ -53,8 +49,6 @@ const insertPostToDB = async (filePath) =>{
             [postData.category]
         );
 
-        // console.log(categoryRes);
-
         const categoryId = categoryRes.rows[0].id;
 
         // INSERT posts table
@@ -85,7 +79,6 @@ const insertPostToDB = async (filePath) =>{
                 [tagId, postId]
             )
         }
-
 
         await client.query('commit');
         console.log(`POST ${postData.title} saved sucessfully!`);

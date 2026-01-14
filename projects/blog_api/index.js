@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv'
-import {writeJson, readJson, validateId} from './utils/utils.js'
+// import {writeJson, readJson, validateId} from './utils/utils.js'
 import pool from './utils/db.js';
 
 dotenv.config({ path: './.env' })
@@ -13,7 +13,6 @@ const app = express();
 app.use(cors())
 app.use(express.json()); 
 
-// let blogsData = readJson('./blog.json');
 // [READ] GET: fetch all the blogs
 app.get('/api/blogs', async (req, res) => {
      try {
