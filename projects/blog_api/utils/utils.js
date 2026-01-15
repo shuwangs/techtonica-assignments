@@ -16,12 +16,8 @@ export const readJson = (path) => {
 
 
 // ====== API helper function: ======
-export const validateId = (id, res) => {
+export const validateId = (id) => {
   if (isNaN(id)) {
-    res.status(400).json({
-      error: 'BadRequest',
-      message: `Invalid id.`
-    });
     return false;
   }
   return true;

@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv'
 import {writeJson, readJson, validateId} from './utils/utils.js'
-import * as sql_queries from './utils/queries.js';
+import * as sql_queries from './utils/sql_queries.js';
 import pool from './utils/db.js';
 
 dotenv.config({ path: './.env' })
@@ -29,7 +29,7 @@ app.get('/api/blogs', async (req, res) => {
 // [READ] GET: fetch single the blogs by blog id
 app.get('/api/blogs/:id', async (req, res) => {
      const reqId = parseInt(req.params.id);
-     if(!validateId(reqId, res)) return;
+     if(!validateId(reqId)) return;
      try {
           // const idx = blogsData.findIndex(blog => blog.id === reqId);
           const result = await pool.query(sql_queries.GET_SINGLE_BLOG, [reqId] )
@@ -103,7 +103,7 @@ app.post('/api/blogs', async (req, res) => {
 // [UPDATE] PUT: update blogs
 app.put('/api/blogs/:id', async (req, res) => {
      const reqIdx = parseInt(req.params.id);
-     if(!validateId(reqIdx, res)) return;
+     if(!validateId(reqIdx)) return;
 
      const { title, summary, content, category, tags, cover_image_url } = req.body;
      const client = await pool.connect();
@@ -165,7 +165,7 @@ app.put('/api/blogs/:id', async (req, res) => {
 // [DELETE] DELETE:  blogs
 app.delete('/api/blogs/:id', async (req, res) =>{
      const reqIdx = parseInt(req.params.id);
-     if(!validateId(reqIdx, res)) return;
+     if(!validateId(reqIdx)) return;
 
      try{
           const result = await pool.query(sql_queries.DELETE_POSTS,[reqIdx]);
