@@ -2,7 +2,6 @@ import fs from 'fs';
 
 // ====== helper functions write to js=========
 export const writeJson = (data) =>{
-     // Data to write to Another file
      const dataToWrite = JSON.stringify(data, null, 4);
 
      fs.writeFileSync('./blog.json', dataToWrite, 'utf-8') // Params: OUTFILE, datatowrite, the format
@@ -17,13 +16,12 @@ export const readJson = (path) => {
 
 
 // ====== API helper function: ======
-export const validateId = (id, res) => {
+export const validateId = (id) => {
   if (isNaN(id)) {
-    res.status(400).json({
-      error: 'BadRequest',
-      message: `Invalid id.`
-    });
     return false;
   }
   return true;
 };
+
+
+// ====== READ Markdown file into db helper function: ======
