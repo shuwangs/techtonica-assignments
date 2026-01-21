@@ -6,20 +6,22 @@ const API_BASE = import.meta.env.VITE_API_BASE_URL;
 console.log(API_BASE);
 
 function App() {
+  const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const fetchWeather = async (city) =>{
-    if(!city) {
+  const fetchWeather = async (cityFromInput) =>{
+    if(!cityFromInput) {
       setError("Please enter a city");
       return;
     }
+    setCity(cityFromInput);
     setLoading(true);
     setError("");
 
     try {
-      const response = await fetch(`${API_BASE}/weather?cityName=${city}`);
+      const response = await fetch(`${API_BASE}/weather?cityName=${cityFromInput}`);
       if(!response.ok) {
         throw new Error("Requested failed");
       }
@@ -35,14 +37,14 @@ function App() {
    
   
   useEffect(() => {
-    fetchWeather("Boston");
+    fetchWeather(city);
   }, []);
 
 
   return (
     <div style={{ padding: 40 }}>
       <h1>Techtonica Weather App</h1>
-      <WeatherForm />
+      <WeatherForm onCitySubmit={fetchWeather} />
       {loading && <p>Loading...</p>}
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
