@@ -54,7 +54,7 @@ app.get('/weather', async (req, res) => {
             }
         }
         console.log(formatedData);
-        res.json(data)
+        res.json(formatedData)
 
     } catch (error){
         console.error("Fetch Failed", error)
