@@ -1,4 +1,5 @@
 import { useState, useEffect} from 'react'
+import WeatherForm from './components/WeatherForm.jsx';
 import './App.css'
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
@@ -40,14 +41,24 @@ function App() {
 
   return (
     <div style={{ padding: 40 }}>
-      <h1>Weather App</h1>
-
+      <h1>Techtonica Weather App</h1>
+      <WeatherForm />
       {loading && <p>Loading...</p>}
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
       {weather && (
-        <p>Today's weather {weather.city}</p>
+        <>
+          <p>Today's weather {weather.city}</p>
+          <div>
+            <p>City: {weather.city}, {weather.country}</p>
+            <p>Description: {weather.current.description}</p>
+
+            <p>Temperature: {weather.current.temp}</p>
+            <p>Feels Like: {weather.current.feels_like}</p>
+          </div>
+        </>
+
       )}
 
     </div>
