@@ -6,6 +6,7 @@ function WeatherForm ({onCitySubmit}) {
     const handleSubmit = (event)=>{
         event.preventDefault();
         onCitySubmit(city)
+        setCity("");
         return;
     }
 
