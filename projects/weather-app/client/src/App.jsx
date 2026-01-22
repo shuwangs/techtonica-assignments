@@ -63,24 +63,32 @@ function App() {
 
   return (
     <div style={{ padding: 40 }}>
-      <h1>Techtonica Weather Intelligent Assistant</h1>
+      <h1><span className="techtonica-name">Techtonica</span>  Weather App</h1>
       <WeatherForm onCitySubmit={fetchWeather} />
+
       {loading && <p>Loading...</p>}
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      {weather && <WeatherCard data={weather} />}
-      
-      <div className='insight'>
-        {weather && insights.map((item) =>{
-          return (
-            <InsightCard title={item.title}
-              status={item.status}
-              suggestion={item.desc}
-            />
-          )
-        })}
-      </div>
+
+      {weather && (
+        <div className='dashboard-container'>
+
+          <div className='main-display'> 
+            <WeatherCard data={weather} />
+          </div>
+          {/* <div className='insight'>
+            {weather && insights.map((item) =>{
+              return (
+                <InsightCard title={item.title}
+                  status={item.status}
+                  suggestion={item.desc}
+                />
+              )
+            })}
+          </div> */}
+        </div>
+      )}
     </div>
   );
   

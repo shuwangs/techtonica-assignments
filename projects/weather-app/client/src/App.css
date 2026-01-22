@@ -10,15 +10,17 @@ label {
   display: block;
   margin-bottom: 1rem;
 }
-
 input {
-  font: inherit;
-  margin-left: 1rem;
-  padding: 0.6em 0.8em;
+  background: rgba(20, 20, 25, 0.8);
+  border: 2px solid #B392AC;
   border-radius: 8px;
-  border: 1px solid #3c3c3c;
-  background-color: #1a1a1a;
-  color: inherit;
+  padding: 12px 20px;
+}
+
+.dashboard-container {
+  gap: 30px;
+  margin: 40px 20px; 
+  padding: 0 20px;
 }
 
 @keyframes logo-spin {
