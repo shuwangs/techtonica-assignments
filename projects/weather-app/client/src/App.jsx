@@ -1,6 +1,7 @@
 import { useState, useEffect} from 'react'
 import WeatherForm from './components/WeatherForm.jsx';
 import WeatherCard from './components/WeatherCard.jsx';
+import InsightCard from './components/InsightCard.jsx';
 import './App.css'
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
@@ -11,6 +12,24 @@ function App() {
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // hard coded examples
+  const insights = [
+      { 
+        id: "clothes", 
+        title: "CLOTHES ", 
+        status: "Cold", 
+        desc: "Wear jacts.", 
+        score: 10 
+      },
+         { 
+        id: "running", 
+        title: "OUTDOOR ACTIVITY", 
+        status: "LOW RISK", 
+        desc: "Not suggested.", 
+        score: 3 
+      },
+    ]
 
   const fetchWeather = async (cityFromInput) =>{
     if(!cityFromInput) {
@@ -44,14 +63,24 @@ function App() {
 
   return (
     <div style={{ padding: 40 }}>
-      <h1>Techtonica Weather App</h1>
+      <h1>Techtonica Weather Intelligent Assistant</h1>
       <WeatherForm onCitySubmit={fetchWeather} />
       {loading && <p>Loading...</p>}
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
       {weather && <WeatherCard data={weather} />}
-
+      
+      <div className='insight'>
+        {weather && insights.map((item) =>{
+          return (
+            <InsightCard title={item.title}
+              status={item.status}
+              suggestion={item.desc}
+            />
+          )
+        })}
+      </div>
     </div>
   );
   
