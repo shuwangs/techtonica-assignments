@@ -41,7 +41,7 @@ app.get('/api/weather', async (req, res) => {
         const formatedData = {
             "city": data.name,
             "country": data.sys.country,
-            "generatedAt": data.dt,
+            "generatedAt": (data.dt + data.timezone) * 1000,
             "current": {
             "condition": data.weather[0].main,
             "description": data.weather[0].description,

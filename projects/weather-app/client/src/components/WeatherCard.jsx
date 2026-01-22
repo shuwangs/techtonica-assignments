@@ -1,11 +1,11 @@
 import React from 'react';
 import './WeatherCard.css'
-const WeatherCard = ({ data }) => {
+const WeatherCard = ({ data , isDay}) => {
     if (!data) return null;
     const iconUrl = `https://openweathermap.org/img/wn/${data.current.icon}@4x.png`;
 
     return(
-        <div className='main-weather-card'>
+        <div className={`main-weather-card ${isDay}`}>
 
             <div className='card-hearder'>
                 <h2 className="city-name">{data.city}, {data.country}</h2>
