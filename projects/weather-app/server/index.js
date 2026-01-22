@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
   });
 
 // creates an endpoint for the route /api/weather
-app.get('/weather', async (req, res) => {
+app.get('/api/weather', async (req, res) => {
     const city = req.query.cityName; 
     const params = new URLSearchParams({
         q: city,

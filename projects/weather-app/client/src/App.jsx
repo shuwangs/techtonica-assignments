@@ -1,5 +1,6 @@
 import { useState, useEffect} from 'react'
 import WeatherForm from './components/WeatherForm.jsx';
+import WeatherCard from './components/WeatherCard.jsx';
 import './App.css'
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
@@ -21,7 +22,7 @@ function App() {
     setError("");
 
     try {
-      const response = await fetch(`${API_BASE}/weather?cityName=${cityFromInput}`);
+      const response = await fetch(`${API_BASE}/api/weather?cityName=${cityFromInput}`);
       if(!response.ok) {
         throw new Error("Requested failed");
       }
@@ -49,19 +50,7 @@ function App() {
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      {weather && (
-        <>
-          <p>Today's weather {weather.city}</p>
-          <div>
-            <p>City: {weather.city}, {weather.country}</p>
-            <p>Description: {weather.current.description}</p>
-
-            <p>Temperature: {weather.current.temp}</p>
-            <p>Feels Like: {weather.current.feels_like}</p>
-          </div>
-        </>
-
-      )}
+      {weather && <WeatherCard data={weather} />}
 
     </div>
   );
