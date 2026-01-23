@@ -18,6 +18,8 @@ client.connect().then(() => {
 }).catch(err => {
     console.error("Redis Connection Error", err);
 });
+
+
 const app = express();
 
 
@@ -32,15 +34,29 @@ app.get('/', (req, res) => {
 
 // creates an endpoint for the route /api/weather
 app.get('/api/weather', async (req, res) => {
-    const city = req.query.cityName; 
-    const params = new URLSearchParams({
-        q: city,
-        appid: API_KEY,
-        units: "imperial",
-    })
+    const {cityName, lat, lon} = req.query;
+    let params;
+    if (lat && lon) {
+        params = new URLSearchParams({
+            lat: lat,
+            lon: lon,
+            appid: API_KEY,
+            units: "imperial",
+        })
+    } else if(cityName){
+           params = new URLSearchParams({
+            q: cityName,
+            appid: API_KEY,
+            units: "imperial",
+        })
+    }
 
     const url = `https://api.openweathermap.org/data/2.5/weather?${params}`
-    const cacheKey = `weather:${city.toLowerCase().trim()}`;
+
+    const cacheKey = lat && lon 
+        ? `weather:coord:${lat}:${lon}`
+        :`weather:${cityName.toLowerCase().trim()}`;
+
     try{
         const cachedData = await client.get(cacheKey);
         if(cachedData) {
