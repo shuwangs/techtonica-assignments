@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react'
+import { useState} from 'react'
 import { CiLocationOn } from "react-icons/ci";
 
 function WeatherForm ({onCitySubmit, onLocationSubmit}) {
@@ -6,6 +6,7 @@ function WeatherForm ({onCitySubmit, onLocationSubmit}) {
 
     const handleSubmit = (event)=>{
         event.preventDefault();
+        if (!city.trim()) return; 
         onCitySubmit(city)
         setCity("");
         return;
@@ -31,13 +32,12 @@ function WeatherForm ({onCitySubmit, onLocationSubmit}) {
     return (
         <div>   
       
-            <form 
-                onSubmit={handleSubmit}
-                >
+            <form onSubmit={handleSubmit}>
                 <label>
                     City: 
                     <input 
                         type="text"
+                        placeholder="Enter city name"
                         value={city}
                         onChange={(event)=>setCity(event.target.value)} 
                     />
@@ -49,7 +49,7 @@ function WeatherForm ({onCitySubmit, onLocationSubmit}) {
                     style={{ cursor: 'pointer', fontSize: '1.5rem' }}
                 />
 
-                <button type="submit">Submit</button>          
+                {/* <button type="submit">Submit</button>           */}
 
                   
             </form>

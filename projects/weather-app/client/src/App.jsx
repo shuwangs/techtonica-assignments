@@ -16,11 +16,10 @@ function App() {
   const isDay = weather ? weather.current.icon.includes('d') : true;
 
   const fetchWeather = async (cityFromInput) =>{
-    if(!cityFromInput) {
+    if(!cityFromInput.trim()) {
       // setError("Please enter a city");
       return;
     }
-    setCity(cityFromInput);
     setLoading(true);
     setError("");
 
@@ -38,7 +37,16 @@ function App() {
       setLoading(false);
     }
   }
-   
+  const handleCitySubmit = (cityFromInput) => {
+    const queryCity= cityFromInput?.trim();
+    if (!queryCity) return;
+    setCity(queryCity);
+  };
+  
+  useEffect(() => {
+    fetchWeather(city);
+  }, [city]);
+
   const fetchWeatherByLoc = async (lat, lon) => {
 
     setLoading(true);
@@ -52,7 +60,6 @@ function App() {
       const data = await response.json();
       console.log(data);
       setWeather(data);
-      // setCity(data.city);
       setLat(lat);
       setLon(lon);
       
@@ -63,14 +70,7 @@ function App() {
     }
 
   }
-  
-  // useEffect(() => {
-  //   fetchWeather(city);
-  // }, [city]);
 
-  // useEffect(() => {
-  //   fetchWeatherByLoc(lat,lon);
-  // }, [lat,lon]);
 
   return (
     <div className={`app-container ${isDay? 'day-mode' :'night-mode'}` }>
@@ -78,7 +78,7 @@ function App() {
       <div style={{ padding: 40 }}>
         <h1><span className="techtonica-name">Techtonica</span>  Weather App</h1>
         <WeatherForm 
-          onCitySubmit={fetchWeather} 
+          onCitySubmit={handleCitySubmit} 
           onLocationSubmit={fetchWeatherByLoc}
           />
 
@@ -93,16 +93,6 @@ function App() {
             <div className='main-display'> 
               <WeatherCard data={weather} isDay={isDay}/>
             </div>
-            {/* <div className='insight'>
-              {weather && insights.map((item) =>{
-                return (
-                  <InsightCard title={item.title}
-                    status={item.status}
-                    suggestion={item.desc}
-                  />
-                )
-              })}
-            </div> */}
           </div>
         )}
       </div>
