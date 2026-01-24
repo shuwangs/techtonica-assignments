@@ -2,9 +2,11 @@
   background: rgba(20, 20, 25, 0.9);
   padding: 30px;
   min-width: 350px;
+  max-width: 500px;
   position: relative;
   overflow: hidden;
   border-radius: 20px;
+  margin: auto auto;
 }
 
 .main-weather-card.day {
