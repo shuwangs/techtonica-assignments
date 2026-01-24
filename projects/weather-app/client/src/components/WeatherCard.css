@@ -7,12 +7,34 @@
   border-radius: 20px;
 }
 
+.main-weather-card.day {
+  background: rgba(255, 255, 255, 0.20);
+  border: 1px solid rgba(255, 255, 55, 0.35);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+  color: #0b1220;
+  backdrop-filter: blur(10px);
+}
+
 .city-name {
   font-family: 'Orbitron', sans-serif;
   color: #fff;
   font-size: 1.8rem;
   margin: 0;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+.city-row {
+  display: flex;
+  align-items: center;   
+  justify-content: center;
+  gap: 12px;  
+
+}
+
+.geo-icon {
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  color:#B392AC;
 }
 
 .weather-desc {

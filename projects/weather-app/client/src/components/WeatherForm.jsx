@@ -1,5 +1,6 @@
 import { useState} from 'react'
 import { CiLocationOn } from "react-icons/ci";
+import './WeatherCard.css';
 
 function WeatherForm ({onCitySubmit, onLocationSubmit}) {
     const [city, setCity] = useState("");
@@ -33,23 +34,23 @@ function WeatherForm ({onCitySubmit, onLocationSubmit}) {
         <div>   
       
             <form onSubmit={handleSubmit}>
-                <label>
-                    City: 
-                    <input 
-                        type="text"
-                        placeholder="Enter city name"
-                        value={city}
-                        onChange={(event)=>setCity(event.target.value)} 
+                <div className="city-row">
+
+                    <label>
+                        City: 
+                        <input 
+                            type="text"
+                            placeholder="Enter city name"
+                            value={city}
+                            onChange={(event)=>setCity(event.target.value)} 
+                        />
+                    </label>
+
+                    <CiLocationOn 
+                        className="geo-icon" 
+                        onClick={handleClickLocation} 
                     />
-                </label>
-
-                <CiLocationOn 
-                    className="geo-icon" 
-                    onClick={handleClickLocation} 
-                    style={{ cursor: 'pointer', fontSize: '1.5rem' }}
-                />
-
-                {/* <button type="submit">Submit</button>           */}
+                 </div>
 
                   
             </form>

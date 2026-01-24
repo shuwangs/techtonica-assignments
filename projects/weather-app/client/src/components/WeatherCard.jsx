@@ -3,9 +3,10 @@ import './WeatherCard.css'
 const WeatherCard = ({ data , isDay}) => {
     if (!data) return null;
     const iconUrl = `https://openweathermap.org/img/wn/${data.current.icon}@4x.png`;
+    const mode = isDay? "day" : "night";
 
     return(
-        <div className={`main-weather-card ${isDay}`}>
+        <div className={`main-weather-card ${mode}`}>
 
             <div className='card-hearder'>
                 <h2 className="city-name">{data.city}, {data.country}</h2>

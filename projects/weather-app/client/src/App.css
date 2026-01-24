@@ -7,15 +7,17 @@
 .app-container {
   min-height: 100vh;
   transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
-  color: white;
+  padding-top:20%; 
+  color: rgb(203, 120, 213);
   font-family: 'Rajdhani', sans-serif;
 }
-.day-mode {
-  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-}
 
-.night-mode {
-  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+.day-mode {
+  background:
+    radial-gradient(circle at 40% 25%, rgba(255,255,255,0.45), transparent 35%),
+    radial-gradient(circle at 70% 35%, rgba(255,255,255,0.35), transparent 40%),
+    radial-gradient(circle at 55% 75%, rgba(255,255,255,0.25), transparent 45%),
+    linear-gradient(180deg, #7dd3fc 0%, #38bdf8 45%, #0ea5e9 100%);
 }
 
 label {
@@ -23,12 +25,14 @@ label {
   display: block;
   margin-bottom: 1rem;
 }
+
 input {
-  background: rgba(20, 20, 25, 0.8);
+  background: rgba(162, 192, 195, 0.8);
   border: 2px solid #B392AC;
   border-radius: 8px;
   padding: 12px 20px;
   margin-left: 1rem;
+  font-size: 1.2rem;
 }
 
 .dashboard-container {
@@ -36,19 +40,28 @@ input {
   margin: 40px 20px; 
   padding: 0 20px;
 }
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.starry-bg {
+  background-color: #0b0d1a;
+  background-size: 200px 200px;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, white, transparent),
+    radial-gradient(1px 1px at 80% 20%, white, transparent),
+    radial-gradient(1px 1.5px at 50% 70%, white, transparent),
+    radial-gradient(1px 1px at 10% 90%, white, transparent),
+    radial-gradient(1px 1px at 90% 80%, white, transparent),
+    radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.8), transparent),
+    radial-gradient(2px 2px at 50% 50%, rgba(255,255,255,1), transparent);  
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+
+@keyframes twinkle {
+  0% { opacity: 0.6; }
+  50% {opacity: 0.8;}
+  100% { opacity: 1; }
 }
+
+.starry-bg {
+  animation: twinkle 4s ease-in-out infinite alternate;
+}
+
 

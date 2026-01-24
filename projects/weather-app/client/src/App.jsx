@@ -73,7 +73,7 @@ function App() {
 
 
   return (
-    <div className={`app-container ${isDay? 'day-mode' :'night-mode'}` }>
+    <div className={`app-container ${isDay? 'day-mode' :'starry-bg'}` }>
 
       <div style={{ padding: 40 }}>
         <h1><span className="techtonica-name">Techtonica</span>  Weather App</h1>
