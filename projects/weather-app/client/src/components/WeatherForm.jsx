@@ -50,12 +50,8 @@ function WeatherForm ({onCitySubmit, onLocationSubmit}) {
                         className="geo-icon" 
                         onClick={handleClickLocation} 
                     />
-                 </div>
-
-                  
+                 </div>     
             </form>
-             
-
         </div> 
 
     )

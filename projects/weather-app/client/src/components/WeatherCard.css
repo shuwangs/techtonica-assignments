@@ -80,4 +80,15 @@
   border-top: 1px solid rgba(209, 179, 196, 0.8);
   padding-top: 20px;
   margin: 0 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.cache-icon{
+  font-size: 2rem;  
+  color:red;
+}
+
+.weather-icon-img{
+  height:20px;
 }

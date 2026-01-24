@@ -56,41 +56,45 @@ app.get('/api/weather', async (req, res) => {
     const cacheKey = lat && lon 
         ? `weather:coord:${lat}:${lon}`
         :`weather:${cityName.toLowerCase().trim()}`;
-
+    
     try{
         const cachedData = await client.get(cacheKey);
         if(cachedData) {
             console.log("Cache Hit!!!");
-            console.log(cachedData);
-            return res.json(JSON.parse(cachedData));
-        }
-        console.log('Cache Miss, Fetcthing from API');
-        const response = await fetch(url);
-        if(!response.ok) {
-            throw new Error ("Fetch API error");
-        }
-        const data = await response.json();
-
-
-        const formatedData = {
-            "city": data.name,
-            "country": data.sys.country,
-            "generatedAt": (data.dt + data.timezone) * 1000,
-            "current": {
-            "condition": data.weather[0].main,
-            "description": data.weather[0].description,
-            "icon": data.weather[0].icon,
-            "temp": data.main.temp,
-            "feelsLike": data.main.feels_like,
-            "humidity": data.main.humidity,
-            "windSpeed": data.wind.speed,
-            "cloudCoverage": data.clouds.all
+            // console.log(cachedData)
+            const parsed = JSON.parse(cachedData);
+            // console.log(parsed);
+            parsed.fromCache = true;
+            return res.json(parsed);
+        } else{   
+            console.log('Cache Miss, Fetcthing from API');
+            const response = await fetch(url);
+            if(!response.ok) {
+                throw new Error ("Fetch API error");
             }
+            const data = await response.json();
+
+            const formatedData = {
+                "city": data.name,
+                "country": data.sys.country,
+                "generatedAt": (data.dt + data.timezone) * 1000,
+                    "current": {
+                    "condition": data.weather[0].main,
+                    "description": data.weather[0].description,
+                    "icon": data.weather[0].icon,
+                    "temp": data.main.temp,
+                    "feelsLike": data.main.feels_like,
+                    "humidity": data.main.humidity,
+                    "windSpeed": data.wind.speed,
+                    "cloudCoverage": data.clouds.all,
+                },
+                "fromCache": false
+            }
+
+            await client.setEx(cacheKey,3600, JSON.stringify(formatedData));
+
+            res.json(formatedData)
         }
-
-        await client.setEx(cacheKey,3600, JSON.stringify(formatedData));
-
-        res.json(formatedData)
 
     } catch (error){
         console.error("Fetch Failed", error)

@@ -1,9 +1,13 @@
 import React from 'react';
+import WeatherApiIcon from '../assets/openweather.png';
+import { DiRedis } from "react-icons/di";
+
 import './WeatherCard.css'
 const WeatherCard = ({ data , isDay}) => {
     if (!data) return null;
     const iconUrl = `https://openweathermap.org/img/wn/${data.current.icon}@4x.png`;
     const mode = isDay? "day" : "night";
+    const isCached = data.fromCache
 
     return(
         <div className={`main-weather-card ${mode}`}>
@@ -35,6 +39,11 @@ const WeatherCard = ({ data , isDay}) => {
                     <span className="value">{Math.round(data.current.humidity)}</span>
                 </div>
 
+                <div className="footer-item cache-icon">
+                    {isCached ? <DiRedis /> :
+                    <img className="weather-icon-img" src={WeatherApiIcon} alt="Data from Open Weather" /> }
+
+                </div>
             </div>
 
         </div>
