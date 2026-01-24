@@ -91,7 +91,7 @@ app.get('/api/weather', async (req, res) => {
                 "fromCache": false
             }
 
-            await client.setEx(cacheKey,3600, JSON.stringify(formatedData));
+            await client.setEx(cacheKey,36000, JSON.stringify(formatedData));
 
             res.json(formatedData)
         }

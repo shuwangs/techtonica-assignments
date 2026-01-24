@@ -1,15 +1,13 @@
 #root {
-  /* max-width: none;    */
   max-width: 1280px;
   margin: 0 auto;
-  /* padding: 2rem; */
   text-align: center;
 }
 .app-container {
   min-height: 100vh;
   transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
   padding-top:20%; 
-  color: #ffb3c6;
+  color: #f26419;
   font-family: 'Rajdhani', sans-serif;
 }
 
@@ -35,7 +33,7 @@ input {
   padding: 12px 20px;
   margin-left: 1rem;
   font-size: 1.2rem;
-  color:#00b4d8;
+  color:#f26419;
 }
 
 .dashboard-container {
