@@ -64,13 +64,13 @@ function App() {
 
   }
   
-  useEffect(() => {
-    fetchWeather(city);
-  }, [city]);
+  // useEffect(() => {
+  //   fetchWeather(city);
+  // }, [city]);
 
-  useEffect(() => {
-    fetchWeatherByLoc(lat,lon);
-  }, [lat,lon]);
+  // useEffect(() => {
+  //   fetchWeatherByLoc(lat,lon);
+  // }, [lat,lon]);
 
   return (
     <div className={`app-container ${isDay? 'day-mode' :'night-mode'}` }>
