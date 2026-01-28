@@ -4,6 +4,11 @@ A full-stack weather application that allows users to search weather information
 
 ---
 
+## Preview
+<img height=250 src='client/public/weather_app.gif'>
+
+---
+
 ## ✨ Features
 - Search real-time weather data by city name
 
