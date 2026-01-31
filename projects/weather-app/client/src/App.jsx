@@ -84,9 +84,9 @@ function App() {
 
         {loading && <p>Loading...</p>}
 
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p style={{ color: 'red' }}>{city} is not found.</p>}
 
-        {weather && (
+        {error === "" && weather && (
   
           <div className='dashboard-container'>
 
