@@ -71,7 +71,6 @@ function App() {
 
   }
 
-
   return (
     <div className={`app-container ${isDay? 'day-mode' :'starry-bg'}` }>
 
