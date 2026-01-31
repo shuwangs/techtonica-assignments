@@ -27,11 +27,6 @@ const app = express();
 app.use(cors());
 app.use(express.json())
 
-// creates an endpoint for the route /api
-app.get('/', (req, res) => {
-    res.json({ message: 'Hello from My template ExpressJS' });
-  });
-
 // creates an endpoint for the route /api/weather
 app.get('/api/weather', async (req, res) => {
     const {cityName, lat, lon} = req.query;
