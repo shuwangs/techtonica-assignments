@@ -6,7 +6,7 @@
 .app-container {
   min-height: 100vh;
   transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
-  padding-top:20%; 
+  padding-top:10%; 
   color: #f26419;
   font-family: 'Rajdhani', sans-serif;
 }
