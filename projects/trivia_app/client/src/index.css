@@ -13,6 +13,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+label {
+  color: white;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -46,6 +50,7 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }

@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import React, { useState } from 'react';
+import GameSetup from './components/GameSetup.jsx';
+
 import './App.css'
 
 function App() {
@@ -6,7 +8,9 @@ function App() {
 
   return (
     <>
+      <div>Welcome to the quize corner</div>
 
+      <GameSetup />
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
@@ -14,4 +18,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
