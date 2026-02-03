@@ -36,6 +36,27 @@ app.get('/api/game', async (req, res) =>{
         
     } catch (err) {
         console.error(err);
+        return res.status(500).json({ error: "Failed to fetch game data" });
+    }
+
+})
+
+app.get('/api/categories', async (req, res) =>{
+    try {
+        const catUrl= "https://opentdb.com/api_category.php";
+        console.log(catUrl);
+
+        const response = await fetch(catUrl);
+        const categories = await response.json();
+
+        console.log(categories);
+        
+        // return data
+        return res.json(categories);
+        
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Failed to fetch categories" });
     }
 
 })
