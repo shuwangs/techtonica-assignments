@@ -14,10 +14,11 @@ app.use(cors());
 app.use(express.json());
 
 
-const params = new URLSearchParams()
 
 app.get('/api/game', async (req, res) =>{
     try {
+        const params = new URLSearchParams()
+
         const { amount, category, difficulty, type } = req.query;
         if (amount) params.append("amount", amount);
         if (category) params.append("category", category);
