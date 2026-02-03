@@ -4,13 +4,15 @@ import GameSetup from './components/GameSetup.jsx';
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const onSubmit = () => {
+    console.log("submitted");
+  }
 
   return (
     <>
       <div>Welcome to the quize corner</div>
 
-      <GameSetup />
+      <GameSetup onSubmit={onSubmit} />
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
