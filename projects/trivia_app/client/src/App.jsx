@@ -14,7 +14,6 @@ function App() {
 
       <GameSetup onSubmit={onSubmit} />
         <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
         </button>
     </>
   )
