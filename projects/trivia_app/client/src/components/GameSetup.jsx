@@ -40,8 +40,10 @@ const GameSetup = ({onSubmit}) =>{
 
                  <label> Categories you are interested?
                     <select ref={categoryRef}>
-                        <option value="option1">Placeholder1</option>
-                        <option value="option2">Placeholder2</option>
+                        <option value="">Any category</option>
+                        {categories.map(elem => {
+                            return ( <option value={elem.id}> {elem.name} </option>)
+                        })}
                     </select>
                  </label>
                  <label> Difficulty Level

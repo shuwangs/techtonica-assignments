@@ -13,8 +13,7 @@ function App() {
       <div>Welcome to the quize corner</div>
 
       <GameSetup onSubmit={onSubmit} />
-        <button onClick={() => setCount((count) => count + 1)}>
-        </button>
+
     </>
   )
 }
