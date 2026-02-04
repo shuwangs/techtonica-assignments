@@ -43,7 +43,7 @@ app.get('/api/game', async (req, res) =>{
 
 app.get('/api/categories', async (req, res) =>{
     try {
-        const catUrl= "https://opentdb.com/api_category.php";
+        const catUrl= process.env.OPEN_TRIVIA_CATEGORY_URL;
         console.log(catUrl);
 
         const response = await fetch(catUrl);
