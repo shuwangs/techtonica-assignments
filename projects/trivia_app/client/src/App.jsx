@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import GameSetup from './components/GameSetup.jsx';
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+ 
+import GameSetup from './pages/GameSetup.jsx';
+import GameInterface from './pages/GameInterface.jsx';
+import GameResult from './pages/GameResult.jsx';
 import './App.css'
 
 
 function App() {
+
   const [questions, setQuestions] = useState([]);
   const [error, setError] = useState("");
 
@@ -43,12 +47,17 @@ function App() {
   }
 
   return (
-    <>
-      <div><h1>Welcome to the quize corner</h1></div>
-
-      <GameSetup onStart={handleStart} />
-
-    </>
+    
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<GameSetup onStart={handleStart} />} />
+        <Route path='/game' element={<GameInterface gameQuestion={questions} />} />
+        <Route path='/result' element={<GameResult />} />
+      </Routes>
+      
+    
+    </BrowserRouter>
+    
   )
 }
 

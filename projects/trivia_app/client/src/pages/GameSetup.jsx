@@ -1,7 +1,9 @@
 import React,{useEffect, useRef, useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../App.css'
 
 const GameSetup = ({onStart}) =>{
+    const navigate = useNavigate();
     const amountRef = useRef('10');
     const categoryRef = useRef(null);
     const difficultyRef = useRef(null);
@@ -35,6 +37,8 @@ const GameSetup = ({onStart}) =>{
         }
 
         onStart(userRequest);
+
+        navigate('/game');
     }
 
     return(
