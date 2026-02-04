@@ -1,11 +1,11 @@
 import React,{useEffect, useRef, useState} from 'react';
 
 
-const GameSetup = ({onSubmit}) =>{
-    const amount = useRef(null);
+const GameSetup = ({onStart}) =>{
+    const amountRef = useRef('10');
     const categoryRef = useRef(null);
-    const difficulty = useRef(null);
-    const type = useRef(null);
+    const difficultyRef = useRef(null);
+    const typeRef = useRef(null);
     const [categories, setCategories] = useState([])
 
     useEffect(() =>{
@@ -23,10 +23,18 @@ const GameSetup = ({onSubmit}) =>{
     ,[]);
     const handleSubmit = (e) =>{
         e.preventDefault();
-        console.log(amount.current.value);
+        console.log(amountRef.current.value);
         console.log(categoryRef.current.value);
-        console.log(difficulty.current.value);
-        console.log(type.current.value);
+        console.log(difficultyRef.current.value);
+        console.log(typeRef.current.value);
+        const userRequest = {
+            amount: amountRef.current.value,
+            category: categoryRef.current.value,
+            difficulty: difficultyRef.current.value,
+            type: typeRef.current.value
+        }
+
+        onStart(userRequest);
     }
 
     return(
@@ -34,7 +42,12 @@ const GameSetup = ({onSubmit}) =>{
             <form
              onSubmit={handleSubmit}>
                  <label>How many question you would like to try?
-                    <input type='number' ref={amount} />
+                    <input type='number' 
+                    ref={amountRef}
+                    defaultValue={10}
+                    min={1}
+                    max={30}
+                     />
 
                  </label>
 
@@ -42,12 +55,12 @@ const GameSetup = ({onSubmit}) =>{
                     <select ref={categoryRef}>
                         <option value="">Any category</option>
                         {categories.map(elem => {
-                            return ( <option value={elem.id}> {elem.name} </option>)
+                            return ( <option key={elem.id} value={elem.id}> {elem.name} </option>)
                         })}
                     </select>
                  </label>
                  <label> Difficulty Level
-                    <select ref={difficulty}>
+                    <select ref={difficultyRef}>
                         <option value="">Any Difficulty</option>
                         <option value="easy">Easy</option>
                         <option value="medium">Medium</option>
@@ -55,12 +68,15 @@ const GameSetup = ({onSubmit}) =>{
                     </select>
                  </label>
 
-                <div>
-                    <p>Type of question?</p>
-                    <label> <input type="radio" ref={type} value="" />Any Type</label>
-                    <label><input type="radio" ref={type} value="single" /> True / False</label>
-                    <label><input type="radio" ref={type} value="multiple" />Multiple Choice</label>
-                </div>
+                <label>
+                    Question type:
+                    <select ref={typeRef} defaultValue="">
+                        <option value="">Any Type</option>
+                        <option value="boolean">True / False</option>
+                        <option value="multiple">Multiple Choice</option>
+
+                    </select>
+                </label>
             
                 <button type='submit'>Start Quiz</button>
             </form>
