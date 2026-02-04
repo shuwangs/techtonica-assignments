@@ -1,5 +1,5 @@
 import React,{useEffect, useRef, useState} from 'react';
-
+import '../App.css'
 
 const GameSetup = ({onStart}) =>{
     const amountRef = useRef('10');
@@ -38,10 +38,10 @@ const GameSetup = ({onStart}) =>{
     }
 
     return(
-        <div>
+        <div className='setup-form'>
             <form
              onSubmit={handleSubmit}>
-                 <label>How many question you would like to try?
+                 <label>Question Amount
                     <input type='number' 
                     ref={amountRef}
                     defaultValue={10}
@@ -51,7 +51,7 @@ const GameSetup = ({onStart}) =>{
 
                  </label>
 
-                 <label> Categories you are interested?
+                 <label> Categories
                     <select ref={categoryRef}>
                         <option value="">Any category</option>
                         {categories.map(elem => {

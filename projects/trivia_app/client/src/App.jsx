@@ -44,7 +44,7 @@ function App() {
 
   return (
     <>
-      <div>Welcome to the quize corner</div>
+      <div><h1>Welcome to the quize corner</h1></div>
 
       <GameSetup onStart={handleStart} />
 

@@ -5,6 +5,23 @@
   text-align: center;
 }
 
+.setup-form form{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 450px;
+}
+.setup-form label{
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+} 
+
+h1 {
+  font-size: 2rem;
+}
+
+
 .logo {
   height: 6em;
   padding: 1.5em;
