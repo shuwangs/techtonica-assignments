@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate} from 'react-router-dom';
  
 import GameSetup from './pages/GameSetup.jsx';
 import GameInterface from './pages/GameInterface.jsx';
@@ -8,6 +8,7 @@ import './App.css'
 
 
 function App() {
+  const navigate = useNavigate();
 
   const [questions, setQuestions] = useState([]);
   const [error, setError] = useState("");
@@ -38,6 +39,7 @@ function App() {
       const data = await response.json();
       // console.log(data.results);
       setQuestions(data.results);
+      navigate('/game');
 
     } catch(err) {
       console.error(err);
@@ -47,17 +49,11 @@ function App() {
   }
 
   return (
-    
-    <BrowserRouter>
       <Routes>
         <Route path='/' element={<GameSetup onStart={handleStart} />} />
-        <Route path='/game' element={<GameInterface gameQuestion={questions} />} />
+        <Route path='/game' element={<GameInterface gameQuestions={questions} />} />
         <Route path='/result' element={<GameResult />} />
       </Routes>
-      
-    
-    </BrowserRouter>
-    
   )
 }
 
