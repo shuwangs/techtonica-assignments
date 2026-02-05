@@ -31,8 +31,25 @@ app.get('/api/game', async (req, res) =>{
 
         console.log(data);
         
+        const formatedData = data.results.map(quiz => {
+            const formatedCorrectAnswer = Array.isArray(quiz.correct_answer) 
+                ? quiz.correct_answer
+                : [quiz.correct_answer]
+
+            const options = [...formatedCorrectAnswer, ...quiz.incorrect_answers]
+            const shuffledOptions = options.sort(() => Math.random() - 0.5);
+            return {
+                question: quiz.question,
+                type: quiz.type,
+                difficulty: quiz.difficulty,
+                category: quiz.category,
+                options: shuffledOptions,
+                correct_answer: quiz.correct_answer // for tempary testing in the frontend, 
+            }
+        })
+        // console.log(formatedData);
         // return data
-        return res.json(data);
+        return res.json(formatedData);
         
     } catch (err) {
         console.error(err);
