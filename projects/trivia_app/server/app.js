@@ -78,4 +78,12 @@ app.get('/api/categories', async (req, res) =>{
 
 })
 
+app.post('/api/result', async(req, res) =>{
+    console.log(req.body);
+    
+    res.json("Requesting result analysis is received");
+    // TODO：
+    console.log("Requesting result analysis");
+})
+
 export default app;

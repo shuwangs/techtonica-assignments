@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createStaticHandler, useNavigate } from 'react-router-dom';
 import QuizCard from '../components/QuizCard';
+import axios from 'axios';
 
 const GameInterface = ({gameQuestions}) =>{
     const navigate = useNavigate();
@@ -23,6 +24,7 @@ const GameInterface = ({gameQuestions}) =>{
             return updatedAnswer;
         })
          
+        
     }
 
     const handlePrevious = () =>{
@@ -36,14 +38,27 @@ const GameInterface = ({gameQuestions}) =>{
         }
     } 
 
-    const submitToBackend = () =>{
-        console.log(userAnswers);
-        navigate('/result');
-        //TODO:  include an operation to submit the results to the backend
+    const submitToBackend = async () =>{
+        if (userAnswers.length < gameQuestions.length) {
+            alert("Please answer all questions before submitting!");
+            return;
+        }   
+
+        try {
+            //TODO:  include an operation to submit the results to the backend
+            const response = await axios.post('/api/result',
+                {userAnswers: userAnswers}
+            )
+            // TODO: deal with the data back from the backend.
+            console.log(response);
+            navigate('/result');
+        } catch(err) {
+            console.error(err);
+        }
 
     }
 
-    const currentQuiz = gameQuestions[0];
+
     return (
         <div className='gameInterface-container'>
             <div className='page-header'>
