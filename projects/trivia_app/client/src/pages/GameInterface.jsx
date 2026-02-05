@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import QuizCard from '../components/QuizCard';
 
 const GameInterface = ({gameQuestions}) =>{
+    const navigate = useNavigate();
     const [currentIdx, setCurrentIdx] = useState(0);
     const [userAnswers, setUserAnswers] = useState([]);
 
@@ -15,7 +17,11 @@ const GameInterface = ({gameQuestions}) =>{
             question: gameQuestions[currentIdx].question,
             userSelected: selectedOption
         }
-        setUserAnswers([...userAnswers, currentAnswer])
+        setUserAnswers((prev) =>{
+            const updatedAnswer = [...prev];
+            updatedAnswer[currentIdx] = currentAnswer;
+            return updatedAnswer;
+        })
          
     }
 
@@ -32,6 +38,7 @@ const GameInterface = ({gameQuestions}) =>{
 
     const submitToBackend = () =>{
         console.log(userAnswers);
+        navigate('/result');
         //TODO:  include an operation to submit the results to the backend
 
     }

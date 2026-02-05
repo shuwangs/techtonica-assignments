@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 const QuizCard = ({eachQuiz, onAnswerSelected, onPrevious, onNext, currentIdx, totalQuestions,onSubmitAnswers }) => {
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [option, setOption] = useState([]);
@@ -9,6 +9,11 @@ const QuizCard = ({eachQuiz, onAnswerSelected, onPrevious, onNext, currentIdx, t
         // Tell GameInterface the user's choice
         onAnswerSelected(option);
     }
+
+    useEffect(()=> {
+        setSelectedAnswer(null);
+    }, [eachQuiz])
+
     return (
         <div className="quiz-card">
             <h3 className="quiz-question">{eachQuiz.question}</h3>
