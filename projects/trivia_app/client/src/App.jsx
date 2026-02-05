@@ -31,14 +31,15 @@ function App() {
       // console.log(fetchParams.toString());
 
       const response = await fetch(`/api/game?${fetchParams.toString()}`);
-      console.log(response);
+      // console.log(response);
       if (!response.ok) {
         setError("");
         throw new Error("Fetch to backend failed");
       }
       const data = await response.json();
-      // console.log(data.results);
-      setQuestions(data.results);
+      // console.log(data);
+      setQuestions(data);
+
       navigate('/game');
 
     } catch(err) {

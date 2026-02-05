@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import '../App.css'
 
 const GameSetup = ({onStart}) =>{
-    const navigate = useNavigate();
     const amountRef = useRef('10');
     const categoryRef = useRef(null);
     const difficultyRef = useRef(null);
@@ -23,12 +22,13 @@ const GameSetup = ({onStart}) =>{
         });
     }
     ,[]);
+    
     const handleSubmit = (e) =>{
         e.preventDefault();
-        console.log(amountRef.current.value);
-        console.log(categoryRef.current.value);
-        console.log(difficultyRef.current.value);
-        console.log(typeRef.current.value);
+        // console.log(amountRef.current.value);
+        // console.log(categoryRef.current.value);
+        // console.log(difficultyRef.current.value);
+        // console.log(typeRef.current.value);
         const userRequest = {
             amount: amountRef.current.value,
             category: categoryRef.current.value,
@@ -38,7 +38,6 @@ const GameSetup = ({onStart}) =>{
 
         onStart(userRequest);
 
-        navigate('/game');
     }
 
     return(
