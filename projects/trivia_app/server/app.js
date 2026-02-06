@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import {analyzeQuizResults} from './utils/AnalyzeQuizResults.js';
 dotenv.config();
 
 const BASE_URL = process.env.OPEN_TRIVIA_BASE_URL;
@@ -11,7 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
+let lastGameQuestions = [];
 
 app.get('/api/game', async (req, res) =>{
     try {
@@ -30,7 +31,8 @@ app.get('/api/game', async (req, res) =>{
         const data = await response.json();
 
         console.log(data);
-        
+        lastGameQuestions = data.results;
+
         const formatedData = data.results.map(quiz => {
             const formatedCorrectAnswer = Array.isArray(quiz.correct_answer) 
                 ? quiz.correct_answer
@@ -44,7 +46,7 @@ app.get('/api/game', async (req, res) =>{
                 difficulty: quiz.difficulty,
                 category: quiz.category,
                 options: shuffledOptions,
-                correct_answer: quiz.correct_answer // for tempary testing in the frontend, 
+                // correct_answer: quiz.correct_answer // for tempary testing in the frontend, 
             }
         })
         // console.log(formatedData);
@@ -79,11 +81,23 @@ app.get('/api/categories', async (req, res) =>{
 })
 
 app.post('/api/result', async(req, res) =>{
-    console.log(req.body);
+    const userAnswersArr = req.body.userAnswers;
+    console.log(userAnswersArr);
+
+    const { details, correctCount } = analyzeQuizResults(userAnswersArr, lastGameQuestions);
+    console.log(details);
+    console.log(correctCount);
+
+    const formatedRes = {
+        correctCount: correctCount,
+        totalCount: lastGameQuestions.length,
+        details:details
+    }
+    console.log(formatedRes);
+
     
-    res.json("Requesting result analysis is received");
-    // TODO：
-    console.log("Requesting result analysis");
+    res.json(formatedRes);
+    console.log("Analyzed Results sent.");
 })
 
 export default app;
