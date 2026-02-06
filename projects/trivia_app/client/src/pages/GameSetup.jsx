@@ -55,9 +55,12 @@ const GameSetup = ({onStart}) =>{
 
     return( 
         <div className='setup-form'>
-            <label className='name-label'>Player NickName
-                <input className='userName' type='text' placeholder='Enter your name' ref={userNameRef} /> 
-            </label>
+            <div className='userName-container'>
+                <label className='name-label'>Player NickName
+                    <input className='userName' type='text' placeholder='Enter your name' ref={userNameRef} /> 
+                </label>
+            </div>
+
             <form
              onSubmit={handleSubmit}>
                  <label>Question Amount
