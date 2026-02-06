@@ -93,6 +93,20 @@ button {
   color: #455a48;
 }
 
+.result-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+table tr.correct {
+  background-color: #dde5b6 ;
+  font-weight: bold;
+}
+table tr.incorrect {
+  background-color: #ffe7e9;
+  font-weight: bold;
+}
 
 
 .logo {

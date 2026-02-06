@@ -24,8 +24,17 @@ const GameResult = () =>{
 
     return (
 
-        <div>
-            <h1>{state.correctCount} / {state.totalCount} is Correct</h1>
+        <div className='result-page'>
+            <div className='result-header'>
+                <div className='new-game-btn'>
+                    <button
+                        onClick={()=>
+                            navigate('/')
+                        }>New Game</button>
+                </div>
+                <h1>{state.correctCount} / {state.totalCount} is Correct</h1>
+            </div>
+
             <div className='table-display'>
                 <table>
                     <thead>
@@ -39,14 +48,16 @@ const GameResult = () =>{
 
                     <tbody>
                         {tableData.map((row, idx) =>{
-                            return (<tr key={idx}>
+                            return (
+                            <tr 
+                                key={idx} className={row.isCorrect ? 'correct' : 'incorrect'} >
                                 <td>{row.question}</td>
                                 <td>{row.userSelected}</td>
                                 <td>{row.correctAnswer}</td>
                                 <td>
                                     <button 
                                         onClick={() => handleDelete(idx)}>
-                                        Delete
+                                        ❌
                                     </button>
                                 </td>
 
@@ -56,11 +67,6 @@ const GameResult = () =>{
                 </table>
             </div>
 
-            <div className='new-game-btn'>
-                <button
-                    onClick={()=>
-                        navigate('/')
-                    }>New Game</button></div>
         </div>
         
     )
