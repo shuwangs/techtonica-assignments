@@ -50,8 +50,11 @@ const GameInterface = ({gameQuestions}) =>{
                 {userAnswers: userAnswers}
             )
             // TODO: deal with the data back from the backend.
-            console.log(response);
-            navigate('/result');
+            const analyzedData = response.data;
+            console.log(analyzedData);
+
+            navigate('/result', { state: analyzedData });
+
         } catch(err) {
             console.error(err);
         }
