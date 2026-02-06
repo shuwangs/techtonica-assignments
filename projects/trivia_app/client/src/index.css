@@ -26,8 +26,7 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 2rem;
 }
 
 button {
@@ -43,7 +42,7 @@ button {
 }
 
 button:hover {
-  border-color: #646cff;
+  background: #fefedb;
 }
 button:focus,
 button:focus-visible {
@@ -56,7 +55,7 @@ button:focus-visible {
     background-color: #ffffff;
   }
   a:hover {
-    color: #747bff;
+    color: #fefedb;
   }
   button {
     background-color: #f9f9f9;

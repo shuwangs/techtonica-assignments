@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import './QuizCard.css';
 const QuizCard = ({eachQuiz, onAnswerSelected, onPrevious, onNext, currentIdx, totalQuestions,onSubmitAnswers }) => {
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [option, setOption] = useState([]);

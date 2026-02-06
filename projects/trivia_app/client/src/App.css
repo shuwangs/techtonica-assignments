@@ -5,6 +5,7 @@
   text-align: center;
 
 }
+
 .setup-form{
   display: flex;
   flex-direction: column;
@@ -64,8 +65,8 @@ form select {
 
 button {
   margin-top: 20px;
-  background-color: #1a1a1a;
-  color: white;
+  background-color: #f5948c;
+  color: #455a48;
   font-weight: 500;
   padding: 10px 20px;
   border-radius: 5px;
@@ -73,9 +74,25 @@ button {
   cursor: pointer;
 }
 
-h1 {
-  font-size: 2rem;
+.gameInterface-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
+
+.gameInterface-container .page-header {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #213547;
+  padding:0px;
+}
+
+.gameInterface-container .status-message {
+  font-size: 1.2rem;
+  color: #455a48;
+}
+
 
 
 .logo {
