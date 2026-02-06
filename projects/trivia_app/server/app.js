@@ -85,6 +85,7 @@ app.post('/api/result', async(req, res) =>{
     console.log(userAnswersArr);
 
     const { details, correctCount } = analyzeQuizResults(userAnswersArr, lastGameQuestions);
+    console.log(lastGameQuestions);
     console.log(details);
     console.log(correctCount);
 
