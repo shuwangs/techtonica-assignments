@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import {analyzeQuizResults} from './utils/AnalyzeQuizResults.js';
+import {explainWrongAnswer} from './utils/explain.js';
 dotenv.config();
 
 const BASE_URL = process.env.OPEN_TRIVIA_BASE_URL;
@@ -81,24 +82,48 @@ app.get('/api/categories', async (req, res) =>{
 })
 
 app.post('/api/result', async(req, res) =>{
-    const userAnswersArr = req.body.userAnswers;
-    console.log(userAnswersArr);
+    try{
+        const userAnswersArr = req.body.userAnswers;
+        console.log(userAnswersArr);
 
-    const { details, correctCount } = analyzeQuizResults(userAnswersArr, lastGameQuestions);
-    console.log(lastGameQuestions);
-    console.log(details);
-    console.log(correctCount);
+        const { details, correctCount } = analyzeQuizResults(userAnswersArr, lastGameQuestions);
+        console.log(lastGameQuestions);
+        console.log(details);
+        console.log(correctCount);
 
-    const formatedRes = {
-        correctCount: correctCount,
-        totalCount: lastGameQuestions.length,
-        details:details
+        const formatedRes = {
+            correctCount: correctCount,
+            totalCount: lastGameQuestions.length,
+            details:details
+        }
+        console.log(formatedRes);
+
+        
+        res.json(formatedRes);
+        console.log("Analyzed Results sent.");
+    } catch(err) {
+        console.error(err);
+        return res.status(500).json({message: "Failed to analyze result"})
     }
-    console.log(formatedRes);
-
-    
-    res.json(formatedRes);
-    console.log("Analyzed Results sent.");
 })
+  
+app.post('/api/explain', async(req, res) => {
+    try{
+        const { question, userSelected, correctAnswer } = req.body;
+
+        if (!question || !correctAnswer) {
+            return res.status(400).json({ error: "Missing question/correctAnswer" });
+        }
+        const explanation = await explainWrongAnswer({ question, userSelected, correctAnswer });
+
+        console.log(explanation);
+        return res.json(explanation);
+    }catch(err) {
+        console.error(err);
+        return res.status(500).json({message: "Failed to analyze result"})
+    }
+})
+
+
 
 export default app;

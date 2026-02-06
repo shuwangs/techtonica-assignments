@@ -16,7 +16,11 @@ const GameResult = () =>{
     useEffect(() => {
         if (state.details){
             setTableData(state.details);}
-        }, [state]);
+        }, [state]
+    );
+
+
+
 
     return (
 
@@ -35,7 +39,7 @@ const GameResult = () =>{
 
                     <tbody>
                         {tableData.map((row, idx) =>{
-                            return (<tr id={idx}>
+                            return (<tr key={idx}>
                                 <td>{row.question}</td>
                                 <td>{row.userSelected}</td>
                                 <td>{row.correctAnswer}</td>
