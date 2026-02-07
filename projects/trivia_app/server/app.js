@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import OpenTriviaService from "./services/OpenTriviaService.js";
 import AIService from "./services/explain.js";
-
+import {analyzeQuizResults} from './utils/AnalyzeQuizResults.js'
 const BASE_URL = process.env.OPEN_TRIVIA_BASE_URL;
 console.log(BASE_URL);
 const app = express();
