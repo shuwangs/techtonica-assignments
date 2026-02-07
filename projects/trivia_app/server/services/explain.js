@@ -56,8 +56,6 @@ const AIService = {
             generationConfig: generationConfig
 
         });
-        console.log("\n--- Gemini API Call ---");
-        console.log(analyzeResponse.text);
 
         return analyzeResponse.text;
 

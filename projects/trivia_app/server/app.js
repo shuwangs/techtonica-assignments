@@ -13,8 +13,7 @@ app.use(express.json());
 
 let lastGameQuestions = [];
 
-app.get('/api/game', 
-     async (req, res) =>{
+app.get('/api/game', async (req, res) =>{
     try {
         const questions = await OpenTriviaService.getGameQuestions(req.query);
 
@@ -62,14 +61,11 @@ app.post('/api/result', async(req, res) =>{
         }
         console.log(formatedRes);
 
-        
         res.json(formatedRes);
         console.log("Analyzed Results sent.");
     } catch(err) {
         console.error(err);
-        return res.status(500).json({message: "Failed to analyze result",
-            error: err.message
-        })
+        return res.status(500).json({message: "Failed to analyze result", error: err.message})
     }
 })
   
@@ -81,10 +77,17 @@ app.post('/api/explain', async(req, res) => {
             return res.status(400).json({ error: "Missing question/correctAnswer" });
         }
         const fetchRes = await AIService.explainWrongAnswer({ question, userSelected, correctAnswer });
-        const explanation = fetchRes
+        
+        let explanation;
+        if (typeof fetchRes === 'string' ){
+            const cleanRes = fetchRes.replace(/```json|```/g, '').trim();
+            explanation = JSON.parse(cleanRes)
+        } else {
+            explanation = fetchRes;
+        }
 
-        console.log(fetchRes);
-        return res.json(fetchRes);
+        console.log(explanation);
+        return res.json(explanation);
     }catch(err) {
         console.error(err);
         return res.status(500).json({message: "Failed to analyze result"})

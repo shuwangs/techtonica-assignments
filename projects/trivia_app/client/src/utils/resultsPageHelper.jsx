@@ -5,6 +5,7 @@ const displayExplanation = (data) => {
     return {
         concept: data.concept || "General Knowledge",
         whyCorrect: data.why_correct || "The answer is factually verified.",
+        whyWrong: data.why_wrong, 
         tip: data.tip || "Keep practicing!"
     };
 }
@@ -19,20 +20,21 @@ export const fetchExplanation = async (row) => {
             question: row.question,
             userSelected: row.userSelected,
             correctAnswer: row.correctAnswer
-        })
+        });
 
-
-        console.log( `Below is explanations: ${displayExplanation(response).concept}`);
-        console.log( `Below is explanations: ${displayExplanation(response).why_correct}`);
-        console.log( `Below is explanations: ${displayExplanation(response).why_wrong}`);
-        console.log( `Below is explanations: ${displayExplanation(response).tip}`);
-
-
-        return displayExplanation(response);
+        const finalData = displayExplanation(response.data);
+        console.log("Formatted Data:", finalData);
+        return finalData;
 
     } catch (err) {
         console.error("Error fetching AI explanation:", err);
         throw err;
     }
 
+}
+
+export const getCloseExplanation = (currentData, idx) =>{
+        const newData = [...currentData];
+        newData[idx] = { ...newData[idx], explanation: null };  
+        return newData;
 }

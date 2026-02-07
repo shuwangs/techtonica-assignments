@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useLocation, useNavigate} from 'react-router-dom';
-import { deleteRow, fetchExplanation } from '../utils/resultsPageHelper';
+import { deleteRow, fetchExplanation, getCloseExplanation } from '../utils/resultsPageHelper';
 const GameResult = () =>{
     const navigate = useNavigate();
     const { state } = useLocation();
@@ -32,6 +32,10 @@ const GameResult = () =>{
         }
 
     }
+    const handleCloseClick = (idx) => {
+        const updatedData = getCloseExplanation(tableData, idx);
+        setTableData(updatedData);
+    };  
 
     useEffect(() => {
         if (state.details){
@@ -87,28 +91,30 @@ const GameResult = () =>{
                                             )}
                                             </td>
                                         <td>
-                                        <button 
-                                            onClick={() => onDeleteClick(idx)}>
-                                            ❌
-                                        </button>
-                                    </td>
+                                            <button 
+                                                onClick={() => onDeleteClick(idx)}>
+                                                ❌
+                                            </button>
+                                        </td>
 
-                                </tr>
+                                    </tr>
 
-                                <tr className={`collapse-row ${row.explanation ?'expanded' : '' }`}>
-                                    <td>
-                                        <div className="collapse-container">
-                                            {row.explanation && (
-                                                <div className="ai-content-card">
-                                                <p><strong>Concept:</strong> {row.explanation.concept}</p>
-                                                <p><strong>Why Correct:</strong> {row.explanation.why_correct}</p>
-                                                <p><strong>Why Wrong:</strong> {row.explanation.why_wrong}</p>
-                                                <p className="tip-box"><strong>Pro Tip:</strong> {row.explanation.tip}</p>
-                                            </div>
-                                        )}</div>
-                                    </td>
-                                </tr>
+                                    <tr className={`collapse-row ${row.explanation ?'expanded' : '' }`}>
+                                        <td colSpan="4">
+                                            <div className="collapse-container">
+                                                {row.explanation && (
+                                                    <div className="ai-content-card"> 
+                                                        <div>
+                                                            <p><strong>Why Correct:</strong> {row.explanation.whyCorrect}</p>
+                                                            <p><strong>Why Wrong:</strong> {row.explanation.whyWrong}</p>
+                                                            <p className="tip-box"><strong>Pro Tip:</strong> {row.explanation.tip}</p>
+                                                        </div>
+                                                        <button onClick={() => handleCloseClick(idx)}>❎</button>
+                                                    </div>
 
+                                            )}</div>
+                                        </td>
+                                    </tr>
                             </React.Fragment> )    
                         })}
                     </tbody>
