@@ -28,10 +28,7 @@ const GameSetup = ({onStart}) =>{
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-        // console.log(amountRef.current.value);
-        // console.log(categoryRef.current.value);
-        // console.log(difficultyRef.current.value);
-        // console.log(typeRef.current.value);
+
         // Save user name to local storage
         const userName = userNameRef.current.value.trim();
         if(!userName){  

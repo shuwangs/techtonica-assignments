@@ -1,16 +1,36 @@
 import React, {useState, useEffect} from 'react'
 import { useLocation, useNavigate} from 'react-router-dom';
-
+import { deleteRow, fetchExplanation } from '../utils/resultsPageHelper';
 const GameResult = () =>{
     const navigate = useNavigate();
     const { state } = useLocation();
     const [tableData, setTableData] = useState(state?.details ||[]);
+    const [loadingId, setLoadingId] = useState(null);
 
     console.log(state.details);
 
-    const handleDelete = (indexToDelete) => {
-        const newData = tableData.filter((_, index) => index !== indexToDelete);
+    const onDeleteClick = (idx) => {
+        const newData = deleteRow(tableData, idx);
         setTableData(newData);
+    };
+
+    const handleGetExplanation = async (idx, row ) =>{
+        if (row.explanation) return;
+        setLoadingId(idx);
+        try {
+            const aiRes = await fetchExplanation(row);
+
+            setTableData(prevData => {
+                const newData = [...prevData];
+                newData[idx] = {...newData[idx], explanation: aiRes};
+                return newData;
+            })
+        } catch(err) {
+            console.error("AI explanation is not responding");
+        }finally{
+            setLoadingId(null);
+        }
+
     }
 
     useEffect(() => {
@@ -55,8 +75,16 @@ const GameResult = () =>{
                                 <td>{row.userSelected}</td>
                                 <td>{row.correctAnswer}</td>
                                 <td>
+                                    {!row.isCorrect && (
+                                        <button 
+                                            onClick= {()=> handleGetExplanation(idx, row)}>
+                                                💡
+                                        </button>
+                                    )}
+                                    </td>
+                                <td>
                                     <button 
-                                        onClick={() => handleDelete(idx)}>
+                                        onClick={() => onDeleteClick(idx)}>
                                         ❌
                                     </button>
                                 </td>
