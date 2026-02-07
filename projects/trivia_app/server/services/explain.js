@@ -4,14 +4,11 @@ dotenv.config();
 
 // The client gets the API key from the environment variable `GEMINI_API_KEY`.
 const apiKey = process.env.GEMINI_API_KEY;
-console.log(apiKey);
-if (!apiKey) {
-  console.warn("GEMINI_API_KEY not found in .env");
-}
 const ai = new GoogleGenAI({apiKey: apiKey});
 
-export const explainWrongAnswer = async({question, userSelected, correctAnswer}) => {
-    const generationConfig = {
+const AIService = {
+    async explainWrongAnswer({question, userSelected, correctAnswer}) {
+        const generationConfig = {
         temperature: 0.1
     }
     const prompt =`
@@ -65,5 +62,11 @@ export const explainWrongAnswer = async({question, userSelected, correctAnswer})
     } catch(error) {
         console.error("Error calling Gemini API:", error);
     }
+    }
 }
 
+if (!apiKey) {
+  console.warn("GEMINI_API_KEY not found in .env");
+}
+
+export default AIService;
