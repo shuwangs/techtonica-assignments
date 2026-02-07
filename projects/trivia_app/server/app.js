@@ -80,10 +80,11 @@ app.post('/api/explain', async(req, res) => {
         if (!question || !correctAnswer) {
             return res.status(400).json({ error: "Missing question/correctAnswer" });
         }
-        const explanation = await AIService.explainWrongAnswer({ question, userSelected, correctAnswer });
+        const fetchRes = await AIService.explainWrongAnswer({ question, userSelected, correctAnswer });
+        const explanation = fetchRes
 
-        console.log(explanation);
-        return res.json(explanation);
+        console.log(fetchRes);
+        return res.json(fetchRes);
     }catch(err) {
         console.error(err);
         return res.status(500).json({message: "Failed to analyze result"})

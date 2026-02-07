@@ -72,27 +72,44 @@ const GameResult = () =>{
                     <tbody>
                         {tableData.map((row, idx) =>{
                             return (
-                            <tr 
-                                key={idx} className={row.isCorrect ? 'correct' : 'incorrect'} >
-                                <td>{row.question}</td>
-                                <td>{row.userSelected}</td>
-                                <td>{row.correctAnswer}</td>
-                                <td>
-                                    {!row.isCorrect && (
+                                <React.Fragment key={idx}>
+                                    <tr 
+                                        key={idx} className={row.isCorrect ? 'correct' : 'incorrect'} >
+                                        <td>{row.question}</td>
+                                        <td>{row.userSelected}</td>
+                                        <td>{row.correctAnswer}</td>
+                                        <td>
+                                            {!row.isCorrect && (
+                                                <button 
+                                                    onClick= {()=> handleGetExplanation(idx, row)}>
+                                                        💡
+                                                </button>
+                                            )}
+                                            </td>
+                                        <td>
                                         <button 
-                                            onClick= {()=> handleGetExplanation(idx, row)}>
-                                                💡
+                                            onClick={() => onDeleteClick(idx)}>
+                                            ❌
                                         </button>
-                                    )}
                                     </td>
-                                <td>
-                                    <button 
-                                        onClick={() => onDeleteClick(idx)}>
-                                        ❌
-                                    </button>
-                                </td>
 
-                            </tr>)
+                                </tr>
+
+                                <tr className={`collapse-row ${row.explanation ?'expanded' : '' }`}>
+                                    <td>
+                                        <div className="collapse-container">
+                                            {row.explanation && (
+                                                <div className="ai-content-card">
+                                                <p><strong>Concept:</strong> {row.explanation.concept}</p>
+                                                <p><strong>Why Correct:</strong> {row.explanation.why_correct}</p>
+                                                <p><strong>Why Wrong:</strong> {row.explanation.why_wrong}</p>
+                                                <p className="tip-box"><strong>Pro Tip:</strong> {row.explanation.tip}</p>
+                                            </div>
+                                        )}</div>
+                                    </td>
+                                </tr>
+
+                            </React.Fragment> )    
                         })}
                     </tbody>
                 </table>

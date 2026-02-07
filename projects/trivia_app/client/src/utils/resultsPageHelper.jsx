@@ -22,7 +22,12 @@ export const fetchExplanation = async (row) => {
         })
 
 
-        // console.log( `Below is explanations: ${displayExplanation(response).concept}`);
+        console.log( `Below is explanations: ${displayExplanation(response).concept}`);
+        console.log( `Below is explanations: ${displayExplanation(response).why_correct}`);
+        console.log( `Below is explanations: ${displayExplanation(response).why_wrong}`);
+        console.log( `Below is explanations: ${displayExplanation(response).tip}`);
+
+
         return displayExplanation(response);
 
     } catch (err) {

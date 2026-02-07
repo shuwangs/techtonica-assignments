@@ -108,7 +108,11 @@ table tr.incorrect {
   font-weight: bold;
 }
 
-
+.collapse-row.expanded .collapse-container {
+    max-height: 500px;
+    padding: 20px;
+    border-bottom: 2px solid #ff69b4; 
+}
 .logo {
   height: 6em;
   padding: 1.5em;

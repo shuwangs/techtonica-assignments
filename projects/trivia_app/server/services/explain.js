@@ -57,8 +57,10 @@ const AIService = {
 
         });
         console.log("\n--- Gemini API Call ---");
-        console.log(`Prompt sent:\n'${prompt}'`);
         console.log(analyzeResponse.text);
+
+        return analyzeResponse.text;
+
     } catch(error) {
         console.error("Error calling Gemini API:", error);
     }
