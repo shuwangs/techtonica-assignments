@@ -1,9 +1,7 @@
 import express from 'express';
-import dotenv from 'dotenv';
 import cors from 'cors';
-import {analyzeQuizResults} from './utils/AnalyzeQuizResults.js';
-import {explainWrongAnswer} from './utils/explain.js';
-dotenv.config();
+import OpenTriviaService from "./services/OpenTriviaService.js";
+import AIService from "./services/explain.js";
 
 const BASE_URL = process.env.OPEN_TRIVIA_BASE_URL;
 console.log(BASE_URL);
@@ -15,63 +13,32 @@ app.use(express.json());
 
 let lastGameQuestions = [];
 
-app.get('/api/game', async (req, res) =>{
+app.get('/api/game', 
+     async (req, res) =>{
     try {
-        const params = new URLSearchParams()
+        const questions = await OpenTriviaService.getGameQuestions(req.query);
 
-        const { amount, category, difficulty, type } = req.query;
-        if (amount) params.append("amount", amount);
-        if (category) params.append("category", category);
-        if (difficulty) params.append("difficulty", difficulty);
-        if (type) params.append("type", type);
+        lastGameQuestions = questions.map(q => ({
+            question: q.question,
+            correct_answer: q.correct_answer
+        }));
 
-        const url=`${BASE_URL}?${params.toString()}`;
-        console.log(url);
+        const dataForClient = questions.map(({ correctAnswer, ...rest }) => rest);
+        console.log("Data sent to client (Sanitized):", dataForClient);
 
-        const response = await fetch(url);
-        const data = await response.json();
-
-        console.log(data);
-        lastGameQuestions = data.results;
-
-        const formatedData = data.results.map(quiz => {
-            const formatedCorrectAnswer = Array.isArray(quiz.correct_answer) 
-                ? quiz.correct_answer
-                : [quiz.correct_answer]
-
-            const options = [...formatedCorrectAnswer, ...quiz.incorrect_answers]
-            const shuffledOptions = options.sort(() => Math.random() - 0.5);
-            return {
-                question: quiz.question,
-                type: quiz.type,
-                difficulty: quiz.difficulty,
-                category: quiz.category,
-                options: shuffledOptions,
-                // correct_answer: quiz.correct_answer // for tempary testing in the frontend, 
-            }
-        })
-        // console.log(formatedData);
-        // return data
-        return res.json(formatedData);
-        
+        return res.json(dataForClient);        
     } catch (err) {
         console.error(err);
-        return res.status(500).json({ error: "Failed to fetch game data" });
+        return res.status(500).json({ error: err.message });
     }
 
-})
+});
+
 
 app.get('/api/categories', async (req, res) =>{
     try {
-        const catUrl= process.env.OPEN_TRIVIA_CATEGORY_URL;
-        console.log(catUrl);
-
-        const response = await fetch(catUrl);
-        const categories = await response.json();
-
+        const categories = await OpenTriviaService.getCategories();
         console.log(categories);
-        
-        // return data
         return res.json(categories);
         
     } catch (err) {
@@ -87,9 +54,6 @@ app.post('/api/result', async(req, res) =>{
         console.log(userAnswersArr);
 
         const { details, correctCount } = analyzeQuizResults(userAnswersArr, lastGameQuestions);
-        console.log(lastGameQuestions);
-        console.log(details);
-        console.log(correctCount);
 
         const formatedRes = {
             correctCount: correctCount,
@@ -103,7 +67,9 @@ app.post('/api/result', async(req, res) =>{
         console.log("Analyzed Results sent.");
     } catch(err) {
         console.error(err);
-        return res.status(500).json({message: "Failed to analyze result"})
+        return res.status(500).json({message: "Failed to analyze result",
+            error: err.message
+        })
     }
 })
   
@@ -114,7 +80,7 @@ app.post('/api/explain', async(req, res) => {
         if (!question || !correctAnswer) {
             return res.status(400).json({ error: "Missing question/correctAnswer" });
         }
-        const explanation = await explainWrongAnswer({ question, userSelected, correctAnswer });
+        const explanation = await AIService.explainWrongAnswer({ question, userSelected, correctAnswer });
 
         console.log(explanation);
         return res.json(explanation);
@@ -123,7 +89,5 @@ app.post('/api/explain', async(req, res) => {
         return res.status(500).json({message: "Failed to analyze result"})
     }
 })
-
-
 
 export default app;
