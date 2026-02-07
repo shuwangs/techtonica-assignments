@@ -39,6 +39,9 @@ const GameResult = () =>{
         }, [state]
     );
 
+    useEffect(() => {
+        console.log(tableData);}, [tableData]
+    );
 
 
 
