@@ -11,3 +11,9 @@ cd server
 npm test
 ```
 
+
+
+# todo:
+- [] decode entities
+- quiz ongoing click previous, does not show what have been selected before
+- quiz ongoing refresh incorrectly 
