@@ -23,7 +23,7 @@ const QuizCard = ({eachQuiz, onAnswerSelected, onPrevious, onNext, currentIdx, t
                 {eachQuiz.options.map((opt, idx) => (
                     <button
                         key={idx}
-                        className="option-btn"
+                        className={`option-btn ${selectedAnswer === opt ? 'selected' : ''}`}
                         onClick={() => handleOptionClick(opt)}
                     >{opt}</button>
                 ))}

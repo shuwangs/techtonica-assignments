@@ -30,6 +30,13 @@
   background-color: #f1cbbd;   
   color:#739893
 }
+
+.option-btn.selected {
+  background-color: #f1cbbd !important;  
+  color:#739893;
+  border: 1.5px solid #ff6fee;
+}
+
 .quiz-card .next-step {
     display: flex;
     justify-content: center;
