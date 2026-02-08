@@ -2,6 +2,7 @@
   background-image: url("../public/images/background-image.png");
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   background-color: #213547;
   font-family: "Georgia", serif;
   line-height: 1.5;
@@ -44,20 +45,51 @@ button {
 button:hover {
   background: #fefedb;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@media (max-width: 768px) {
+  .setup-form {
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 1.5rem;
   }
-  a:hover {
-    color: #fefedb;
+
+  .setup-form input select button {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 10px
+
   }
-  button {
-    background-color: #f9f9f9;
+
+  .gameInterface-container {
+    padding: 10px;
   }
+  .gameInterface-container .page-header {
+    font-size: 1.2 rem;
+    text-align: center;
+  }
+
+  .quiz-card {
+    width: 95%;
+    padding: 0.5rem;
+  }
+
+  .quiz-card .next-step button {
+    width: 80px;
+    font-size: 95%;
+    padding: 8px;
+  }
+
+  .result-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .ai-content-card {
+    flex-direction: column; 
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+
 }

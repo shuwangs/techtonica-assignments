@@ -30,7 +30,7 @@
   background-color: #f1cbbd;   
   color:#739893
 }
-.quiz-card .next-step{
+.quiz-card .next-step {
     display: flex;
     justify-content: center;
     gap: 1rem;

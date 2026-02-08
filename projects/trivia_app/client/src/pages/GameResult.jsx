@@ -69,7 +69,7 @@ const GameResult = () =>{
                             <th>Question</th>
                             <th>Your Answer</th>
                             <th>Correct Answer</th>
-                            <th>Action</th>
+                            <th>Explain</th>
                         </tr>
                     </thead>
 
@@ -84,10 +84,12 @@ const GameResult = () =>{
                                         <td>{row.correctAnswer}</td>
                                         <td>
                                             {!row.isCorrect && (
-                                                <button 
-                                                    onClick= {()=> handleGetExplanation(idx, row)}>
+                                                <div 
+                                                    className='explanation-icon'
+                                                    onClick= {()=> handleGetExplanation(idx, row)}
+                                                    >
                                                         💡
-                                                </button>
+                                                </div>
                                             )}
                                             </td>
                                         <td>
@@ -99,7 +101,7 @@ const GameResult = () =>{
 
                                     </tr>
 
-                                    <tr className={`collapse-row ${row.explanation ?'expanded' : '' }`}>
+                                    <tr className={`collapse-row ${row.explanation ? 'expanded' : '' }`}>
                                         <td colSpan="4">
                                             <div className="collapse-container">
                                                 {row.explanation && (
@@ -109,7 +111,13 @@ const GameResult = () =>{
                                                             <p><strong>Why Wrong:</strong> {row.explanation.whyWrong}</p>
                                                             <p className="tip-box"><strong>Pro Tip:</strong> {row.explanation.tip}</p>
                                                         </div>
-                                                        <button onClick={() => handleCloseClick(idx)}>❎</button>
+                                                        <div 
+                                                            className='close-icon'
+                                                            onClick={() => handleCloseClick(idx)
+                                                            }
+                                                            >
+                                                                ✖️
+                                                        </div>
                                                     </div>
 
                                             )}</div>
