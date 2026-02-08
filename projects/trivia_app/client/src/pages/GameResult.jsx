@@ -92,12 +92,12 @@ const GameResult = () =>{
                                                 </div>
                                             )}
                                             </td>
-                                        <td>
+                                        {/* <td>
                                             <button 
                                                 onClick={() => onDeleteClick(idx)}>
                                                 ❌
                                             </button>
-                                        </td>
+                                        </td> */}
 
                                     </tr>
 

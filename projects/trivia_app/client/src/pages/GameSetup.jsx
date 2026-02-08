@@ -30,11 +30,14 @@ const GameSetup = ({onStart}) =>{
         e.preventDefault();
 
         // Save user name to local storage
+        // User are allowed not to have a name;
         const userName = userNameRef.current.value.trim();
-        if(!userName){  
-            alert("Please enter your nickname!");
-            return;
-        }
+
+        // if(!userName){  
+        //     alert("Please enter your nickname!");
+        //     return;
+        // }
+
         localStorage.setItem('userName', userName);
 
         console.log(userName);
@@ -47,13 +50,13 @@ const GameSetup = ({onStart}) =>{
         }
 
         onStart(userRequest);
-
     }
 
     return( 
         <div className='setup-form'>
+            <h1>TRIVIA QUIZ </h1>
             <div className='userName-container'>
-                <label className='name-label'>Player NickName
+                <label className='name-label'>NickName
                     <input className='userName' type='text' placeholder='Enter your name' ref={userNameRef} /> 
                 </label>
             </div>

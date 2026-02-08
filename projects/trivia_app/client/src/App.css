@@ -15,8 +15,20 @@
 
 .setup-form .userName-container {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   margin-bottom: 30px;
+  justify-content: center;
+}
+.name-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.setup-form h1{
+  font-family: "Comic Sans MS", "Marker Felt", "Apple Chancery", cursive;
+  font-weight: 900;
+  color: #f5948c;
 }
 .setup-form .userName-container label {
   font-size: 1.5rem;
@@ -42,7 +54,7 @@
   padding: 20px;
 
 }
-.setup-form label{
+.setup-form form label{
   display: flex;
   flex-direction: column;
   font-weight: 500;
