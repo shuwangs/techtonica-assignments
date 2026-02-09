@@ -38,3 +38,9 @@ export const getCloseExplanation = (currentData, idx) =>{
         newData[idx] = { ...newData[idx], explanation: null };  
         return newData;
 }
+
+export const decodeHtmlEntities = (text) => {
+    const textArea = document.createElement('textarea');
+    textArea.innerHTML = text;
+    return textArea.value;
+}

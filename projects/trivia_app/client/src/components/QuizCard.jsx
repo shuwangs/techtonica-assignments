@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
+import { decodeHtmlEntities } from '../utils/resultsPageHelper.jsx';
 import './QuizCard.css';
+
 const QuizCard = ({eachQuiz, onAnswerSelected, onPrevious, onNext, currentIdx, totalQuestions,onSubmitAnswers }) => {
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [option, setOption] = useState([]);
@@ -17,7 +19,7 @@ const QuizCard = ({eachQuiz, onAnswerSelected, onPrevious, onNext, currentIdx, t
 
     return (
         <div className="quiz-card">
-            <h3 className="quiz-question">{eachQuiz.question}</h3>
+            <h3 className="quiz-question">{decodeHtmlEntities(eachQuiz.question)}</h3>
 
             <div className="option-container">
                 {eachQuiz.options.map((opt, idx) => (
@@ -25,7 +27,7 @@ const QuizCard = ({eachQuiz, onAnswerSelected, onPrevious, onNext, currentIdx, t
                         key={idx}
                         className={`option-btn ${selectedAnswer === opt ? 'selected' : ''}`}
                         onClick={() => handleOptionClick(opt)}
-                    >{opt}</button>
+                    >{decodeHtmlEntities(opt)}</button>
                 ))}
             </div>
 

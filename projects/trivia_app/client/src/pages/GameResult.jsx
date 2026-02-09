@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useLocation, useNavigate} from 'react-router-dom';
-import { deleteRow, fetchExplanation, getCloseExplanation } from '../utils/resultsPageHelper';
+import { deleteRow, fetchExplanation, getCloseExplanation, decodeHtmlEntities } from '../utils/resultsPageHelper';
 const GameResult = () =>{
     const navigate = useNavigate();
     const { state } = useLocation();
@@ -79,9 +79,9 @@ const GameResult = () =>{
                                 <React.Fragment key={idx}>
                                     <tr 
                                         key={idx} className={row.isCorrect ? 'correct' : 'incorrect'} >
-                                        <td>{row.question}</td>
-                                        <td>{row.userSelected}</td>
-                                        <td>{row.correctAnswer}</td>
+                                        <td>{decodeHtmlEntities(row.question)}</td>
+                                        <td>{decodeHtmlEntities(row.userSelected)}</td>
+                                        <td>{decodeHtmlEntities(row.correctAnswer)}</td>
                                         <td>
                                             {!row.isCorrect && (
                                                 <div 
@@ -107,7 +107,7 @@ const GameResult = () =>{
                                                 {row.explanation && (
                                                     <div className="ai-content-card"> 
                                                         <div>
-                                                            <p><strong>Why Correct:</strong> {row.explanation.whyCorrect}</p>
+                                                            <p><strong>Why Correct:</strong> {(row.explanation.whyCorrect)}</p>
                                                             <p><strong>Why Wrong:</strong> {row.explanation.whyWrong}</p>
                                                             <p className="tip-box"><strong>Pro Tip:</strong> {row.explanation.tip}</p>
                                                         </div>
