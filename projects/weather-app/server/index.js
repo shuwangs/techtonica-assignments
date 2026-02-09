@@ -30,6 +30,9 @@ app.use(express.json())
 // creates an endpoint for the route /api/weather
 app.get('/api/weather', async (req, res) => {
     const {cityName, lat, lon} = req.query;
+
+    const isZip = /^\d{5}(-\d{4})?$/.test(query);
+
     let params;
     if (lat && lon) {
         params = new URLSearchParams({
@@ -38,11 +41,18 @@ app.get('/api/weather', async (req, res) => {
             appid: API_KEY,
             units: "imperial",
         })
-    } else if(cityName){
+    } else if(isZip){
            params = new URLSearchParams({
-            q: cityName,
-            appid: API_KEY,
-            units: "imperial",
+            zip:`${query},US`,
+            appid:process.env.OPENWEATHER_API_KEY,
+            units:"imperial"
+        })} else {
+            params = new URLSearchParams({
+            // Client input
+            q:query,
+            // q:"Austin",
+            appid:process.env.OPENWEATHER_API_KEY,
+            units:"imperial"
         })
     }
 
