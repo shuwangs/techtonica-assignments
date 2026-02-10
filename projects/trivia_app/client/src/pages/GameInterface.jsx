@@ -7,6 +7,7 @@ const GameInterface = ({gameQuestions}) =>{
     const navigate = useNavigate();
     const [currentIdx, setCurrentIdx] = useState(0);
     const [userAnswers, setUserAnswers] = useState([]);
+    const selectedForCurrent = userAnswers[currentIdx]?.userSelected ?? null;
 
     if (!gameQuestions || gameQuestions.length === 0) {
         return <p>Loading questions...</p>;
@@ -71,6 +72,7 @@ const GameInterface = ({gameQuestions}) =>{
 
             <QuizCard 
                 eachQuiz={gameQuestions[currentIdx]}
+                selectedAnswer={selectedForCurrent}
                 onAnswerSelected={handleAnswer}
                 onPrevious={handlePrevious}
                 onNext={handleNext}

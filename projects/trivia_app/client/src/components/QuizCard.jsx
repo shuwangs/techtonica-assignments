@@ -2,20 +2,14 @@ import React, {useState, useEffect} from 'react';
 import { decodeHtmlEntities } from '../utils/resultsPageHelper.jsx';
 import './QuizCard.css';
 
-const QuizCard = ({eachQuiz, onAnswerSelected, onPrevious, onNext, currentIdx, totalQuestions,onSubmitAnswers }) => {
-    const [selectedAnswer, setSelectedAnswer] = useState(null);
+const QuizCard = ({eachQuiz, selectedAnswer, onAnswerSelected, onPrevious, onNext, currentIdx, totalQuestions,onSubmitAnswers }) => {
     const [option, setOption] = useState([]);
 
     const handleOptionClick = (option) => {
-        setSelectedAnswer(option);
-
         // Tell GameInterface the user's choice
         onAnswerSelected(option);
     }
 
-    useEffect(()=> {
-        setSelectedAnswer(null);
-    }, [eachQuiz])
 
     return (
         <div className="quiz-card">
