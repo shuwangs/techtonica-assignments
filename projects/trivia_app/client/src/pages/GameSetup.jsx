@@ -12,11 +12,9 @@ const GameSetup = ({onStart}) =>{
     const userNameRef = useRef(null);
 
     useEffect(() =>{
-        console.log("fetching categories...");
         fetch("/api/categories")
         .then((res) => res.json())
         .then((data) => {
-            console.log(data);
             setCategories(data.trivia_categories);
         })
         .catch((err) => {
@@ -25,22 +23,12 @@ const GameSetup = ({onStart}) =>{
     }
     ,[]);
 
-
     const handleSubmit = (e) =>{
         e.preventDefault();
 
-        // Save user name to local storage
-        // User are allowed not to have a name;
         const userName = userNameRef.current.value.trim();
 
-        // if(!userName){  
-        //     alert("Please enter your nickname!");
-        //     return;
-        // }
-
         localStorage.setItem('userName', userName);
-
-        console.log(userName);
         
         const userRequest = {
             amount: amountRef.current.value,

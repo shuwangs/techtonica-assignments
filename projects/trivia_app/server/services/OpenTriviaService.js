@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const BASE_URL = process.env.OPEN_TRIVIA_BASE_URL;
-console.log(BASE_URL);
 
 const OpenTriviaService = {
 
@@ -24,7 +23,6 @@ const OpenTriviaService = {
         }
 
         const data = await response.json();
-        // console.log(data)
 
         return data.results.map(quiz => {
             const formatedCorrectAnswer = Array.isArray(quiz.correct_answer) 

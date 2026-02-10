@@ -66,7 +66,6 @@ const GameInterface = ({gameQuestions}) =>{
                 {userAnswers: userAnswers}
             )
             const analyzedData = response.data;
-            console.log(analyzedData);
 
             sessionStorage.removeItem(SESSION_KEY)
 

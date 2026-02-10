@@ -7,7 +7,6 @@ const GameResult = () =>{
     const [tableData, setTableData] = useState(state?.details ||[]);
     const [loadingId, setLoadingId] = useState(null);
     const [nickName, setNickName] = useState(null);
-    console.log(state.details);
 
     const onDeleteClick = (idx) => {
         const newData = deleteRow(tableData, idx);
@@ -45,12 +44,6 @@ const GameResult = () =>{
             setTableData(state.details);}
         }, [state]
     );
-
-    // useEffect(() => {
-    //     console.log(tableData);}, [tableData]
-    // );
-
-
 
     return (
 

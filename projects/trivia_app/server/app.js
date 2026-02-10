@@ -4,7 +4,6 @@ import OpenTriviaService from "./services/OpenTriviaService.js";
 import AIService from "./services/explain.js";
 import {analyzeQuizResults} from './utils/AnalyzeQuizResults.js'
 const BASE_URL = process.env.OPEN_TRIVIA_BASE_URL;
-console.log(BASE_URL);
 const app = express();
 
 // middleware
@@ -23,7 +22,6 @@ app.get('/api/game', async (req, res) =>{
         }));
 
         const dataForClient = questions.map(({ correctAnswer, ...rest }) => rest);
-        console.log("Data sent to client (Sanitized):", dataForClient);
 
         return res.json(dataForClient);        
     } catch (err) {
@@ -37,7 +35,6 @@ app.get('/api/game', async (req, res) =>{
 app.get('/api/categories', async (req, res) =>{
     try {
         const categories = await OpenTriviaService.getCategories();
-        console.log(categories);
         return res.json(categories);
         
     } catch (err) {
@@ -50,7 +47,6 @@ app.get('/api/categories', async (req, res) =>{
 app.post('/api/result', async(req, res) =>{
     try{
         const userAnswersArr = req.body.userAnswers;
-        console.log(userAnswersArr);
 
         const { details, correctCount } = analyzeQuizResults(userAnswersArr, lastGameQuestions);
 
@@ -59,10 +55,8 @@ app.post('/api/result', async(req, res) =>{
             totalCount: lastGameQuestions.length,
             details:details
         }
-        console.log(formatedRes);
 
         res.json(formatedRes);
-        console.log("Analyzed Results sent.");
     } catch(err) {
         console.error(err);
         return res.status(500).json({message: "Failed to analyze result", error: err.message})
@@ -86,7 +80,6 @@ app.post('/api/explain', async(req, res) => {
             explanation = fetchRes;
         }
 
-        console.log(explanation);
         return res.json(explanation);
     }catch(err) {
         console.error(err);
