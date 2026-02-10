@@ -1,22 +1,38 @@
-import React, {useState} from 'react';
-import { createStaticHandler, useNavigate } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import QuizCard from '../components/QuizCard';
 import axios from 'axios';
-
+const SESSION_KEY = "trivia_active_game"
 const GameInterface = ({gameQuestions}) =>{
+    const saved = JSON.parse(sessionStorage.getItem(SESSION_KEY) || "{}");
+    const questions = gameQuestions.length > 1 ? gameQuestions : (saved.questions || []);
     const navigate = useNavigate();
-    const [currentIdx, setCurrentIdx] = useState(0);
-    const [userAnswers, setUserAnswers] = useState([]);
-    const selectedForCurrent = userAnswers[currentIdx]?.userSelected ?? null;
+    const [currentIdx, setCurrentIdx] = useState(saved.currentIdx ?? 0);
+    const [userAnswers, setUserAnswers] = useState(saved.userAnswers ?? []);
+    const selectedForCurrent = userAnswers[currentIdx]?.userSelected ?? [];
 
-    if (!gameQuestions || gameQuestions.length === 0) {
+    // Deal with page refresh, save the question and currentIdx and userAnwers in localStorage
+    useEffect(()=>{
+        if (!gameQuestions || gameQuestions.length === 0) {
+            return;
+        }
+
+        sessionStorage.setItem("trivia_active_game", 
+            JSON.stringify({
+            questions: gameQuestions,
+            currentIdx: currentIdx,
+            userAnswers: userAnswers
+        }))
+
+    },[questions, currentIdx, userAnswers])
+
+    if (!questions || questions.length === 0) {
         return <p>Loading questions...</p>;
     }
-    console.log(gameQuestions);
 
     const handleAnswer = (selectedOption) =>{
         const currentAnswer = {
-            question: gameQuestions[currentIdx].question,
+            question: questions[currentIdx].question,
             userSelected: selectedOption
         }
         setUserAnswers((prev) =>{
@@ -34,25 +50,25 @@ const GameInterface = ({gameQuestions}) =>{
         }
     }
     const handleNext = ()=>{
-        if (currentIdx < gameQuestions.length - 1) {
+        if (currentIdx < questions.length - 1) {
             setCurrentIdx(currentIdx + 1);
         }
     } 
 
     const submitToBackend = async () =>{
-        if (userAnswers.length < gameQuestions.length) {
+        if (userAnswers.length < questions.length) {
             alert("Please answer all questions before submitting!");
             return;
         }   
 
         try {
-            //TODO:  include an operation to submit the results to the backend
             const response = await axios.post('/api/result',
                 {userAnswers: userAnswers}
             )
-            // TODO: deal with the data back from the backend.
             const analyzedData = response.data;
             console.log(analyzedData);
+
+            sessionStorage.removeItem(SESSION_KEY)
 
             navigate('/result', { state: analyzedData });
 
@@ -67,17 +83,17 @@ const GameInterface = ({gameQuestions}) =>{
         <div className='gameInterface-container'>
             <div className='page-header'>
                 <h1>Quiz Time!</h1>
-                <p>Question: {currentIdx + 1} / {gameQuestions.length}</p>
+                <p>Question: {currentIdx + 1} / {questions.length}</p>
             </div>
 
             <QuizCard 
-                eachQuiz={gameQuestions[currentIdx]}
+                eachQuiz={questions[currentIdx]}
                 selectedAnswer={selectedForCurrent}
                 onAnswerSelected={handleAnswer}
                 onPrevious={handlePrevious}
                 onNext={handleNext}
                 currentIdx={currentIdx}
-                totalQuestions={gameQuestions.length}
+                totalQuestions={questions.length}
                 onSubmitAnswers={submitToBackend}
 
              />
