@@ -6,7 +6,7 @@ const GameResult = () =>{
     const { state } = useLocation();
     const [tableData, setTableData] = useState(state?.details ||[]);
     const [loadingId, setLoadingId] = useState(null);
-
+    const [nickName, setNickName] = useState(null);
     console.log(state.details);
 
     const onDeleteClick = (idx) => {
@@ -38,20 +38,25 @@ const GameResult = () =>{
     };  
 
     useEffect(() => {
+        if (localStorage.getItem('userName')) {
+            setNickName(localStorage.getItem('userName'))
+        }
         if (state.details){
             setTableData(state.details);}
         }, [state]
     );
 
-    useEffect(() => {
-        console.log(tableData);}, [tableData]
-    );
+    // useEffect(() => {
+    //     console.log(tableData);}, [tableData]
+    // );
 
 
 
     return (
 
         <div className='result-page'>
+            {nickName &&<h2>Nice try, {nickName}! Here are your results </h2>}
+
             <div className='result-header'>
                 <div className='new-game-btn'>
                     <button
@@ -59,7 +64,7 @@ const GameResult = () =>{
                             navigate('/')
                         }>New Game</button>
                 </div>
-                <h1>{state.correctCount} / {state.totalCount} is Correct</h1>
+                <h2>{state.correctCount} / {state.totalCount} is Correct</h2>
             </div>
 
             <div className='table-display'>
