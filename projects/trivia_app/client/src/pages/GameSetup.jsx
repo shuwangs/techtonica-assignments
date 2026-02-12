@@ -1,0 +1,99 @@
+import React,{use, useEffect, useRef, useState} from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../App.css'
+
+const GameSetup = ({onStart}) =>{
+    const amountRef = useRef('10');
+    const categoryRef = useRef(null);
+    const difficultyRef = useRef(null);
+    const typeRef = useRef(null);
+    const [categories, setCategories] = useState([])
+
+    const userNameRef = useRef(null);
+
+    useEffect(() =>{
+        fetch("/api/categories")
+        .then((res) => res.json())
+        .then((data) => {
+            setCategories(data.trivia_categories);
+        })
+        .catch((err) => {
+            console.error("Error fetching categories:", err);
+        });
+    }
+    ,[]);
+
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+
+        const userName = userNameRef.current.value.trim();
+
+        localStorage.setItem('userName', userName);
+        
+        const userRequest = {
+            amount: amountRef.current.value,
+            category: categoryRef.current.value,
+            difficulty: difficultyRef.current.value,
+            type: typeRef.current.value
+        }
+
+        onStart(userRequest);
+    }
+
+    return( 
+        <div className='setup-form'>
+            <h1>TRIVIA QUIZ </h1>
+            <div className='userName-container'>
+                <label className='name-label'>NickName
+                    <input className='userName' type='text' placeholder='Enter your name' ref={userNameRef} /> 
+                </label>
+            </div>
+
+            <form
+             onSubmit={handleSubmit}>
+                 <label>Question Amount
+                    <input type='number' 
+                    ref={amountRef}
+                    defaultValue={10}
+                    min={1}
+                    max={30}
+                     />
+
+                 </label>
+
+                 <label> Categories
+                    <select ref={categoryRef}>
+                        <option value="">Any category</option>
+                        {categories.map(elem => {
+                            return ( <option key={elem.id} value={elem.id}> {elem.name} </option>)
+                        })}
+                    </select>
+                 </label>
+                 <label> Difficulty Level
+                    <select ref={difficultyRef}>
+                        <option value="">Any Difficulty</option>
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                 </label>
+
+                <label>
+                    Question type:
+                    <select ref={typeRef} defaultValue="">
+                        <option value="">Any Type</option>
+                        <option value="boolean">True / False</option>
+                        <option value="multiple">Multiple Choice</option>
+
+                    </select>
+                </label>
+            
+                <button type='submit'>Start Quiz</button>
+            </form>
+
+        </div>
+
+    ) 
+}
+
+export default GameSetup;

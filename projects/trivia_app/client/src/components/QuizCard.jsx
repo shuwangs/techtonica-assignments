@@ -1,0 +1,39 @@
+import React, {useState, useEffect} from 'react';
+import { decodeHtmlEntities } from '../utils/resultsPageHelper.jsx';
+import './QuizCard.css';
+
+const QuizCard = ({eachQuiz, selectedAnswer, onAnswerSelected, onPrevious, onNext, currentIdx, totalQuestions,onSubmitAnswers }) => {
+    const [option, setOption] = useState([]);
+
+    const handleOptionClick = (option) => {
+        // Tell GameInterface the user's choice
+        onAnswerSelected(option);
+    }
+
+
+    return (
+        <div className="quiz-card">
+            <h3 className="quiz-question">{decodeHtmlEntities(eachQuiz.question)}</h3>
+
+            <div className="option-container">
+                {eachQuiz.options.map((opt, idx) => (
+                    <button
+                        key={idx}
+                        className={`option-btn ${selectedAnswer === opt ? 'selected' : ''}`}
+                        onClick={() => handleOptionClick(opt)}
+                    >{decodeHtmlEntities(opt)}</button>
+                ))}
+            </div>
+
+            <div className='next-step'>
+                <button onClick={onPrevious} disabled={currentIdx === 0 }>Previous</button>
+                {currentIdx < totalQuestions - 1 
+                    ? <button onClick={onNext}>Next</button>
+                    : <button onClick={onSubmitAnswers}>Submit</button>
+                }
+            </div>
+        </div>
+    )
+}
+
+export default QuizCard;

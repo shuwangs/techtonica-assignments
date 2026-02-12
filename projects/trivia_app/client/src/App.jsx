@@ -1,17 +1,57 @@
-import { useState } from 'react'
+import React, { useState } from 'react';
+import { Routes, Route, useNavigate} from 'react-router-dom';
+ 
+import GameSetup from './pages/GameSetup.jsx';
+import GameInterface from './pages/GameInterface.jsx';
+import GameResult from './pages/GameResult.jsx';
 import './App.css'
 
+
 function App() {
-  const [count, setCount] = useState(0)
+  const navigate = useNavigate();
+
+  const [questions, setQuestions] = useState([]);
+  const [error, setError] = useState("");
+
+  const handleStart = async (userRequestData) => {
+    try{
+      setError("");
+      const fetchParams  = new URLSearchParams();
+
+      for(const key in userRequestData) {
+        if (userRequestData[key] !== "" && userRequestData[key] != null){
+
+          fetchParams.append(key, userRequestData[key])
+
+        }
+      }
+
+      const response = await fetch(`/api/game?${fetchParams.toString()}`);
+
+      if (!response.ok) {
+        setError("");
+        throw new Error("Fetch to backend failed");
+      }
+      const data = await response.json();
+
+      setQuestions(data);
+
+      navigate('/game');
+
+    } catch(err) {
+      console.error(err);
+      setError("Failed to start the game, please try again");
+    }
+
+  }
 
   return (
-    <>
-
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-    </>
+      <Routes>
+        <Route path='/' element={<GameSetup onStart={handleStart} />} />
+        <Route path='/game' element={<GameInterface gameQuestions={questions} />} />
+        <Route path='/result' element={<GameResult />} />
+      </Routes>
   )
 }
 
-export default App
+export default App;
