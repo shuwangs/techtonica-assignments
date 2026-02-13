@@ -43,7 +43,7 @@ const GameSetup = ({onStart}) =>{
 
     return( 
         <div className='setup-form'>
-            <h1>TRIVIA QUIZ </h1>
+            <h1> QUIZ CRAFT</h1>
             <div className='userName-container'>
                 <label className='name-label'>NickName
                     <input className='userName' type='text' placeholder='Enter your name' ref={userNameRef} /> 
