@@ -8,8 +8,8 @@ const app = express();
 
 // middleware
 app.use(cors({
-    origin: ["http://localhost:5173/",
-    "https://trivia-game-app.vercel.app/"],
+    origin: ["http://localhost:5173",
+    "https://trivia-game-app.vercel.app"],
     methods:['GET', 'POST']
 }
     
