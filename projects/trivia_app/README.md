@@ -8,20 +8,17 @@ Beyond testing knowledge, QuizCraft focuses on learning through feedback — tra
 🔗 Live Demo:
 ---
 
-
 ## 🔗 Live Demo 
 👉 https://trivia-game-app.vercel.app/
 
+<img height= 250 src='./client/public/images/quiz-craft.gif'>
 
 
 ## 🧩 Features
 - 🎮 Game Setup
     - Choose number of questions
-
     - Select category
-
     - Select difficulty (easy / medium / hard)
-
     - Select question type (multiple choice / true-false)
 
 - Game Interface
@@ -92,13 +89,9 @@ npm run dev
 ## 🎮Start to play:
 - enter your nickname(optional)
 - Select params → start game → answer questions → navigate back/forward (answers persist)
-    
 - Refresh page mid-game (quiz restores)
-    
 - Submit → results table renders
-    
 - Expand row to fetch/show explanation for wrong answers
-
 
 ## 🔮 Future Improvements
 - Database-backed mistake tracking
