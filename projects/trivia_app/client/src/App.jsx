@@ -27,7 +27,7 @@ function App() {
         }
       }
 
-      const response = await fetch(`${API}/api/game?${fetchParams.toString()}`);
+      const response = await fetch(`/api/game?${fetchParams.toString()}`);
 
       if (!response.ok) {
         setError("");
