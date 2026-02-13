@@ -7,7 +7,13 @@ const BASE_URL = process.env.OPEN_TRIVIA_BASE_URL;
 const app = express();
 
 // middleware
-app.use(cors());
+app.use(cors({
+    origin: ["http://localhost:5173/",
+    "https://trivia-game-app.vercel.app/"],
+    methods:['GET', 'POST']
+}
+    
+));
 app.use(express.json());
 
 let lastGameQuestions = [];

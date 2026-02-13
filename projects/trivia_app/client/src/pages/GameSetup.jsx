@@ -8,11 +8,12 @@ const GameSetup = ({onStart}) =>{
     const difficultyRef = useRef(null);
     const typeRef = useRef(null);
     const [categories, setCategories] = useState([])
+    const API = import.meta.env.VITE_API_BASE;
 
     const userNameRef = useRef(null);
 
     useEffect(() =>{
-        fetch("/api/categories")
+        fetch(`${API}/api/categories`)
         .then((res) => res.json())
         .then((data) => {
             setCategories(data.trivia_categories);

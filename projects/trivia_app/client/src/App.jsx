@@ -6,6 +6,7 @@ import GameInterface from './pages/GameInterface.jsx';
 import GameResult from './pages/GameResult.jsx';
 import './App.css'
 
+const API = import.meta.env.VITE_API_BASE
 
 function App() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ function App() {
         }
       }
 
-      const response = await fetch(`/api/game?${fetchParams.toString()}`);
+      const response = await fetch(`${API}/api/game?${fetchParams.toString()}`);
 
       if (!response.ok) {
         setError("");
