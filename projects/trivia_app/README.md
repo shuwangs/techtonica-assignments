@@ -5,7 +5,6 @@ A full-stack trivia platform built with React + Express, powered by the Open Tri
 
 Beyond testing knowledge, QuizCraft focuses on learning through feedback — tracking mistakes and generating AI-powered explanations for incorrect answers.
 
-🔗 Live Demo:
 ---
 
 ## 🔗 Live Demo 
