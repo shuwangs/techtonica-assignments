@@ -38,9 +38,9 @@ Beyond testing knowledge, QuizCraft focuses on learning through feedback — tra
     - Uses prompt engineering (no RAG required)
 
 ## 🛠 Tech Stack
-    - Frontend: React (Vite), React Router, Axios, CSS
-    - Backend: Node.js, Express.js, Open Trivia Database API
-    - Testing:  Jest
+- Frontend: React (Vite), React Router, Axios, CSS
+- Backend: Node.js, Express.js, Open Trivia Database API
+- Testing:  Jest
 
 ---
 
