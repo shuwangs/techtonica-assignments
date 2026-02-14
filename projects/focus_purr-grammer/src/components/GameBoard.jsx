@@ -213,9 +213,8 @@ function GameBoard() {
     // ========== Handle Collision =========
     const handleCollision = (collidedItem) => {
         const config = ITEM_CONFIG[collidedItem.type];
-
         if (config) {
-            setScore(prev => Math.max(0, prev + config.score));
+            setScore(prev => Math.max(prev + config.score));
             setEnergy(prev => Math.min(100, prev + config.energy));
         }
         // console.log(`Caught ${config.emoji}! Score: ${config.score},
