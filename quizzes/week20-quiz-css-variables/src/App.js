@@ -4,14 +4,18 @@ import './App.css';
 function App() {
     useEffect(() => {
         // Step 2
+        const color = getComputedStyle(document.documentElement).getPropertyValue('--logo-color');
+        console.log("logo color is: ", color);
+
     }, []);
 
     function setColor(newColor) {
         // Step 3
+        document.documentElement.style.setProperty('--logo-color', newColor);
     }
 
     function handleOSizeChange(event) {
-        // document.documentElement.style.setProperty('--logo-size', `${}vmin`)
+        document.documentElement.style.setProperty('--logo-size', `${event.target.value}vmin`)
     }
 
     function onSVGClick() {
@@ -33,8 +37,14 @@ function App() {
             <header className="App-header">
                 <p>
                     {/* BONUS: Dynamically resizing the logo with a custom CSS Property */}
-                    <input />
+                    <input 
+                    type="range"
+                    min="10"
+                    max="100"
+                    default="40"
+                    onChange={handleOSizeChange}/>
                 </p>
+
                 <p onClick={onSVGClick}>
 
                     {/* REACT SVG */}
@@ -50,9 +60,9 @@ function App() {
                 </p>
                 <p>
                     {/* Step 3: Creates three buttons that can instantly set the color of the app logo to the one defined in each. */}
-                    <button></button>
-                    <button></button>
-                    <button></button>
+                    <button onClick={()=> setColor("orange")}>Orange</button>
+                    <button onClick={()=> setColor("blue")}>Blue</button>
+                    <button onClick={()=> setColor("violet")}>Violet</button>
                 </p>
             </header>
         </div>
