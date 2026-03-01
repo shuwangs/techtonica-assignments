@@ -40,6 +40,9 @@ function GameBoard() {
     // =========== Falling Items ===========
     const [items, setItems] = useState([]);
 
+    // Game score is zero while game is 'running'
+    const [isScoreZero, setIsScoreZero] = useState(false);
+
     // ========== UseEffects ==============
     useEffect(() => {
         levelRef.current = level;
@@ -112,13 +115,12 @@ function GameBoard() {
     // ========== Handle GameOver =========
     
     useEffect (() =>{
-        if(gameStatus == "running" && energy <= 0 ){
+        if(gameStatus !== "running") return;
+        if(energy <= 0 || isScoreZero){
             setGameStatus('over');
         }
-    }, [energy, gameStatus])
 
-
-
+    }, [energy, gameStatus, isScoreZero])
 
     // Create random items
     // Helper: Calculate Speed
@@ -213,11 +215,11 @@ function GameBoard() {
     // ========== Handle Collision =========
     const handleCollision = (collidedItem) => {
         const config = ITEM_CONFIG[collidedItem.type];
-
         if (config) {
             setScore(prev => Math.max(0, prev + config.score));
             setEnergy(prev => Math.min(100, prev + config.energy));
         }
+        if (config.score + score <= 0) setIsScoreZero(true);
         // console.log(`Caught ${config.emoji}! Score: ${config.score},
         //      Energy: ${config.energy}`);
     }
@@ -248,6 +250,7 @@ function GameBoard() {
             setItems([]);
             setCatPosition(BOARD_WIDTH / 2 - CAT_WIDTH / 2);
             setLevel(1);     
+            setIsScoreZero(false);
         }
         setGameStatus("running");
         // console.log(gameStatus);
@@ -266,6 +269,7 @@ function GameBoard() {
         setItems([]);
         setCatPosition(BOARD_WIDTH / 2 - CAT_WIDTH / 2);
         setLevel(1);     
+        setIsScoreZero(false);
         // console.log(gameStatus);
     }
 
