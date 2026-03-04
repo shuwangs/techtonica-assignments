@@ -9,10 +9,10 @@ function App() {
       .then((data) => setItems(data));
       
   }, []);
-  useEffect(() => {
-    console.log("items are: ", items);
+  // useEffect(() => {
+  //   console.log("items are: ", items);
       
-  }, [items]);
+  // }, [items]);
   
   function renderItems() {
     return items.map((item, i) => {
