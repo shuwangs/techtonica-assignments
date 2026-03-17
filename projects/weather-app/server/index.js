@@ -96,9 +96,6 @@ app.get('/api/weather', async (req, res) => {
         res.status(500).json({ error: error.message});    }
 });
 
+export default app;
 
 
-
-app.listen(PORT, ()=> {
-    console.log(`Server running on http://localhost:${PORT}`);
-})
