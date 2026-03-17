@@ -18,14 +18,18 @@ Build an API-first weather decison service that converts raw weather data into a
 - Weather condition icon
 
 
+## Weather App Phase 2 features
+- [ ] add db with 2 tables 
+  - [ ] users
+  - [ ] favorites
+- [ ] fakeAuth page
+  - enter username, userEmail, click contitue to dashboard
+- [ ] dashboard page 
+  - [ ] search button (already have) add save to fav button
+  - [ ] favorite section
+  - [ ] favorite cities tab
+    - [ ] Display favorite city list
+    - [ ] Click a favorite city to fetch and display weather
+    - [ ] Delete a favorite city
+    - [ ] Prevent duplicate cities in favorites
 
-### 2. Decision-Oriented Insights (Server-side)
-
-- **Car Wash Index**
-  - Indicates whether current conditions are suitable for washing a car
-
-- **Parking Risk Assessment**
-  - Flags potential parking risks based on rain or freezing temperatures
-
-- **Walk Comfort Indicator**
-  - Evaluates walking comfort based on temperature and wind conditions

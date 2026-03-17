@@ -9,6 +9,7 @@ A full-stack weather application that allows users to search weather information
 
 ---
 
+
 ## ✨ Features
 - Search real-time weather data by city name
 
@@ -37,6 +38,9 @@ A full-stack weather application that allows users to search weather information
 - Redis (local or managed)
   
 --- 
+## Database Schema
+![erd](client/public/erd.png)
+
 
 ##  Getting Started (Local Development)
 
