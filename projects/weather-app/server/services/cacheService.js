@@ -6,6 +6,6 @@ export const getCachedValue = async (key) => {
     return cached ? JSON.parse(cached) : null;
 }
 
-export const setCachedValue = async (key, CSSMathValue, ttl = DEFAULT_TTL_SECONDS) => {
+export const setCachedValue = async (key, value, ttl = DEFAULT_TTL_SECONDS) => {
     await client.setEx(key, ttl, JSON.stringify(value));
 }
