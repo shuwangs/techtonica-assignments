@@ -7,8 +7,8 @@ SET search_path TO weather_app;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
-  user_name TEXT NOT NULL,
-  user_email TEXT 
+  name TEXT NOT NULL,
+  email TEXT 
 );
 
 CREATE TABLE favorites (

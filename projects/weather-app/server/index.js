@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import weatherRoute from "./routes/weatherRoute.js";
-
+import authRoute from "./routes/authRoute.js";
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json())
 
 app.use('/api/weather', weatherRoute);
-
+app.use('/api/continue', authRoute);
 export default app;
 
 

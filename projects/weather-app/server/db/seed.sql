@@ -1,5 +1,5 @@
 -- use my weather schema 
-SET search_path TO weather;
+SET search_path TO weather_app;
 
 -- insert users
 INSERT INTO users (name, email) VALUES
