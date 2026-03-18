@@ -20,8 +20,8 @@ Build an API-first weather decison service that converts raw weather data into a
 
 ## Weather App Phase 2 features
 - [ ] add db with 2 tables 
-  - [ ] users
-  - [ ] favorites
+  - [X] users
+  - [X] favorites
 - [ ] fakeAuth page
   - enter username, userEmail, click contitue to dashboard
 - [ ] dashboard page 

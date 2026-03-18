@@ -1,9 +1,10 @@
 import {Router} from 'express';
 import * as favoriteService from '../services/favoriteService.js';
-import * as userService from '../services/userService.js'
+import * as userService from '../services/userService.js';
+
 const router = Router();
 
-router.get('/:userId', async (req, res) => {
+router.get('/:userId/favorites', async (req, res) => {
     const user_id = Number(req.params.userId);
     if(isNaN(user_id)) {
         return res.status(400).json({
@@ -45,8 +46,7 @@ router.get('/:userId', async (req, res) => {
 
 })
 
-
-router.post('/', async (req, res) => {
+router.post('/:userId/favorites', async (req, res) => {
     const {userId, city} = req.body;
     if (!userId || !city ) {
         return res.status(400).json({
@@ -65,30 +65,6 @@ router.post('/', async (req, res) => {
         res.status(500).json({
             status: "fail",
             message: error.message || "Internal Sever Error"
-        })
-    }
-})
-
-
-router.delete('/:favoriteId', async (req, res) => {
-    const favoriteId = req.params.favoriteId;
-    if(isNaN(favoriteId)) {
-        return res.status(400).json({
-            status: "fail",
-            message: "Invalid Request."
-        })
-    }
-
-    try {
-        const result = await favoriteService.deleteFavorite(favoriteId);
-        return res.status(204).json({
-            status: "success",
-            message: "DELETE favorite Id successfully"
-        })
-    } catch (error) {
-        return res.status(500).json({
-            status: "fail",
-            message: "Internal Server Error"
         })
     }
 })

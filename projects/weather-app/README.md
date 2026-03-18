@@ -49,7 +49,14 @@ A full-stack weather application that allows users to search weather information
 git clone https://github.com/shuwangs/techtonica-assignments
 cd projects/weather-app
 ```
-### 2. Start the backend server
+
+### 2. If you dont have redis installed
+```bash
+	brew install redis
+	brew start service redis 
+```
+
+### 3. Start the backend server
 ```bash
 	cd server 
 	npm install 
