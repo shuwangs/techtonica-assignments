@@ -9,15 +9,6 @@ console.log("Node runtime:", process.version);
 const API_KEY = process.env.API_KEY;
 
 const PORT = process.env.PORT || 5000;
-const REDIS_PORT = process.env.REDIS_PORT || 6379;
-
-const client =redis.createClient(REDIS_PORT);
-
-client.connect().then(() => {
-    console.log("Connected to Redis! 🚀");
-}).catch(err => {
-    console.error("Redis Connection Error", err);
-});
 
 
 const app = express();
@@ -26,6 +17,7 @@ const app = express();
 // midware
 app.use(cors());
 app.use(express.json())
+await connectRedis();
 
 // creates an endpoint for the route /api/weather
 app.get('/api/weather', async (req, res) => {
