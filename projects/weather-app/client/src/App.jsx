@@ -1,6 +1,7 @@
 import { useState, useEffect} from 'react'
 import WeatherForm from './components/WeatherForm.jsx';
 import WeatherCard from './components/WeatherCard.jsx';
+import { getWeatherByCity, getWeatherByLocation } from "./api/weatherApi";
 import './App.css'
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
@@ -15,28 +16,37 @@ function App() {
   const [error, setError] = useState("");
   const isDay = weather ? weather.current.icon.includes('d') : true;
 
-  const fetchWeather = async (cityFromInput) =>{
-    if(!cityFromInput.trim()) {
-      // setError("Please enter a city");
-      return;
-    }
+  const fetchWeather = async (cityFromInput) => {
+    if (!cityFromInput.trim()) return;
+
     setLoading(true);
     setError("");
 
     try {
-      const response = await fetch(`${API_BASE}/api/weather?cityName=${city}`);
-      if(!response.ok) {
-        throw new Error("Requested failed");
-      }
-      const data = await response.json();
-      console.log(data);
+      const data = await getWeatherByCity(cityFromInput);
       setWeather(data);
     } catch (error) {
       setError(error.message);
-    } finally{
+    } finally {
       setLoading(false);
     }
-  }
+  };
+  
+  const fetchWeatherByLoc = async (lat, lon) => {
+    setLoading(true);
+    setError("");
+
+    try {
+      const data = await getWeatherByLocation(lat, lon);
+      setWeather(data);
+      setLat(lat);
+      setLon(lon);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
   const handleCitySubmit = (cityFromInput) => {
     const queryCity= cityFromInput?.trim();
     if (!queryCity) return;
@@ -47,29 +57,6 @@ function App() {
     fetchWeather(city);
   }, [city]);
 
-  const fetchWeatherByLoc = async (lat, lon) => {
-
-    setLoading(true);
-    setError("");
-
-    try {
-      const response = await fetch(`${API_BASE}/api/weather?lat=${lat}&lon=${lon}`);
-      if(!response.ok) {
-        throw new Error("Location based Requested failed");
-      }
-      const data = await response.json();
-      console.log(data);
-      setWeather(data);
-      setLat(lat);
-      setLon(lon);
-      
-    } catch (error) {
-      setError(error.message);
-    } finally{
-      setLoading(false);
-    }
-
-  }
 
   return (
     <div className={`app-container ${isDay? 'day-mode' :'starry-bg'}` }>
