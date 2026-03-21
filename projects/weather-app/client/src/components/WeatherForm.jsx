@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CiLocationOn } from "react-icons/ci";
-import {handleClickLocation} from '../utils/getCurrentLocation.js';
+import { handleClickLocation } from "../utils/getCurrentLocation.js";
 import "./WeatherCard.css";
 
 function WeatherForm({ onCitySubmit, onLocationSubmit }) {
@@ -13,7 +13,6 @@ function WeatherForm({ onCitySubmit, onLocationSubmit }) {
 		setCity("");
 		return;
 	};
-
 
 	return (
 		<div>
