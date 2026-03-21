@@ -19,17 +19,17 @@ Build an API-first weather decison service that converts raw weather data into a
 
 
 ## Weather App Phase 2 features
-- [ ] add db with 2 tables 
+- [X] add db with 2 tables 
   - [X] users
   - [X] favorites
 - [ ] fakeAuth page
   - enter username, userEmail, click contitue to dashboard
 - [ ] dashboard page 
   - [ ] search button (already have) add save to fav button
-  - [ ] favorite section
-  - [ ] favorite cities tab
-    - [ ] Display favorite city list
-    - [ ] Click a favorite city to fetch and display weather
+  - [X] favorite section
+  - [X] favorite cities tab
+    - [X] Display favorite city list
+    - [X] Click a favorite city to fetch and display weather
     - [ ] Delete a favorite city
     - [ ] Prevent duplicate cities in favorites
 
