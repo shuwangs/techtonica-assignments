@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CiLocationOn } from "react-icons/ci";
+import {handleClickLocation} from '../utils/getCurrentLocation.js';
 import "./WeatherCard.css";
 
 function WeatherForm({ onCitySubmit, onLocationSubmit }) {
@@ -13,20 +14,6 @@ function WeatherForm({ onCitySubmit, onLocationSubmit }) {
 		return;
 	};
 
-	const handleClickLocation = () => {
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition((position) => {
-				console.log("Success:", position);
-				try {
-					const { latitude, longitude } = position.coords;
-					onLocationSubmit(latitude, longitude);
-				} catch (err) {
-					console.error("Getting Location Error:", err);
-					alert("Couldnot get your location");
-				}
-			});
-		}
-	};
 
 	return (
 		<div>
