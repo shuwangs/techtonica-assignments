@@ -28,17 +28,14 @@ router.get('/:userId', async (req, res) => {
 
 router.post('/:userId', async (req, res) => {
     const userId = req.params.userId;
-    console.log("Post request in favoriteRoute.. userId is p:", userId);
-
     const { city } = req.body;
-    console.log("in favoriteRoute.. cityName is :", city);
+
     try {
         const result = await favoriteService.addFavorite(userId, city);
         return res.status(201).json({
             status: "success",
             data: result,
         })
-        console.log("post city result is:", result)
     } catch (error) {
         return res.status(500).json({
             status: "fail",

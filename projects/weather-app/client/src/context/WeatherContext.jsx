@@ -94,8 +94,6 @@ export const WeatherProvider = ({ children }) => {
 		setError("");
 
 		try {
-			console.log("Trying to remove city: ")
-
 			const data = await deleteFavCity(cityId);
 
 			await fetchFavCities(currentUser);
