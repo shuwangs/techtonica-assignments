@@ -25,7 +25,7 @@ Build an API-first weather decison service that converts raw weather data into a
 - [ ] fakeAuth page
   - enter username, userEmail, click contitue to dashboard
 - [ ] dashboard page 
-  - [ ] search button (already have) add save to fav button
+  - [X] search button (already have) add save to fav button
   - [X] favorite section
   - [X] favorite cities tab
     - [X] Display favorite city list

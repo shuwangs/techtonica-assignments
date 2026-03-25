@@ -24,3 +24,15 @@ export const addToFavCities = async (userId, city) => {
 
 	return response.json();
 };
+
+export const deleteFavCity = async (cityID) => {
+	const response = await fetch(`${API_BASE}/api/favorites/${cityID}`, {
+		method: "DELETE"
+	});
+
+	if (!response.ok) {
+		throw new Error("Add City to favorite list failed");
+	}
+
+	return response.json();
+};

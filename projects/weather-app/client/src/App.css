@@ -3,6 +3,7 @@
 	margin: 0 auto;
 	text-align: center;
 }
+
 .app-container {
 	min-height: 100vh;
 	transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -13,21 +14,15 @@
 
 .day-mode {
 	background:
-		radial-gradient(
-			circle at 40% 25%,
+		radial-gradient(circle at 40% 25%,
 			rgba(255, 255, 255, 0.45),
-			transparent 55%
-		),
-		radial-gradient(
-			circle at 70% 35%,
+			transparent 55%),
+		radial-gradient(circle at 70% 35%,
 			rgba(255, 255, 255, 0.35),
-			transparent 30%
-		),
-		radial-gradient(
-			circle at 55% 75%,
+			transparent 30%),
+		radial-gradient(circle at 55% 75%,
 			rgba(255, 255, 255, 0.25),
-			transparent 45%
-		),
+			transparent 45%),
 		linear-gradient(0deg, #ade8f4 0%, #90e0ef 25%, #00b4d8 100%);
 }
 
@@ -53,6 +48,7 @@ input {
 	margin: 40px 20px;
 	padding: 0 20px;
 }
+
 .starry-bg {
 	background-color: #0b0d1a;
 	background-size: 200px 200px;
@@ -66,13 +62,38 @@ input {
 		radial-gradient(2px 2px at 50% 50%, rgba(255, 255, 255, 1), transparent);
 }
 
+.tab-switcher {
+	display: flex;
+	align-items: left;
+	justify-content: center;
+	gap: 4px;
+}
+
+.tab-btn {
+	border-bottom: 3px solid #f26419;
+	background-color: grey;
+	font-size: 16px;
+	padding: 4px 8px;
+	border-radius: 5px;
+
+}
+
+.tab-btn.active {
+	background-color: #f26419;
+	border-bottom: 3px solid grey;
+
+}
+
+
 @keyframes twinkle {
 	0% {
 		opacity: 0.6;
 	}
+
 	50% {
 		opacity: 0.8;
 	}
+
 	100% {
 		opacity: 1;
 	}

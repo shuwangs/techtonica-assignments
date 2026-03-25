@@ -8,7 +8,6 @@ import "./App.css";
 import { useWeather } from "./context/WeatherContext.jsx";
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
-console.log(API_BASE);
 
 function App() {
 	const {
@@ -17,7 +16,6 @@ function App() {
 		weather,
 		loading,
 		error,
-		favCities,
 		activeTab,
 		setActiveTab,
 		handleCitySubmit,
@@ -62,7 +60,7 @@ function App() {
 				)}
 				{/* Favorite Cities */}
 				{activeTab == "favorites" && (
-					<CityList cities={favCities} onCitySubmit={handleCitySubmit} />
+					<CityList onCitySubmit={handleCitySubmit} />
 				)}
 
 				{loading && <p>Loading...</p>}
