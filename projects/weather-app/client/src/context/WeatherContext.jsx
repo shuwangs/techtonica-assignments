@@ -94,20 +94,18 @@ export const WeatherProvider = ({ children }) => {
 		setError("");
 
 		try {
+			console.log("Trying to remove city: ")
+
 			const data = await deleteFavCity(cityId);
-			setFavCities((prev) => {
-				console.log("before filter:", prev);
-				const updated = prev.filter((city) => Number(city.id) !== Number(cityId));
-				console.log("after filter:", updated);
-				return updated;
-			});
+
+			await fetchFavCities(currentUser);
+
 		} catch (error) {
 			setError(error.message);
 		} finally {
 			setLoading(false);
 		}
 
-		console.log("Trying to remove city: ")
 	}
 
 	const handleCitySubmit = (cityFromInput) => {

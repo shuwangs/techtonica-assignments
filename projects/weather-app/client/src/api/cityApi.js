@@ -34,5 +34,5 @@ export const deleteFavCity = async (cityID) => {
 		throw new Error("Add City to favorite list failed");
 	}
 
-	return response.json();
+	return true;
 };
