@@ -12,6 +12,7 @@ console.log(API_BASE);
 
 function App() {
 	const {
+		currentUser,
 		city,
 		weather,
 		loading,
@@ -32,7 +33,7 @@ function App() {
 				<span className="brand-name">WeatherApp</span>
 			</div>
 
-			<h1 className="hero-title">Welcome back, bobo</h1>
+			<h1 className="hero-title">Welcome back, {currentUser}</h1>
 			<p className="hero-subtitle">
 				Search a city or pick one from your favorites
 			</p>

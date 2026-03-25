@@ -1,11 +1,11 @@
-import {Router} from 'express';
+import { Router } from 'express';
 import * as favoriteService from '../services/favoriteService.js';
 import * as userService from '../services/userService.js'
 const router = Router();
 
 router.get('/:userId', async (req, res) => {
     const userId = req.params.userId;
-    if(isNaN(userId)) {
+    if (isNaN(userId)) {
         return res.status(400).json({
             status: "fail",
             message: "UserId is Invalid."
@@ -24,14 +24,17 @@ router.get('/:userId', async (req, res) => {
             message: "Internal Server Error"
         })
     }
-}) 
+})
 
-router.post('/', async (req, res) => {
-    const userId = req.body;
+router.post('/:userId', async (req, res) => {
+    const userId = req.params.userId;
+    console.log("Post request in favoriteRoute.. userId is p:", userId);
 
+    const cityName = req.body;
+    console.log("in favoriteRoute.. cityName is :", cityName);
     try {
-        const result = await favoriteService.getFavoritesByUserId(userId);
-        return res.status(200).json({
+        const result = await favoriteService.addFavorite(userId, cityName);
+        return res.status(201).json({
             status: "success",
             data: result,
         })
@@ -41,11 +44,11 @@ router.post('/', async (req, res) => {
             message: "Internal Server Error"
         })
     }
-}) 
+})
 
 router.delete('/:favoriteId', async (req, res) => {
     const favoriteId = req.params.favoriteId;
-    if(isNaN(favoriteId)) {
+    if (isNaN(favoriteId)) {
         return res.status(400).json({
             status: "fail",
             message: "Invalid Request."

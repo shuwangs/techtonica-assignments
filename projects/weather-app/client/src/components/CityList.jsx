@@ -10,8 +10,8 @@ const CityList = ({ cities, onCitySubmit }) => {
 				<button
 					key={city.id}
 					className="city-item"
-                    onClick={() => onCitySubmit(city.city)}				
-                >
+					onClick={() => onCitySubmit(city.city)}
+				>
 					{city.city}
 				</button>
 			))}

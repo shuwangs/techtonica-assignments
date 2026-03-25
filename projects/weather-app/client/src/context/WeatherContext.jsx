@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getWeatherByCity, getWeatherByLocation } from "../api/weatherApi";
-import { getFavCitiesById } from "../api/cityApi";
+import { getFavCitiesById, addToFavCities } from "../api/cityApi";
 
 const WeatherContext = createContext();
 
@@ -11,6 +11,7 @@ export const WeatherProvider = ({ children }) => {
 	const [favCities, setFavCities] = useState([]);
 	const [error, setError] = useState("");
 	const [activeTab, setActiveTab] = useState("search");
+	const [currentUser, setCurrentUser] = useState(1);
 
 	const fetchWeather = async (cityFromInput) => {
 		if (!cityFromInput?.trim()) return;
@@ -63,6 +64,30 @@ export const WeatherProvider = ({ children }) => {
 		}
 	};
 
+	const addFav = async (userId, cityName) => {
+		const user_id = Number(userId);
+
+		if (isNaN(user_id)) {
+			setError("userId is invalid");
+			return;
+		}
+		if (!cityName?.trim()) {
+			setError("city name is required");
+			return;
+		}
+		setLoading(true);
+		setError("");
+
+		try {
+			const data = await addToFavCities(user_id, cityName.trim());
+
+			await fetchFavCities(user_id);
+		} catch (error) {
+			setError(error.message);
+		} finally {
+			setLoading(false);
+		}
+	};
 	const handleCitySubmit = (cityFromInput) => {
 		const queryCity = cityFromInput?.trim();
 		if (!queryCity) return;
@@ -74,25 +99,29 @@ export const WeatherProvider = ({ children }) => {
 	}, [city]);
 
 	useEffect(() => {
-		fetchFavCities(1);
+		fetchFavCities(currentUser);
 	}, []);
 
+
+	const values = {
+		currentUser,
+		city,
+		weather,
+		loading,
+		error,
+		favCities,
+		activeTab,
+		setActiveTab,
+		handleCitySubmit,
+		fetchWeatherByLoc,
+		addFav
+	}
 	return (
 		<WeatherContext.Provider
-			value={{
-				city,
-				weather,
-				loading,
-				error,
-				favCities,
-				activeTab,
-				setActiveTab,
-				handleCitySubmit,
-				fetchWeatherByLoc,
-			}}
+			value={values}
 		>
 			{children}
-		</WeatherContext.Provider>
+		</ WeatherContext.Provider >
 	);
 };
 

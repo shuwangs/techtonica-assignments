@@ -8,3 +8,19 @@ export const getFavCitiesById = async (userId) => {
 	const data = await result.json();
 	return data.data;
 };
+
+export const addToFavCities = async (userId, cityName) => {
+	const response = await fetch(`${API_BASE}/api/favorites/${userId}`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({ cityName })
+	});
+
+	if (!response.ok) {
+		throw new Error("Add City to favorite list failed");
+	}
+
+	return response.json();
+};

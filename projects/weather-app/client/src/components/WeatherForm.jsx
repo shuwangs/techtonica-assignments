@@ -1,26 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { handleClickLocation } from "../utils/getCurrentLocation.js";
+import { addToFavCities } from "../api/cityApi.js";
 import "./WeatherCard.css";
+import { useWeather } from "../context/WeatherContext.jsx";
 
 function WeatherForm({ onCitySubmit, onLocationSubmit }) {
+	const { currentUser, addFav } = useWeather();
 	const [city, setCity] = useState("");
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		if (!city.trim()) return;
 		onCitySubmit(city);
-		setCity("");
+		setCity(city);
 		return;
 	};
+	const handleAddFav = async () => {
+		console.log("In handleAddFav...");
+		console.log("Here...", currentUser);
+		console.log("Here...", city);
+
+		if (!currentUser || !city.trim()) return;
+		console.log("Here...", currentUser);
+
+		await addFav(currentUser, city);
+		setCity("");
+		console.log("currentUser...", currentUser);
+		console.log("city...", city);
+	};
+
 
 	return (
 		<div>
 			<form onSubmit={handleSubmit}>
 				<div className="city-row">
-					<label>
+					<label htmlFor="city">
 						City:
 						<input
+							name="city"
 							type="text"
 							placeholder="Enter city name"
 							value={city}
@@ -29,9 +47,16 @@ function WeatherForm({ onCitySubmit, onLocationSubmit }) {
 					</label>
 
 					<CiLocationOn className="geo-icon" onClick={handleClickLocation} />
+
+
 				</div>
 			</form>
-		</div>
+			<button
+				className="add-btn"
+				onClick={handleAddFav}
+			>
+				Add To Favorite</button>
+		</div >
 	);
 }
 
