@@ -19,7 +19,7 @@ function WeatherForm({ onCitySubmit, onLocationSubmit }) {
 	const handleAddFav = async () => {
 		console.log("In handleAddFav...");
 		console.log("Here...", currentUser);
-		console.log("Here...", city);
+		console.log("Here...city", city);
 
 		if (!currentUser || !city.trim()) return;
 		console.log("Here...", currentUser);

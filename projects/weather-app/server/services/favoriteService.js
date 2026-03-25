@@ -7,6 +7,9 @@ export const getFavoritesByUserId = async (userId) => {
 };
 
 export const addFavorite = async (userId, city) => {
+    console.log("favService,  user id: ", userId);
+    console.log("favService,  city: ", city);
+
     const { rows } = await pool.query(
         'INSERT INTO weather_app.favorites (user_id, city) VALUES ($1, $2) RETURNING *',
         [userId, city]

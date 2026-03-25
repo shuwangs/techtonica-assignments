@@ -9,13 +9,13 @@ export const getFavCitiesById = async (userId) => {
 	return data.data;
 };
 
-export const addToFavCities = async (userId, cityName) => {
+export const addToFavCities = async (userId, city) => {
 	const response = await fetch(`${API_BASE}/api/favorites/${userId}`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json"
 		},
-		body: JSON.stringify({ cityName })
+		body: JSON.stringify({ city })
 	});
 
 	if (!response.ok) {
