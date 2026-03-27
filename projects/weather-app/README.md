@@ -1,6 +1,6 @@
 # 🌦️ Weather App – Full Stack
 
-A full-stack weather application that allows users to search weather information by city name or geolocation. The app features a React frontend, a Node.js backend, optional Redis-based caching, and a dynamic UI that adapts to day/night conditions.
+A full-stack weather application that allows users to search weather information by city name or geolocation. The app features a React frontend, a Node.js backend, PostgreSQL database, optional Redis-based caching, and a dynamic UI that adapts to day/night conditions.
 
 ---
 
@@ -9,34 +9,35 @@ A full-stack weather application that allows users to search weather information
 
 ---
 
+
 ## ✨ Features
 - Search real-time weather data by city name
-
 - Support geolocation-based weather lookup (with browser permission)
-    
 - Backend service fetches data from the OpenWeather API
-    
 - Optional Redis caching layer to reduce repeated API calls
-    
 - Dynamic dashboard background based on day/night status
-    
 - Clear UI indicators for cached vs live data
+- Add and remove favorite cities
 
 --- 
 
 ## 🧱 Tech Stack
 **Frontend**
-
 - React,  Vite, JavaScript,  CSS
 
 **Backend**
 - Node.js, Express, OpenWeather API
+  
+**Database**
+- PostgreSQL
 
 **Caching (Optional)**
-
 - Redis (local or managed)
   
 --- 
+## Database Schema
+![erd](client/public/erd.png)
+
 
 ##  Getting Started (Local Development)
 
@@ -45,28 +46,76 @@ A full-stack weather application that allows users to search weather information
 git clone https://github.com/shuwangs/techtonica-assignments
 cd projects/weather-app
 ```
-### 2. Start the backend server
+
+### Install dependencies
+Server:
+```bash
+cd server
+npm install
+```
+
+Client:
+```bash
+cd ../client
+npm install
+```
+### Environment Setup
+backend:
+
+```bash
+copy .env.example .env
+```
+Update values:
+```bash
+PORT=3001
+PGPORT=5432
+PGDATABASE=weather_app_db
+API_KEY=YOUR_OPENWEATHER_API_KEY
+```
+Client:
+```bash
+copy .env.example .env
+```
+Update values:
+`VITE_API_BASE_URL=http://localhost:3001`
+
+
+### If you dont have redis installed
+```bash
+	brew install redis
+	brew start service redis 
+```
+### Database setup
+Create database:
+```bash
+createdb weather_app_db
+```
+Run schema and seed
+```bash
+cd server
+
+psql -d weather_app_db -f schema.sql
+psql -d weather_app_db -f seed.sql
+```
+### Run the app
+Start backend
 ```bash
 	cd server 
-	npm install 
 	npm run dev
 ```
-
-Create a `.env` file in `server/`:
-`OPENWEATHER_API_KEY=your_api_key_here`
-
----
-
-### 3. Start the frontend client
+Start backend
 ```bash
-	cd client
-	npm install
+	cd client 
 	npm run dev
 ```
-Create a `.env` file in `client/`:
-`VITE_API_BASE_URL=http://localhost:3000`
 
 ---
+### Testing
+Run tests:
+```bash
+cd client
+npm run test
+```
 
 ##  How to Test
 
@@ -92,3 +141,15 @@ Create a `.env` file in `client/`:
 - Search the same city multiple times
 - Cached responses should be returned
 
+### Favorites
+- Add a city to favorites
+- Verify it appears in the list
+- Delete a favorite city
+- Verify it is removed
+
+
+## Future Improvements
+- Improve UI/UX 
+- Add integration and E2E tests
+- User session persistence
+- Valid addFavorite City to avoid duplicate 
