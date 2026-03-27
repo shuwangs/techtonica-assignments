@@ -30,6 +30,6 @@ Build an API-first weather decison service that converts raw weather data into a
   - [X] favorite cities tab
     - [X] Display favorite city list
     - [X] Click a favorite city to fetch and display weather
-    - [ ] Delete a favorite city
+    - [X] Delete a favorite city
     - [ ] Prevent duplicate cities in favorites
 
