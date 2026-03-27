@@ -69,6 +69,10 @@ input {
 	gap: 4px;
 }
 
+.tab-switcher button {
+	font-size: 1.5rem;
+}
+
 .tab-btn {
 	border-bottom: 3px solid #f26419;
 	background-color: grey;
@@ -83,6 +87,24 @@ input {
 	border-bottom: 3px solid grey;
 
 }
+
+.brand-wrap {
+	display: flex;
+	text-align: left;
+	padding-left: 2vw;
+	font: 900;
+	font-size: 2.5rem;
+}
+
+.app-container h1 {
+	font-size: 2.5rem;
+}
+
+.app-container p {
+	font-size: 1.2rem;
+}
+
+
 
 
 @keyframes twinkle {

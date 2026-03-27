@@ -1,15 +1,17 @@
 .city-list {
     display: flex;
     flex-wrap: wrap;
-    border: 3px solid #15616d;
+    border: 3px solid #ff7d00;
     padding: 8px;
-    border: 2px solid #15616d;
+    border: 3px solid #78290f;
     border-radius: 8px;
-    background-color: #fff;
+    background-color: #ffecd1;
+    gap: 8px;
 }
 
 .city-ctn {
     display: flex;
+
 
 }
 
@@ -17,9 +19,8 @@
     display: flex;
     align-items: center;
     gap: 4px;
-    background-color: #15616d;
+    background-color: #ff7d00;
     color: white;
-    font-size: 14px;
     padding: 6px 10px;
     border-radius: 999px;
 }
@@ -27,22 +28,29 @@
 .city-item {
     background: rgba(255, 255, 255, 0.4);
     border: none;
-    color: white;
     border-radius: 999px;
-    width: 70px;
-    height: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 1.5rem;
+    padding: 4px 10px;
+    font-weight: bold;
 }
 
 .delete-btn {
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0);
+    font-size: 1.5rem;
+    border: none;
+    font-weight: bold;
+}
+
+.city-item:hover {
+    color: #009227;
 
 }
 
-button:hover {
-    color: #ff7d00;
-
+.delete-btn:hover {
+    color: #01befe;
+    scale: 1.2
 }
