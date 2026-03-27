@@ -20,9 +20,7 @@ function WeatherForm({ onCitySubmit, onLocationSubmit }) {
 		if (!currentUser || !city.trim()) return;
 		await addFav(currentUser, city);
 		setCity("");
-
 	};
-
 
 	return (
 		<div>
@@ -40,16 +38,12 @@ function WeatherForm({ onCitySubmit, onLocationSubmit }) {
 					</label>
 
 					<CiLocationOn className="geo-icon" onClick={handleClickLocation} />
-
-
 				</div>
 			</form>
-			<button
-				className="add-btn"
-				onClick={handleAddFav}
-			>
-				Add To Favorite</button>
-		</div >
+			<button className="add-btn" onClick={handleAddFav}>
+				Add To Favorite
+			</button>
+		</div>
 	);
 }
 

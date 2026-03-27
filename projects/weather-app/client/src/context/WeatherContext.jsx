@@ -1,6 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getWeatherByCity, getWeatherByLocation } from "../api/weatherApi";
-import { getFavCitiesById, addToFavCities, deleteFavCity } from "../api/cityApi";
+import {
+	getFavCitiesById,
+	addToFavCities,
+	deleteFavCity,
+} from "../api/cityApi";
 
 const WeatherContext = createContext();
 
@@ -97,14 +101,12 @@ export const WeatherProvider = ({ children }) => {
 			const data = await deleteFavCity(cityId);
 
 			await fetchFavCities(currentUser);
-
 		} catch (error) {
 			setError(error.message);
 		} finally {
 			setLoading(false);
 		}
-
-	}
+	};
 
 	const handleCitySubmit = (cityFromInput) => {
 		const queryCity = cityFromInput?.trim();
@@ -120,7 +122,6 @@ export const WeatherProvider = ({ children }) => {
 		fetchFavCities(currentUser);
 	}, [currentUser]);
 
-
 	const values = {
 		currentUser,
 		city,
@@ -133,14 +134,10 @@ export const WeatherProvider = ({ children }) => {
 		handleCitySubmit,
 		fetchWeatherByLoc,
 		addFav,
-		removeCity
-	}
+		removeCity,
+	};
 	return (
-		<WeatherContext.Provider
-			value={values}
-		>
-			{children}
-		</ WeatherContext.Provider >
+		<WeatherContext.Provider value={values}>{children}</WeatherContext.Provider>
 	);
 };
 

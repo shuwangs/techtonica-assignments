@@ -21,4 +21,3 @@ export const getWeatherByLocation = async (lat, lon) => {
 
 	return response.json();
 };
-

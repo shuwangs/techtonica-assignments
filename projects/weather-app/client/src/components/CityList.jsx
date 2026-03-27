@@ -13,8 +13,15 @@ const CityList = ({ cities, onCitySubmit }) => {
 		<div className="city-list">
 			{favCities.map((city) => (
 				<div key={city.id} className="city-ctn">
-					<button className="city-item" onClick={() => onCitySubmit(city.city)}>{city.city}</button>
-					<button className="delete-btn" onClick={() => removeCity(Number(city.id))}>×</button>
+					<button className="city-item" onClick={() => onCitySubmit(city.city)}>
+						{city.city}
+					</button>
+					<button
+						className="delete-btn"
+						onClick={() => removeCity(Number(city.id))}
+					>
+						×
+					</button>
 				</div>
 			))}
 		</div>

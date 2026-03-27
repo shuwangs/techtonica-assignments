@@ -13,9 +13,9 @@ export const addToFavCities = async (userId, city) => {
 	const response = await fetch(`${API_BASE}/api/favorites/${userId}`, {
 		method: "POST",
 		headers: {
-			"Content-Type": "application/json"
+			"Content-Type": "application/json",
 		},
-		body: JSON.stringify({ city })
+		body: JSON.stringify({ city }),
 	});
 
 	if (!response.ok) {
@@ -27,7 +27,7 @@ export const addToFavCities = async (userId, city) => {
 
 export const deleteFavCity = async (cityID) => {
 	const response = await fetch(`${API_BASE}/api/favorites/${cityID}`, {
-		method: "DELETE"
+		method: "DELETE",
 	});
 
 	if (!response.ok) {
